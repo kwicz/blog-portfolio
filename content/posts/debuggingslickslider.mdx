@@ -1,0 +1,127 @@
+---
+title: 'Debugging Slick Slider: The Ghost Slide Mystery'
+description: 'A deep dive into debugging Slick Slider when ghost slides persist on real mobile devices. Learn how to fully remove unwanted images and ensure Slick updates properly.'
+date: '2025-01-21'
+published: true
+---
+
+Debugging can sometimes feel like an epic quest, and recently, I embarked on one that had me chasing ghost slides in **Slick Slider**. Everything worked perfectly on **desktop and mobile emulators**, but on a real **mobile device**, removed images still left blank slides in the carousel. Here's how I cracked the case and fixed it for good.
+
+## The Problem: Ghost Slides in Slick Slider
+
+The goal was simple: **remove all lifestyle images** (identified by a regex pattern) from a product page slider and reinitialize Slick so that it properly adjusted.
+
+- **On desktop & emulators** → Everything worked as expected.
+- **On real mobile devices** → The images disappeared, but the slides remained, **holding empty space**.
+
+The code was doing this:
+
+1. **Finding all images matching a pattern** like `LS-1234.jpg`.
+2. **Removing them from the DOM**.
+3. **Calling `slickRemove`** on matching slides.
+4. **Destroying and reinitializing Slick Slider**.
+
+Yet, on mobile, **Slick refused to let go** of the ghost slides.
+
+## Debugging the Issue
+
+After inspecting `.slick-track`, I realized:
+
+- The slides still **existed in the DOM**, but were empty.
+- `slickRemove` wasn’t **fully updating Slick’s internal state**.
+- Even after `unslick()`, reinitializing **didn't remove** the ghost slides.
+
+### What Didn’t Work
+
+❌ **Just using `.remove()`** – The elements were gone, but Slick still thought they were there.  
+❌ **Using `.slickRemove(index)`** – This worked _sometimes_, but wasn’t reliable on mobile.  
+❌ **Calling `.slick(‘setPosition’)`** – Didn’t clear out the extra slides.
+
+## The Fix: A Multi-Step Cleanup
+
+To **fully remove** unwanted slides and **ensure Slick resets correctly**, I used a **three-step process**:
+
+### 1️⃣ Remove Images AND Their Wrappers
+
+Instead of only removing `<img>`, I targeted `.slick-slide` elements and ensured they were **properly detached**.
+
+```js
+const removeLifestyleImages = async (container) => {
+  if (!container) return;
+
+  const regex = /(LS-\d+|LS\d+|alt\d+|alt-\d+|lifestyle\d+)$/i;
+  container.querySelectorAll('img').forEach((img) => {
+    if (regex.test(img.src)) {
+      let wrapper = img.closest('.slick-slide');
+      if (wrapper) {
+        wrapper.remove();
+      }
+    }
+  });
+};
+```
+
+### 2️⃣ Manually Remove Any Remaining Empty Slides
+
+After `slickRemove` failed to remove some slides, I **double-checked** for orphaned `.slick-slide` elements and deleted them manually.
+
+```js
+const manuallyRemoveExtraSlides = () => {
+  document.querySelectorAll('.slick-slide').forEach((slide) => {
+    if (!slide.innerHTML.trim()) {
+      slide.remove();
+    }
+  });
+};
+```
+
+### 3️⃣ Destroy and Fully Reinitialize Slick
+
+To **force a proper refresh**, I ensured Slick was completely **destroyed and rebuilt** with a delay.
+
+```js
+const resetSlick = () => {
+  const slickContainer = $('.product-image');
+
+  if (slickContainer.hasClass('slick-initialized')) {
+    slickContainer.slick('unslick');
+  }
+
+  setTimeout(() => {
+    slickContainer.slick({
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: false,
+    });
+  }, 300);
+};
+```
+
+## Final Working Solution
+
+The full fix now follows these steps:
+
+1. **Remove all images & wrappers.**
+2. **Ensure extra `.slick-slide` elements are cleaned up.**
+3. **Destroy and reinitialize Slick after modifications.**
+
+```js
+const hideLifestyleImages = async () => {
+  const productMedia = document.querySelector('.product.media');
+  await removeLifestyleImages(productMedia);
+  manuallyRemoveExtraSlides();
+  resetSlick();
+};
+
+hideLifestyleImages();
+```
+
+## Lessons Learned
+
+🔹 **Desktop ≠ Mobile.** Always test on real devices—emulators don’t always mimic behavior perfectly.  
+🔹 **Slick Slider needs extra nudging** when dynamically modifying its slides.  
+🔹 **Always re-check the DOM** after removing elements—what looks gone may still be lurking in `.slick-track`.
+
+This debugging journey was a perfect example of why **real-world testing matters**. Now, no more ghost slides haunting my product pages! 👻

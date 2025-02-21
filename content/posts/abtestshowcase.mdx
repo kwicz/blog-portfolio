@@ -1,0 +1,176 @@
+---
+title: 'Building an A/B Test Showcase in Next.js'
+description: 'Lessons learned while creating a dynamic A/B Test Showcase using Next.js, Tailwind CSS, and TypeScript.'
+repository: 'your-repo-url'
+date: '2025-02-21'
+published: true
+---
+
+A/B testing is crucial for making data-driven decisions, but keeping track of test variations, methodologies, and results can be a hassle. I wanted a **centralized A/B Test Showcase** where I could document tests, toggle between control and variant experiences, and showcase past experiments.
+
+At first, this seemed like a straightforward **Next.js** project. But, as always, reality had other plans. Between **linter battles, dynamically injecting build code, and making the test pages agnostic**, I encountered some interesting challenges along the way.
+
+## The Initial Idea
+
+I envisioned a system where:
+
+- Each test would be **defined in a data file**.
+- A dynamic **`/tests/[id]` page** would render details for any test.
+- A toggle button would **apply the variant dynamically**.
+
+I started with a **Next.js + Tailwind CSS + TypeScript** setup.
+
+## Setting Up the Next.js Project
+
+First, I spun up a new Next.js project:
+
+```sh
+npx create-next-app@latest ab-test-showcase --typescript --tailwind
+cd ab-test-showcase
+Configured Tailwind and added it to the global styles:
+
+css
+Copy
+Edit
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+So far, so good. Now came the tricky part—storing test data.
+
+Structuring A/B Test Data
+Rather than hardcoding test details, I abstracted them into a separate file (data/abTests.ts). Each test would define:
+
+The control component (default experience).
+A variant function to modify the page dynamically.
+Screenshots for documentation.
+Example:
+tsx
+Copy
+Edit
+import { SocialProofControl } from '@/components/SocialProofControl';
+import { applySocialProofVariant } from '@/utils/abTests/socialProofVariant';
+
+export const abTests = [
+  {
+    id: 'social-proof',
+    name: 'Ingredients Page Social Proof Test',
+    description: 'Testing the impact of customer testimonials on revenue.',
+    hypothesis: 'Adding dynamic reviews and videos will increase sales.',
+    methodology:
+      '50% of users saw the control, 50% saw Variant1. We tracked conversion rates for 30 days.',
+    results: 'Adding social proof led to a 2.3% lift in conversion rates.',
+    date: '2024-11-15',
+    controlComponent: SocialProofControl,
+    buildCode: applySocialProofVariant,
+    variants: [
+      {
+        name: 'Static CTA and Image (Control)',
+        description: 'Original product image with link to Shop.',
+        screenshot: '/images/blue-button.png',
+      },
+      {
+        name: 'Dynamic Reviews and Testimonials (Variant)',
+        description: 'Reviews based on the type of review and videos.',
+        screenshot: '/images/green-button.png',
+      },
+    ],
+  },
+];
+This made the test details page agnostic, meaning I wouldn't have to modify tests/[id].tsx whenever I added a new test.
+
+The Toggle Button Dilemma
+With the test data in place, I created tests/[id], where the user could view test details and toggle between control and variant.
+
+tsx
+Copy
+Edit
+'use client';
+
+import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { abTests } from '@/data/abTests';
+
+export default function TestDetailsPage() {
+  const { id } = useParams();
+  const test = abTests.find((t) => t.id === id);
+
+  const [isVariantApplied, setIsVariantApplied] = useState(false);
+
+  if (!test) return <p>Test not found</p>;
+
+  const toggleVariant = () => {
+    if (isVariantApplied) {
+      window.location.reload(); // Reset to control
+    } else {
+      test.buildCode(); // Apply the variant
+    }
+    setIsVariantApplied(!isVariantApplied);
+  };
+
+  return (
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-2xl font-bold mb-2">{test.name}</h1>
+      <p className="mb-4 text-gray-700">{test.description}</p>
+
+      <button
+        onClick={toggleVariant}
+        className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition"
+      >
+        {isVariantApplied ? 'Return to Control' : 'Apply Variant'}
+      </button>
+
+      <div className="mt-6">
+        <test.controlComponent />
+      </div>
+    </div>
+  );
+}
+At this point, everything looked right… but nothing happened when I clicked the toggle button.
+
+The First Mistake: Redundant State
+I originally had a Wrapper component managing the toggle state. This led to two toggle buttons appearing—one in /tests/[id] and one in the Wrapper. Deleting the Wrapper component solved that issue.
+
+The Second Mistake: Injecting Build Code the Right Way
+The buildCode function for the test was injected dynamically. However, Next.js doesn’t like inline scripts that modify the DOM.
+
+Fix: Instead of executing test.buildCode() directly, I wrapped it inside a function call outside the render cycle.
+
+tsx
+Copy
+Edit
+const toggleVariant = () => {
+  if (!isVariantApplied) {
+    test.buildCode(); // This now executes safely
+  } else {
+    window.location.reload();
+  }
+  setIsVariantApplied(!isVariantApplied);
+};
+Now, the variant actually applied, and I could switch back to the control.
+
+The Linter Battle
+Another fun issue: ESLint hated my build code. Since it contained a self-invoking function, TypeScript threw errors about implicit any.
+
+To silence the linter:
+
+ts
+Copy
+Edit
+/* eslint-disable */
+For Vercel, adding the file to .vercelignore helped.
+
+Lessons Learned
+Make the test page agnostic – Abstracting tests into data/abTests.ts made adding new tests effortless.
+Don’t overcomplicate state management – The Wrapper file was redundant.
+Dynamically executing build code is tricky – It needs to happen outside the React render cycle.
+ESLint and Vercel can be stubborn – Sometimes, you have to tell them to back off.
+Next Steps
+Now that the A/B Test Showcase is working, the next step is to:
+
+Add Google Tag Manager (GTM) integration for tracking.
+Implement a dashboard view showing test results visually.
+Expand support for multiple test variants.
+Building this project reinforced the importance of simple, scalable architectures—and the occasional need to fight Next.js, TypeScript, and ESLint all at once.
+
+If you're setting up an A/B testing system in Next.js, hopefully, these lessons save you some time (and frustration).
+```

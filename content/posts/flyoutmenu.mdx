@@ -1,0 +1,66 @@
+---
+title: 'Debugging a Persistent Flyout Menu in a Rotating Carousel'
+description: Solving the challenge of maintaining a persistent flyout menu inside a dynamic, auto-rotating carousel while ensuring a smooth user experience.
+date: '2025-02-12'
+published: true
+---
+
+Building an interactive **Flyout Menu** that works seamlessly within a **Bootstrap-style rotating carousel** sounds simple—until you realize the carousel moves automatically, elements get replaced dynamically, and managing a **single, persistent Flyout Menu** across slides becomes a challenge.
+
+Recently, I tackled this issue and faced everything from **vanishing menus**, **state management struggles**, and **disappearing overlays**—all while ensuring the Flyout Menu remains accessible and user-friendly.
+
+This post breaks down **the debugging journey**, **core issues encountered**, and the **final optimized solution**.
+
+## **🛑 The Initial Problem**
+
+The goal was to integrate a **Flyout Menu** into a **carousel**, where users could click a link inside a slide to open a **persistent, full-width menu**. The Flyout Menu should:
+
+- **Exist only once in the DOM** (not inside each slide).
+- **Appear when any link in the carousel is clicked**.
+- **Update dynamically based on the selected link**.
+- **Stay open even when the carousel rotates**.
+
+At first, I attempted to **attach the Flyout Menu inside each carousel slide (`<li>` elements)**, which caused several problems:
+
+✅ Clicking a link opened the Flyout.  
+❌ But when the carousel rotated, the Flyout **disappeared**.  
+❌ Each slide had **its own menu instance**, leading to duplicate elements.
+
+I needed **one persistent Flyout Menu** that dynamically updated without being tied to a specific slide.
+
+---
+
+## **🛠 Debugging the Issues**
+
+### **1️⃣ The Flyout Menu Disappeared When the Carousel Rotated**
+
+Since the Flyout Menu was **inside a slide**, it was being replaced when the carousel rotated. The fix? **Move the Flyout outside the carousel**:
+
+```javascript
+const renderFlyout = () => {
+  const existingFlyout = document.querySelector('#tg-flyout');
+  if (!existingFlyout) {
+    const flyoutContainer = document.createElement('div');
+    const carouselInner = document.querySelector('.carousel-inner');
+    carouselInner.insertAdjacentElement('afterend', flyoutContainer);
+
+    render(
+      <FlyoutMenu
+        isOpen={isOpen}
+        selectedIndex={selectedIndex}
+        onClose={closeFlyout}
+      />,
+      flyoutContainer
+    );
+  } else {
+    render(
+      <FlyoutMenu
+        isOpen={isOpen}
+        selectedIndex={selectedIndex}
+        onClose={closeFlyout}
+      />,
+      existingFlyout.parentNode
+    );
+  }
+};
+```

@@ -1,5 +1,5 @@
 'use client';
-import { ArrowLeft, Eye, Github, Twitter } from 'lucide-react';
+import { ArrowLeft, Eye, Github, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -76,6 +76,15 @@ export const Header: React.FC<Props> = ({ post, views }) => {
                 } `}
               />
             </Link>
+            <Link target='_blank' href='https://www.linkedin.com/in/kwicz/'>
+              <Linkedin
+                className={`w-6 h-6 duration-200 hover:font-medium ${
+                  isIntersecting
+                    ? ' text-zinc-400 hover:text-zinc-100'
+                    : 'text-zinc-600 hover:text-zinc-900'
+                } `}
+              />
+            </Link>
           </div>
 
           <Link
@@ -99,16 +108,6 @@ export const Header: React.FC<Props> = ({ post, views }) => {
             <p className='mt-6 text-lg leading-8 text-zinc-300'>
               {post.description}
             </p>
-          </div>
-
-          <div className='mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none'>
-            <div className='grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10'>
-              {links.map((link) => (
-                <Link target='_blank' key={link.label} href={link.href}>
-                  {link.label} <span aria-hidden='true'>&rarr;</span>
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
       </div>

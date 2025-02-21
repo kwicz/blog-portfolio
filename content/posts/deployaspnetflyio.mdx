@@ -1,0 +1,49 @@
+---
+title: Deploying an ASP.NET Core App with MySQL on Fly.io
+description: A step-by-step guide to redeploying an ASP.NET Core MVC application with MySQL on Fly.io, ensuring a smooth update process.
+date: '2025-02-21'
+published: true
+---
+
+Deploying a containerized ASP.NET Core MVC app with a MySQL database can seem daunting, but Fly.io makes it surprisingly simple. If you've already launched your app and need to overwrite your existing deployment, follow this guide to smoothly redeploy your updated application.
+
+## Install Fly.io CLI
+
+```sh-session
+curl -L https://fly.io/install.sh | sh
+```
+
+## Authenticate with Fly.io
+
+```sh-session
+flyctl auth login
+```
+
+## Deploy the Updated App
+
+Ensure you're in the correct project directory where `fly.toml` is located:
+
+```sh-session
+cd /Users/katysolovewicz/Projects/epicodus/c#/CreatureTeacher.Solution
+flyctl deploy
+```
+
+## Apply Database Migrations (If Needed)
+
+If your database schema has changed, apply migrations to ensure MySQL is up to date.
+
+```sh-session
+flyctl ssh console -a <your-app-name>
+dotnet ef database update
+exit
+```
+
+## Restart the App (If Needed)
+
+```sh-session
+flyctl apps restart <your-app-name>
+```
+
+Fly.io provides a streamlined way to deploy and update **ASP.NET Core MVC** applications with **MySQL**, making container-based hosting simple and scalable. By following this workflow, you can ensure a **seamless redeployment** whenever your app needs updates.
+
+Happy coding! 🚀
