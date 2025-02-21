@@ -1,0 +1,157 @@
+---
+title: 'Debugging a Broken JavaScript Build: Fixing Dependency Issues, Parcel, and Aliases'
+description: A deep dive into resolving outdated dependencies, broken aliases, and Parcel v2 migration issues while debugging a JavaScript build failure.
+date: '2025-02-14'
+published: true
+---
+
+If you've ever worked on a long-standing JavaScript project, you know the pain of updating dependencies and dealing with broken builds. I recently went through this experience while trying to update **ABTestBase**, a project that had accumulated outdated dependencies, breaking aliases, and package conflicts.
+
+This post is a deep dive into **what went wrong, how I fixed it, and what I learned along the way**.
+
+## 🚨 The Problem: A Broken Build System
+
+It started with a simple command:
+
+```sh
+npm run build
+```
+
+And then... **everything fell apart.**
+
+### Errors Encountered
+
+- **Outdated Browserslist Warning**
+  ```
+  Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  ```
+- **Conflicting ESLint Versions**
+  ```
+  npm ERR! peer eslint@"^5.16.0 || ^6.1.0" from eslint-config-airbnb-base@14.0.0
+  ```
+- **Parcel Flags No Longer Supported**
+  ```
+  error: unknown option '-d'
+  error: unknown option '--experimental-scope-hoisting'
+  ```
+- **Aliases Not Resolving**
+  ```
+  @parcel/core: Failed to resolve '<UTILS>/addInternalCSS'
+  ```
+
+These issues came from **years of dependency drift**. Updating a single package like `parcel` or `eslint` broke others, leading to a painful dependency resolution process.
+
+## 🛠️ Step 1: Updating Outdated Dependencies
+
+Since some of the errors were related to outdated libraries, I started by updating core dependencies:
+
+```sh
+npm update caniuse-lite browserslist
+```
+
+That didn't fix everything, so I ran:
+
+```sh
+npm audit fix --force
+```
+
+Which resolved security vulnerabilities in:
+
+- **tar** (arbitrary file overwrite vulnerability)
+- **semver** (Regular Expression Denial of Service)
+- **tough-cookie** (Prototype Pollution vulnerability)
+
+## 🛠️ Step 2: Fixing Parcel Issues
+
+Parcel **had been upgraded from v1 to v2**, meaning some old CLI flags no longer worked.  
+For example:  
+❌ **Old Build Command (Parcel v1)**
+
+```sh
+parcel build v1.js -d build --experimental-scope-hoisting --cache-dir ./.cache
+```
+
+✅ **New Build Command (Parcel v2)**
+
+```sh
+parcel build v1.js --dist-dir ./build --cache-dir ./.cache
+```
+
+I also had to remove `@babel/preset-env` from my `babel.config.json`, since Parcel v2 **automatically transpiles modern JavaScript**.
+
+## 🛠️ Step 3: Fixing Broken Aliases
+
+ABTestBase used custom aliases like `<UTILS>`, `<LIBRARY>`, and `<GET>` for imports. Unfortunately, **Parcel v2 doesn’t support angle-bracket aliases (`<>`)**.
+
+I modified `package.json` to use **standard aliases**:
+
+```json
+"alias": {
+  "UTILS": "./Library/Utils",
+  "LIBRARY": "./Library"
+}
+```
+
+And then updated my imports:
+
+```ts
+// ❌ Old (Did Not Work)
+import addInternalCSS from '<UTILS>/addInternalCSS';
+
+// ✅ New (Fixed)
+import addInternalCSS from 'UTILS/addInternalCSS';
+```
+
+Still, Parcel **refused to recognize** the aliases until I explicitly defined them in `.parcelrc`:
+
+```json
+{
+  "extends": "@parcel/config-default",
+  "resolvers": ["@parcel/resolver-default"]
+}
+```
+
+## 🛠️ Step 4: Ensuring Builds Work from Any Test Directory
+
+The build process originally **only worked from the project root**, but I wanted to run `npm run build` inside any test directory:
+
+```
+cd Accounts/TheGood/Tests/SoftwareUpdateTest
+npm run build
+```
+
+To fix this, I modified the build script to **detect the current working directory**:
+
+```json
+"build": "parcel build ./v1.js --dist-dir $PWD/build --cache-dir $PWD/.cache"
+```
+
+Now, **no matter which test directory I’m in,** the build output is placed inside its own `build/` folder.
+
+## 🎯 Key Takeaways
+
+- **Old Projects Accumulate Technical Debt**
+
+  - Even if everything **worked fine yesterday**, dependency updates can break your project in unexpected ways.
+
+- **Parcel v2 Has Major Changes**
+
+  - **Old CLI flags don’t work** (`-d` → `--dist-dir`, `--experimental-scope-hoisting` is removed).
+  - **Built-in transpilation** means you don’t need `@babel/preset-env`.
+  - **Aliases need explicit configuration** in `package.json` and `.parcelrc`.
+
+- **Fixing One Issue Can Break Another**
+  - Updating **ESLint** forced updates to **eslint-config-airbnb-base**.
+  - Removing Babel configs required rethinking **Parcel’s built-in features**.
+  - Changing alias handling forced updates to **every import statement in the codebase**.
+
+## 🚀 Final Thoughts
+
+After hours of debugging, I finally had **a working build process again**. More importantly, **I learned a ton** about dependency management, Parcel v2, and alias handling.
+
+If you’re maintaining an old project, **update dependencies carefully** and be prepared for a cascade of fixes. It’s painful, but in the end, your project will be more stable and easier to maintain.
+
+---
+
+**Have you ever had a dependency update break everything? How did you fix it? Let me know in the comments! 🚀🔥**
