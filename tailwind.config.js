@@ -38,6 +38,9 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
         display: ['var(--font-calsans)'],
+        sans: ['Open Sans', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+        accent: ['Raleway', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial':

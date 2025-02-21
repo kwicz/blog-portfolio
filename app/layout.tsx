@@ -1,23 +1,23 @@
 import '../global.css';
-import { Inter } from '@next/font/google';
+import { Inter, Poppins, Raleway, Open_Sans } from 'next/font/google';
 import LocalFont from '@next/font/local';
 import { Metadata } from 'next';
 import { Analytics } from './components/analytics';
 
 export const metadata: Metadata = {
   title: {
-    default: 'chronark.com',
-    template: '%s | chronark.com',
+    default: 'K. Solo',
+    template: '%s | k.solovewi.cz',
   },
-  description: 'Co-founder of unkey.dev and founder of planetfall.io',
+  description: 'Frontent Engineer and Certified Basic Problem Solver',
   openGraph: {
-    title: 'chronark.com',
-    description: 'Co-founder of unkey.dev and founder of planetfall.io',
-    url: 'https://chronark.com',
-    siteName: 'chronark.com',
+    title: 'K. Solo',
+    description: 'Frontent Engineer and Certified Basic Problem Solver',
+    url: 'https://k.solovewi.cz',
+    siteName: 'k.solovewi.cz',
     images: [
       {
-        url: 'https://chronark.com/og.png',
+        url: 'https://k.solovewi.cz/og.png',
         width: 1920,
         height: 1080,
       },
@@ -48,10 +48,24 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 });
-
 const calSans = LocalFont({
   src: '../public/fonts/CalSans-SemiBold.ttf',
   variable: '--font-calsans',
+});
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-poppins',
+});
+const raleway = Raleway({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-raleway',
+});
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-openSans',
 });
 
 export default function RootLayout({
@@ -60,7 +74,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={[inter.variable, calSans.variable].join(' ')}>
+    <html
+      lang='en'
+      className={[poppins.variable, raleway.variable, openSans.variable].join(
+        ' '
+      )}
+    >
       <head>
         <Analytics />
       </head>
