@@ -23,3 +23,7 @@ Then install dependencies and run the development server:
 pnpm install
 pnpm dev
 ```
+
+## Add New Content
+
+After adding a new `.mdx` file in `/blog` or `/project`, `pnpm dev` will auto-generate the JSON for production-level output.
