@@ -6,12 +6,12 @@ import { Analytics } from './components/analytics';
 
 export const metadata: Metadata = {
   title: {
-    default: 'K. Solovewicz',
+    default: 'K. Solo',
     template: '%s | k.solovewi.cz',
   },
   description: 'Frontent Engineer and Certified Basic Problem Solver',
   openGraph: {
-    title: 'K. Solovewicz',
+    title: 'K. Solo',
     description: 'Frontent Engineer and Certified Basic Problem Solver',
     url: 'https://k.solovewi.cz',
     siteName: 'k.solovewi.cz',
