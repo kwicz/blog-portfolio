@@ -118,13 +118,50 @@ export default function Particles({
     };
   };
 
+  const drawFlower = (circle: Circle, update = false) => {
+    if (context.current) {
+      const { x, y, translateX, translateY, size, alpha } = circle;
+      const petals = 5; // Number of petals
+      const petalSize = size * 4; // Size of each petal
+      const color = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
+        Math.random() * 255
+      )}, ${Math.floor(Math.random() * 255)}, ${alpha})`;
+
+      context.current.translate(translateX, translateY);
+      context.current.beginPath();
+
+      for (let i = 0; i < petals; i++) {
+        const angle = (i * (Math.PI * 2)) / petals;
+        const petalX = x + petalSize * Math.cos(angle);
+        const petalY = y + petalSize * Math.sin(angle);
+
+        context.current.moveTo(x, y);
+        context.current.quadraticCurveTo(
+          (x + petalX) / 2,
+          (y + petalY) / 2 - petalSize / 2,
+          petalX,
+          petalY
+        );
+      }
+
+      context.current.closePath();
+      context.current.fillStyle = color;
+      context.current.fill();
+      context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      if (!update) {
+        circles.current.push(circle);
+      }
+    }
+  };
+
   const drawCircle = (circle: Circle, update = false) => {
     if (context.current) {
       const { x, y, translateX, translateY, size, alpha } = circle;
       context.current.translate(translateX, translateY);
       context.current.beginPath();
       context.current.arc(x, y, size, 0, 2 * Math.PI);
-      context.current.fillStyle = '#B56D6F';
+      context.current.fillStyle = '#FAF3E0';
       // context.current.fillStyle = `rgba(255, 255, 255, ${alpha})`;
       context.current.fill();
       context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
