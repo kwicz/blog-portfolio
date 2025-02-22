@@ -31,7 +31,6 @@ export default async function PostsPage() {
           </p>
         </div>
         <div className='w-full h-px bg-zinc-800 mb-4' />
-
         <PostList posts={allPosts} views={views} />
       </div>
     </div>
