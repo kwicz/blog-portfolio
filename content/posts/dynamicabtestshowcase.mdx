@@ -1,0 +1,44 @@
+---
+title: Building an A/B Test Showcase in Next.js
+description: Lessons learned while creating a dynamic A/B Test Showcase using Next.js, Tailwind CSS, and TypeScript.
+date: '2025-02-21'
+published: true
+---
+
+A/B testing is essential for making data-driven decisions, but keeping track of all the experiments, variations, and results can quickly become a headache. I wanted a way to document past tests, easily toggle between the control and variant experiences, and showcase how different changes impacted performance—all in one place.
+
+At first, the plan seemed simple: a Next.js app where I could store test details and dynamically render the corresponding components. But, as with most projects, things got more complicated. Between battling state management issues, handling dynamic code injection, and making the test pages flexible enough to work with multiple experiments, there were some interesting challenges along the way.
+
+The Vision
+I wanted to build a system that could support any A/B test without modifying the core structure of the site. The test data needed to live in a single place, where I could define details like the control component, the variant, a description of the methodology, and even a function that would dynamically apply the test’s variant.
+
+The real challenge was making the test pages agnostic—meaning I didn’t want to rewrite or hardcode anything every time a new test was added. Instead, the test details page needed to pull from a central data file and adjust itself accordingly.
+
+First Hurdle: Managing State
+At first, I had a wrapper component that handled toggling between the control and the variant. The problem? This led to an extra toggle button being rendered. It took a while to realize that the test page itself was already managing state and didn’t need an additional layer of complexity. Removing the wrapper component cleaned things up immediately.
+
+But that wasn’t the end of it.
+
+Another issue appeared when I realized that React’s reactivity didn’t work well with the way I was trying to inject test-specific code dynamically. The variant should have applied instantly when the toggle button was clicked, but nothing happened. The solution required a different approach to how and when the build code was executed.
+
+Second Hurdle: Injecting Build Code
+One of the more unique challenges in this project was executing the variant logic only when needed. Each test had a function that would manipulate the page when triggered. However, Next.js doesn’t like dynamically modifying the DOM like this, and it was easy to run into issues where the build code wouldn’t execute properly—or worse, it would run too soon and break the page.
+
+The fix? Making sure the variant was only applied when explicitly triggered. This required stepping outside the React rendering cycle and ensuring that the function executed in a way that wouldn’t cause unexpected behavior.
+
+Third Hurdle: ESLint and Vercel
+As if debugging the toggle function wasn’t enough, my linter hated the build code. Since the function contained a self-invoking script that dynamically altered the page, TypeScript flagged it with all sorts of warnings about implicit types. Vercel, too, wasn’t happy about deploying a file that wasn’t structured the way it expected.
+
+The quick fix was to silence the linter for that file and adjust some settings to ensure that Vercel wouldn’t block the deployment. It wasn’t the most elegant solution, but sometimes, getting things working takes priority over getting them perfect.
+
+What I Learned
+This project reinforced the importance of keeping things simple and avoiding unnecessary complexity. A few key takeaways:
+
+Make test pages agnostic – Keeping test details in a separate data file made it much easier to manage.
+Be careful with state management – The extra wrapper file was redundant and caused more issues than it solved.
+Dynamically injecting code can be tricky – Next.js has opinions about modifying the DOM, and working around them requires some creativity.
+Sometimes, the linter needs to be ignored – Not everything fits into TypeScript’s ideal model, and that’s okay.
+What’s Next
+Now that the A/B Test Showcase is up and running, the next steps are integrating tracking tools like Google Tag Manager, creating a dashboard to visualize results, and expanding support for multiple test variants at once.
+
+This project turned out to be a fun mix of frontend flexibility, state management, and handling Next.js quirks—all while solving a real problem. If you’re thinking about building something similar, hopefully, this saves you a few headaches along the way.
