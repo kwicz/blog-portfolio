@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Card } from '../components/card';
 import { Article } from './article';
-
 import { Post as GeneratedPost } from '../../.contentlayer/generated/types';
 
 interface Post extends GeneratedPost {
@@ -29,10 +28,11 @@ export default function PostList({ posts, views }: PostListProps) {
         placeholder='Search post titles...'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className='mt-4 p-2 w-full rounded bg-zinc-800 text-zinc-100'
+        className='mt-4 p-2 w-full rounded transition-colors duration-300 
+          bg-ivory text-slate border border-slate 
+          dark:bg-slate dark:text-ivory dark:border-ivory'
       />
-
-      <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3 mt-8'>
+      <div className='grid grid-cols-1 gap-4 mx-auto mt-8'>
         {filteredPosts.map((post: Post) => (
           <Card key={post.slug}>
             <Article post={post} views={views[post.slug] ?? 0} />

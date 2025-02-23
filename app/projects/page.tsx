@@ -25,7 +25,9 @@ export default async function ProjectsPage({
     return acc;
   }, {} as Record<string, number>);
 
-  const categories = Array.from(new Set(allProjects.map((p) => p.category)));
+  const categories = Array.from(
+    new Set(allProjects.map((p) => p.category).filter(Boolean))
+  );
   const selectedCategory = searchParams.category || null;
 
   const featuredSlugs = [
@@ -39,7 +41,7 @@ export default async function ProjectsPage({
     : allProjects;
 
   return (
-    <div className='relative pb-16 bg-ivory text-slate dark:bg-blue-200/20 dark:text-ivory transition-colors duration-300'>
+    <div className='relative pb-16 bg-ivory text-slate dark:bg-slate dark:text-ivory transition-colors duration-300'>
       <Navigation />
       <div className='px-6 pt-20 mx-auto max-w-7xl lg:px-8 md:pt-24 lg:pt-32'>
         <div className='max-w-2xl mx-auto lg:mx-0'>
