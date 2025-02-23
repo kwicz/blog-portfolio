@@ -27,33 +27,30 @@ export const Navigation: React.FC = () => {
             : 'bg-zinc-900/500  border-zinc-800 '
         }`}
       >
-        <div className='container flex flex-row-reverse items-center justify-between p-6 mx-auto'>
+        <div className='flex flex-row-reverse items-center justify-between p-6'>
           <div className='flex justify-between gap-8 items-center'>
             <Link
               href='/projects'
-              className='duration-200 text-zinc-400 hover:text-zinc-100'
+              className='duration-200 text-ivory hover:text-gold'
             >
               Projects
             </Link>
             <Link
               href='/posts'
-              className='duration-200 text-zinc-400 hover:text-zinc-100'
+              className='duration-200 text-ivory hover:text-gold'
             >
               Blog
             </Link>
             <Link
               href='/contact'
-              className='duration-200 text-zinc-400 hover:text-zinc-100'
+              className='duration-200 text-ivory hover:text-gold'
             >
               Contact
             </Link>
             <ToggleButton />
           </div>
 
-          <Link
-            href='/'
-            className='duration-200 text-zinc-300 hover:text-zinc-100'
-          >
+          <Link href='/' className='duration-200 text-ivory hover:text-gold'>
             <ArrowLeft className='w-6 h-6 ' />
           </Link>
         </div>

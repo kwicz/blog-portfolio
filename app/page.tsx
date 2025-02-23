@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 import Particles from './components/particles';
 import ToggleButton from './components/toggleButton';
-import '/Users/katylee/Documents/Projects/GitHub/blog-portfolio/global.css';
 
 const navigation = [
   { name: 'Projects', href: '/projects' },
