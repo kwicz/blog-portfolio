@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import Particles from './components/particles';
 import ToggleButton from './components/toggleButton';
+import '/Users/katylee/Documents/Projects/GitHub/blog-portfolio/global.css';
 
 const navigation = [
   { name: 'Projects', href: '/projects' },
@@ -11,7 +12,16 @@ const navigation = [
 
 export default function Home() {
   return (
-    <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden text-slate bg-ivory/90 transition-colors duration-300 dark:text-ivory dark:bg-blue-200/20'>
+    <div
+      className='works-with-gradient flex flex-col items-center justify-center w-screen h-screen overflow-hidden from-ivory via-ivory to-ivory dark:text-ivory
+     text-slate bg-gradient-to-t dark:from-slate dark:via-blue-200/20 dark:to-slate dark:text-ivory'
+    >
+      {/* <div
+      className='solid-colors flex flex-col items-center justify-center w-screen h-screen overflow-hidden text-slate bg-ivory/90
+    transition-colors duration-300 dark:text-ivory dark:bg-slate'
+    > */}
+
+      {/* absolute inset-0 bg-gradient-to-tl from-slate-700/30 via-slate-800/30 to-slate-700/30 dark:from-slate-800/30 dark:via-slate-900/30 dark:to-slate-800/30 pointer-events-none */}
       <nav className='my-16 animate-fade-in'>
         <div className='absolute top-4 right-4'>
           <ToggleButton />
@@ -43,7 +53,7 @@ export default function Home() {
       <div className='hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-slate/0 via-slate/50 to-slate/0 dark:from-ivory/0 dark:via-ivory/50 dark:to-ivory/0' />
 
       <div className='my-16 text-center animate-fade-in'>
-        <h2 className='text-sm text-slate dark:text-ivory'>
+        <h2 className='text-sm text-slate dark:text-ivory duration-300'>
           Frontend Engineer
         </h2>
         <a

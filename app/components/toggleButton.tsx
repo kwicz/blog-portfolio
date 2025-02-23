@@ -3,7 +3,7 @@ import useDarkMode from '@/util/modeToggle';
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
-export default function DarkModeToggle() {
+export default function ToggleButton() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {

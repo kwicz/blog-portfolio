@@ -10,6 +10,7 @@ import { Eye } from 'lucide-react';
 const redis = Redis.fromEnv();
 
 export const revalidate = 60;
+
 export default async function ProjectsPage({
   searchParams,
 }: {
@@ -38,43 +39,52 @@ export default async function ProjectsPage({
     : allProjects;
 
   return (
-    <div className='relative pb-16'>
+    <div className='relative pb-16 bg-ivory text-slate dark:bg-blue-200/20 dark:text-ivory transition-colors duration-300'>
       <Navigation />
       <div className='px-6 pt-20 mx-auto max-w-7xl lg:px-8 md:pt-24 lg:pt-32'>
         <div className='max-w-2xl mx-auto lg:mx-0'>
-          <h2 className='text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl'>
+          <h2 className='text-3xl font-bold tracking-tight text-slate dark:text-ivory sm:text-4xl'>
             Projects
           </h2>
-          <p className='mt-4 text-zinc-400 mb-4'>
+          <p className='mt-4 text-slate-600 dark:text-slate-300 mb-4'>
             Some of the projects are from work and some are on my own time.
           </p>
         </div>
-        <div className='w-full h-px bg-zinc-800 mb-4' />
+
+        {/* Divider */}
+        <div className='w-full h-px bg-slate dark:bg-ivory mb-4' />
+
+        {/* Category Filters */}
         <div className='mt-8 flex flex-wrap gap-2 mb-8'>
+          {/* "All" Button */}
           <Link
             href='/projects'
-            className={`px-4 py-2 rounded ${
-              !selectedCategory
-                ? 'bg-zinc-800 text-white'
-                : 'bg-zinc-600 text-zinc-300'
-            }`}
+            className={`px-4 py-2 rounded transition-colors transition-opacity duration-300
+      bg-rose text-ivory dark:bg-gold dark:text-ivory 
+      ${!selectedCategory ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
           >
             All
           </Link>
-          {categories.map((category) => (
-            <Link
-              key={category}
-              href={`/projects?category=${category}`}
-              className={`px-4 py-2 rounded ${
-                selectedCategory === category
-                  ? 'bg-zinc-800 text-white'
-                  : 'bg-zinc-600 text-zinc-300'
-              }`}
-            >
-              {category}
-            </Link>
-          ))}
+
+          {/* Category Buttons */}
+          {categories.map((category) => {
+            const isSelected = selectedCategory === category; // Ensure exact match
+
+            return (
+              <Link
+                key={category}
+                href={`/projects?category=${category}`}
+                className={`px-4 py-2 rounded transition-colors transition-opacity duration-300
+          bg-rose text-ivory dark:bg-gold dark:text-ivory
+          ${isSelected ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
+              >
+                {category}
+              </Link>
+            );
+          })}
         </div>
+
+        {/* Project Cards */}
         <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3'>
           {filteredProjects.map((project) => (
             <Card key={project.slug}>
