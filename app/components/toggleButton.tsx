@@ -29,7 +29,7 @@ export default function DarkModeToggle() {
   return (
     <button
       onClick={toggleDarkMode}
-      className='relative w-16 h-8 flex items-center bg-gold dark:bg-ocean rounded-full p-1 transition-colors duration-300'
+      className='relative w-16 h-8 flex items-center bg-rose dark:bg-gold rounded-full p-1 transition-colors duration-300'
     >
       <div
         className={`absolute w-6 h-6 bg-white dark:bg-slate rounded-full transition-transform duration-300 transform ${
@@ -37,9 +37,9 @@ export default function DarkModeToggle() {
         } flex items-center justify-center`}
       >
         {isDarkMode ? (
-          <Moon size={16} className='text-ocean' />
+          <Moon size={16} className='text-gold' />
         ) : (
-          <Sun size={16} className='text-gold' />
+          <Sun size={16} className='text-rose' />
         )}
       </div>
     </button>

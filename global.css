@@ -59,3 +59,13 @@ p {
   font-size: 1rem; /* text-base */
   line-height: 1.75rem; /* leading-relaxed */
 }
+
+.bg-ivory\/90 {
+  background-color: rgb(250 243 224 / 0.9);
+}
+.bg-slate\/90 {
+  background-color: rgb(30 41 59 / 0.9);
+}
+.bg-slate-70 {
+  background-color: rgb(30 41 59 / 0.7);
+}
