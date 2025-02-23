@@ -4,6 +4,8 @@
 
 Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Upstash](https://upstash.com?ref=chronark.com), [Contentlayer](https://www.contentlayer.dev/) and deployed to [Vercel](https://vercel.com/).
 
+Site modified from [Chronark](https://chronark.com/)
+
 </div>
 
 <br/>
@@ -26,4 +28,4 @@ pnpm dev
 
 ## Add New Content
 
-After adding a new `.mdx` file in `/blog` or `/project`, `pnpm dev` will auto-generate the JSON for production-level output.
+After adding a new `.mdx` file in `/blog` or `/project`, `pnpm dev` will auto-generate the JSON for production-level output. Push to git to publish.

@@ -32,7 +32,7 @@ export default function ToggleButton() {
       className='relative w-16 h-8 flex items-center bg-rose dark:bg-gold rounded-full p-1 transition-colors duration-300'
     >
       <div
-        className={`absolute w-6 h-6 bg-white dark:bg-slate rounded-full transition-transform duration-300 transform ${
+        className={`absolute w-6 h-6 bg-ivory dark:bg-slate rounded-full transition-transform duration-300 transform ${
           isDarkMode ? 'translate-x-8' : 'translate-x-0'
         } flex items-center justify-center`}
       >

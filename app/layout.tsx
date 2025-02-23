@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'k.solovewi.cz',
     images: [
       {
-        url: 'https://k.solovewi.cz/og.png',
+        url: '/favicon.png',
         width: 1920,
         height: 1080,
       },

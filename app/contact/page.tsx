@@ -49,7 +49,7 @@ export default function Example() {
 
                 {/* Social Handle & Label */}
                 <div className='z-10 flex flex-col items-center'>
-                  <span className='lg:text-xl font-medium duration-150 xl:text-3xl text-slate-700 group-hover:text-slate-900 dark:text-ivory font-display'>
+                  <span className='lg:text-xl font-medium duration-150 xl:text-3xl text-slate-700 group-hover:text-slate-900 dark:text-ivory font-display text-center'>
                     {s.handle}
                   </span>
                   <span className='mt-4 text-sm text-center duration-300 text-slate-500 group-hover:text-slate-700 dark:text-ivory/70 dark:group-hover:text-ivory'>
