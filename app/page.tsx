@@ -45,7 +45,7 @@ export default function Home() {
         quantity={300}
       />
 
-      <h1 className='py-3.5 px-0.5 z-10 text-4xl text-transparent duration-1000 bg-slate cursor-default animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text dark:bg-ivory'>
+      <h1 className='py-3.5 px-0.5 z-10 text-4xl text-transparent duration-1000 bg-slate cursor-default animate-title font-display sm:text-6xl md:text-7xl lg:text-9xl whitespace-nowrap bg-clip-text dark:bg-ivory'>
         Katy Solovewicz
       </h1>
 
