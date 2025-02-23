@@ -8,6 +8,16 @@
   }
 }
 
+body {
+  background-color: var(--bg-ivory);
+  color: var(--text-slate);
+}
+
+body.dark {
+  background-color: var(--bg-slate);
+  color: var(--text-ivory);
+}
+
 h1 {
   font-family: 'Poppins', sans-serif;
   font-size: 3rem; /* text-5xl */

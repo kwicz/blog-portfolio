@@ -36,10 +36,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  twitter: {
-    title: 'Chronark',
-    card: 'summary_large_image',
-  },
   icons: {
     shortcut: '/favicon.png',
   },

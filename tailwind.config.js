@@ -2,12 +2,12 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './mdx-components.tsx',
     'content/**/*.mdx',
   ],
-
   theme: {
     extend: {
       colors: {
@@ -16,6 +16,7 @@ module.exports = {
         rose: '#B56D6F',
         gold: '#A6763E',
         sage: '#5A7D5A',
+        ocean: '#376995',
       },
       typography: {
         DEFAULT: {

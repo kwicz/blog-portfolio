@@ -27,6 +27,12 @@ export default async function ProjectsPage({
   const categories = Array.from(new Set(allProjects.map((p) => p.category)));
   const selectedCategory = searchParams.category || null;
 
+  const featuredSlugs = [
+    'abtestdashboard',
+    'securinghardware',
+    'dogbreedidentifier',
+  ];
+
   const filteredProjects = selectedCategory
     ? allProjects.filter((p) => p.category === selectedCategory)
     : allProjects;
