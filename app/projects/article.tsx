@@ -1,6 +1,7 @@
 import type { Project } from '@/.contentlayer/generated';
 import Link from 'next/link';
 import { Eye, View } from 'lucide-react';
+import Image from 'next/image';
 
 type Props = {
   project: Project;
@@ -28,6 +29,19 @@ export const Article: React.FC<Props> = ({ project, views }) => {
             {Intl.NumberFormat('en-US', { notation: 'compact' }).format(views)}
           </span>
         </div>
+
+        {project.image && (
+          <div className='relative zw-full z-20 mt-4 mb-4 overflow-hidden'>
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={600}
+              height={400}
+              className='object-cover'
+              unoptimized
+            />
+          </div>
+        )}
         <h2 className='z-20 text-xl font-medium duration-300 lg:text-3xl text-slate dark:text-ivory font-display'>
           {project.title}
         </h2>

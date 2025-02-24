@@ -29,8 +29,8 @@ export default function PostList({ posts, views }: PostListProps) {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className='mt-4 p-2 w-full rounded transition-colors duration-300 
-          bg-ivory text-slate border border-slate 
-          dark:bg-blue-200/20 dark:text-ivory dark:opacity-70'
+          bg-rose/20 border-slate text-slate border placeholder-slate
+          dark:bg-blue-200/20 dark:text-ivory dark:opacity-70 dark:placeholder-ivory dark:border-blue-200/20'
       />
       <div className='grid grid-cols-1 gap-4 mx-auto mt-8'>
         {filteredPosts.map((post: Post) => (
