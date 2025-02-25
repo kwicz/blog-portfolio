@@ -2,16 +2,16 @@ import '../global.css';
 import { Inter, Poppins, Raleway, Open_Sans } from 'next/font/google';
 import LocalFont from '@next/font/local';
 import { Metadata } from 'next';
-import { Analytics } from './components/analytics';
+import GoogleAnalytics from './components/analytics';
 
 export const metadata: Metadata = {
   title: {
-    default: 'K. Solo',
+    default: 'K Wicz',
     template: '%s | k.solovewi.cz',
   },
   description: 'Frontent Engineer and Certified Basic Problem Solver',
   openGraph: {
-    title: 'K. Solo',
+    title: 'K Wicz',
     description: 'Frontent Engineer and Certified Basic Problem Solver',
     url: 'https://k.solovewi.cz',
     siteName: 'k.solovewi.cz',
@@ -77,7 +77,7 @@ export default function RootLayout({
       )}
     >
       <head>
-        <Analytics />
+        <GoogleAnalytics />
       </head>
       <body
         className={`bg-black ${
