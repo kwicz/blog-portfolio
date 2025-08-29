@@ -29,3 +29,53 @@ pnpm dev
 ## Add New Content
 
 After adding a new `.mdx` file in `/blog` or `/project`, `pnpm dev` will auto-generate the JSON for production-level output. Push to git to publish.
+
+## Font Management
+
+This project uses local fonts to avoid build-time network requests that can cause Vercel deployment failures. All fonts are stored in `public/fonts/` and loaded using Next.js `localFont`.
+
+### Available Fonts
+
+- **Inter**: Regular (400), Bold (700)
+- **Poppins**: Regular (400), SemiBold (600), Bold (700)
+- **Raleway**: Regular (400), SemiBold (600), Bold (700)
+- **Open Sans**: Regular (400), SemiBold (600), Bold (700)
+- **Cal Sans**: SemiBold (600)
+
+### Updating Fonts
+
+To update or add new fonts, run:
+
+```bash
+./scripts/download-fonts.sh
+```
+
+This script downloads the latest versions of Google Fonts locally, preventing build-time network timeouts.
+
+## Build Issues Fixed
+
+**Problem**: Vercel builds were failing with `FetchError: request to https://fonts.gstatic.com/... failed, reason: ETIMEDOUT`
+
+**Solution**: Replaced `next/font/google` with `localFont` to eliminate external network requests during build.
+
+**Benefits**:
+
+- ✅ No more build timeouts
+- ✅ Faster builds
+- ✅ More reliable deployments
+- ✅ Better performance (fonts served from your domain)
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+The build now completes successfully without font-related network errors.

@@ -1,5 +1,4 @@
 import '../global.css';
-import { Inter, Poppins, Raleway, Open_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 import { Metadata } from 'next';
 import GoogleAnalytics from './components/analytics';
@@ -40,28 +39,44 @@ export const metadata: Metadata = {
     shortcut: '/favicon.png',
   },
 };
-const inter = Inter({
-  subsets: ['latin'],
+const inter = localFont({
+  src: [
+    { path: '../public/fonts/Inter-Regular.woff2', weight: '400' },
+    { path: '../public/fonts/Inter-Bold.woff2', weight: '700' },
+  ],
   variable: '--font-inter',
+  display: 'swap',
 });
 const calSans = localFont({
   src: '../public/fonts/CalSans-SemiBold.ttf',
   variable: '--font-calsans',
 });
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
+const poppins = localFont({
+  src: [
+    { path: '../public/fonts/Poppins-Regular.woff2', weight: '400' },
+    { path: '../public/fonts/Poppins-SemiBold.woff2', weight: '600' },
+    { path: '../public/fonts/Poppins-Bold.woff2', weight: '700' },
+  ],
   variable: '--font-poppins',
+  display: 'swap',
 });
-const raleway = Raleway({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
+const raleway = localFont({
+  src: [
+    { path: '../public/fonts/Raleway-Regular.woff2', weight: '400' },
+    { path: '../public/fonts/Raleway-SemiBold.woff2', weight: '600' },
+    { path: '../public/fonts/Raleway-Bold.woff2', weight: '700' },
+  ],
   variable: '--font-raleway',
+  display: 'swap',
 });
-const openSans = Open_Sans({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
+const openSans = localFont({
+  src: [
+    { path: '../public/fonts/OpenSans-Regular.woff2', weight: '400' },
+    { path: '../public/fonts/OpenSans-SemiBold.woff2', weight: '600' },
+    { path: '../public/fonts/OpenSans-Bold.woff2', weight: '700' },
+  ],
   variable: '--font-openSans',
+  display: 'swap',
 });
 
 export default function RootLayout({
@@ -72,9 +87,12 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={[poppins.variable, raleway.variable, openSans.variable].join(
-        ' '
-      )}
+      className={[
+        inter.variable,
+        poppins.variable,
+        raleway.variable,
+        openSans.variable,
+      ].join(' ')}
     >
       <head>
         <GoogleAnalytics />
