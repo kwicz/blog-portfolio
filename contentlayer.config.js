@@ -45,9 +45,13 @@ export const Project = defineDocumentType(() => ({
     category: {
       type: 'string',
     },
-    // tags: {
-    //   type: { type: 'list', of: { type: 'string' } },
-    // },
+    tags: {
+      type: 'list',
+      of: { type: 'string' },
+    },
+    tag: {
+      type: 'string',
+    },
     image: {
       type: 'string',
     },

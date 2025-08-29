@@ -23,10 +23,10 @@ export const Article: React.FC<Props> = ({ post, views }) => {
               <span>SOON</span>
             )}
           </span>
-          <span className='text-rose text-xs flex items-center gap-1 dark:text-gold'>
+          {/* <span className='text-rose text-xs flex items-center gap-1 dark:text-gold'>
             <Eye className='w-4 h-4' />{' '}
             {Intl.NumberFormat('en-US', { notation: 'compact' }).format(views)}
-          </span>
+          </span> */}
         </div>
         <h2 className='z-20 text-xl font-medium duration-300 lg:text-3xl text-slate dark:text-ivory font-display'>
           {post.title}

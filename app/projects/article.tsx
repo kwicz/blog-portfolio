@@ -24,14 +24,14 @@ export const Article: React.FC<Props> = ({ project, views }) => {
               <span>SOON</span>
             )}
           </span>
-          <span className='text-rose text-xs flex items-center gap-1 dark:text-gold'>
+          {/* <span className='text-rose text-xs flex items-center gap-1 dark:text-gold'>
             <Eye className='w-4 h-4' />{' '}
             {Intl.NumberFormat('en-US', { notation: 'compact' }).format(views)}
-          </span>
+          </span> */}
         </div>
 
         {project.image && (
-          <div className='relative zw-full z-20 mt-4 mb-4 overflow-hidden'>
+          <div className='relative zw-full z-20 mt-4 mb-4 overflow-hidden rounded-lg shadow-lg'>
             <Image
               src={project.image}
               alt={project.title}

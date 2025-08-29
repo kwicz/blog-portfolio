@@ -1,6 +1,6 @@
 import '../global.css';
 import { Inter, Poppins, Raleway, Open_Sans } from 'next/font/google';
-import LocalFont from '@next/font/local';
+import localFont from 'next/font/local';
 import { Metadata } from 'next';
 import GoogleAnalytics from './components/analytics';
 
@@ -44,7 +44,7 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 });
-const calSans = LocalFont({
+const calSans = localFont({
   src: '../public/fonts/CalSans-SemiBold.ttf',
   variable: '--font-calsans',
 });

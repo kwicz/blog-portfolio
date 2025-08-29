@@ -36,9 +36,16 @@ export default async function ProjectsPage({
     'dogbreedidentifier',
   ];
 
-  const filteredProjects = selectedCategory
+  const filteredProjects = (selectedCategory
     ? allProjects.filter((p) => p.category === selectedCategory)
-    : allProjects;
+    : allProjects)
+    .sort((a, b) => {
+      // Sort by date in descending order (newest first)
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return 1; // Projects without dates go to the end
+      if (!b.date) return -1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
   return (
     <div className='relative pb-16 bg-ivory text-slate dark:bg-slate dark:text-ivory transition-colors duration-300'>
