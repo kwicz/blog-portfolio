@@ -26,7 +26,7 @@ export function Navigation() {
       <div className="hdr-inner container">
         <Link href="/" className="hdr-logo" aria-label="Katy Solovewicz — home">
           <img src="/favicon.png" alt="" aria-hidden="true" width={28} height={28} />
-          K. Solovewicz
+          <span className="hdr-logo-text">K. Solovewicz</span>
         </Link>
 
         <nav className="hdr-nav" aria-label="Main">

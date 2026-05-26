@@ -17,23 +17,23 @@ interface CarouselProject {
 }
 
 const GAP = 24;
-const PER_PAGE = 4;
 
 export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
   const [page, setPage] = useState(0);
   const [pageWidth, setPageWidth] = useState(0);
+  const [perPage, setPerPage] = useState(4);
   const containerRef = useRef<HTMLDivElement>(null);
-  const totalPages = Math.ceil(projects.length / PER_PAGE);
+  const totalPages = Math.ceil(projects.length / perPage);
 
   useEffect(() => {
-    const measure = () => {
-      if (containerRef.current) {
-        setPageWidth(containerRef.current.offsetWidth + GAP);
-      }
+    const update = () => {
+      const next = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 4;
+      setPerPage(prev => { if (prev !== next) setPage(0); return next; });
+      if (containerRef.current) setPageWidth(containerRef.current.offsetWidth + GAP);
     };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   return (
@@ -81,7 +81,7 @@ export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: `repeat(${projects.length}, calc(25% - ${GAP * 3 / 4}px))`,
+              gridTemplateColumns: `repeat(${projects.length}, calc(${100 / perPage}% - ${GAP * (perPage - 1) / perPage}px))`,
               gap: GAP,
               transform: `translateX(${-page * pageWidth}px)`,
               transition: 'transform 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',

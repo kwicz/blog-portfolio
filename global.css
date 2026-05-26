@@ -390,3 +390,82 @@ a:hover { text-decoration-color: var(--color-lavender); }
   .post-row-date { padding-top: 0; }
 }
 .line--highlighted { background: rgba(176,168,196,.1); border-radius: 2px; display: block; }
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Layout */
+  .container { padding: 0 20px; }
+
+  /* Header */
+  .hdr-inner { height: 64px; gap: 16px; }
+  .hdr-logo-text { display: none; }
+  .hdr-nav { gap: 20px; }
+  .hdr-nav a { font-size: 13px; }
+  .coll-filterbar { top: 64px; }
+
+  /* Hero */
+  .hero { grid-template-columns: 1fr; padding: 40px 32px; min-height: auto; gap: 0; border-radius: var(--radius-lg); }
+  .hero h1 { font-size: clamp(36px, 8vw, 52px); line-height: 1.1; }
+  .hero-art { display: none; }
+
+  /* Tile grid */
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Product grid */
+  .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+  /* PDP */
+  .pdp { grid-template-columns: 1fr; gap: 32px; padding-top: 24px; }
+  .pdp-info h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.1; }
+  .pdp-sticky-info .pdp-sticky-name { font-size: 15px; }
+
+  /* Collections */
+  .coll-hero { grid-template-columns: 1fr; gap: 20px; padding: 24px 0 20px; }
+  .coll-hero h1 { font-size: clamp(36px, 8vw, 52px); line-height: 1.1; }
+  .coll-stats { flex-wrap: wrap; gap: 16px; }
+  .coll-feature { grid-template-columns: 1fr; }
+  .feature-art { display: none; }
+
+  /* Trust strip */
+  .trust-strip { grid-template-columns: 1fr; gap: 16px; }
+
+  /* Editorial block */
+  .ed-block { grid-template-columns: 1fr; padding: 40px 28px; gap: 32px; }
+  .ed-block > div:last-child { display: none; }
+
+  /* Brand banner */
+  .brand-banner { padding: 40px 0 36px; }
+  .brand-banner-header { margin-bottom: 24px; }
+
+  /* Footer */
+  .ftr { padding: 48px 0 24px; }
+  .ftr-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .ftr-bottom { flex-direction: column; gap: 12px; text-align: center; margin-top: 40px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+
+  /* Header — nav still fits at this size with logo image only */
+  .hdr-nav { gap: 14px; }
+
+  /* Hero */
+  .hero { padding: 32px 20px; border-radius: var(--radius-md); }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+
+  /* Tiles */
+  .tile-grid { gap: 10px; }
+
+  /* Product grid — 1 column on small phones */
+  .prod-grid { grid-template-columns: 1fr; }
+
+  /* Ed block */
+  .ed-block { padding: 32px 20px; }
+
+  /* Footer */
+  .ftr-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Filterbar pills */
+  .filter-pill { font-size: 11px; padding: 8px 12px; }
+}
