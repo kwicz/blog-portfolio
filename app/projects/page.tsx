@@ -56,15 +56,15 @@ export default async function ProjectsPage({
 
   return (
     <>
-      <div style={{ paddingTop: 48, paddingBottom: 80 }}>
-        <div className="container">
+      {/* ── Tinted header zone ─────────────────────────────── */}
+      <div style={{ background: 'var(--surface-2)' }}>
+        <div className="container" style={{ paddingTop: 48, paddingBottom: 0 }}>
           <div className="crumbs" style={{ marginBottom: 24 }}>
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span className="current">Work</span>
           </div>
 
-          {/* Collections hero */}
           <div className="coll-hero">
             <div>
               <p className="pdp-eyebrow">{copy?.eyebrow ?? 'Portfolio'}</p>
@@ -74,25 +74,16 @@ export default async function ProjectsPage({
               </p>
             </div>
             <div className="coll-stats">
-              <div>
-                <strong>{allPublished.length}</strong>
-                projects total
-              </div>
-              <div>
-                <strong>{categories.length}</strong>
-                categories
-              </div>
+              <div><strong>{allPublished.length}</strong>projects total</div>
+              <div><strong>{categories.length}</strong>categories</div>
             </div>
           </div>
+        </div>
 
-          {/* Filter bar */}
-          <div className="coll-filterbar">
-            <Link
-              href="/projects"
-              className={`filter-pill${!selectedCategory ? ' active' : ''}`}
-            >
-              All
-            </Link>
+        {/* Filter bar — full-width sticky, inherits tinted bg */}
+        <div className="coll-filterbar">
+          <div className="container" style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Link href="/projects" className={`filter-pill${!selectedCategory ? ' active' : ''}`}>All</Link>
             {categories.map(cat => (
               <Link
                 key={cat}
@@ -107,7 +98,12 @@ export default async function ProjectsPage({
               <SortSelect category={selectedCategory} />
             </Suspense>
           </div>
+        </div>
+      </div>
 
+      {/* ── Content zone ───────────────────────────────────── */}
+      <div style={{ paddingBottom: 80 }}>
+        <div className="container" style={{ paddingTop: 32 }}>
           {filtered.length === 0 ? (
             <div className="empty-state">
               <Icon name="search" size={32} style={{ margin: '0 auto 16px', display: 'block', opacity: 0.4 }} />
@@ -143,12 +139,11 @@ export default async function ProjectsPage({
             </div>
           )}
 
-          {/* Trust strip */}
           <div className="trust-strip" style={{ marginTop: 64 }}>
             {[
-              { icon: 'check' as const, title: 'Frontend engineering',  sub: 'React, Next.js, TypeScript.' },
-              { icon: 'pin' as const,   title: 'UX + visual design',    sub: 'Figma to production.' },
-              { icon: 'truck' as const, title: 'Based in NYC',          sub: 'Remote-friendly.' },
+              { icon: 'check' as const, title: 'Frontend engineering', sub: 'React, Next.js, TypeScript.' },
+              { icon: 'pin'   as const, title: 'UX + visual design',   sub: 'Figma to production.' },
+              { icon: 'truck' as const, title: 'Based in NYC',         sub: 'Remote-friendly.' },
             ].map(item => (
               <div key={item.title} className="trust-item">
                 <div className="trust-icon"><Icon name={item.icon} size={20} strokeWidth={1.75} /></div>

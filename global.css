@@ -210,7 +210,7 @@ a:hover { text-decoration-color: var(--ink-900); }
 .coll-intro { font-size: 17px; line-height: 27px; color: var(--ink-700); max-width: 480px; margin: 0; }
 .coll-stats { display: flex; gap: 24px; font-size: 13px; color: var(--ink-500); }
 .coll-stats strong { display: block; font-size: 32px; color: var(--ink-900); font-variation-settings: 'opsz' 72, 'SOFT' 30; line-height: 1; margin-bottom: 4px; }
-.coll-filterbar { position: sticky; top: 72px; background: var(--bg-canvas); z-index: 30; padding: 16px 0; border-top: none; border-bottom: 1px solid var(--ink-900); margin-bottom: 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.coll-filterbar { position: sticky; top: 72px; background: var(--surface-2); z-index: 30; padding: 16px 0; border-bottom: 1px solid var(--ink-900); }
 .coll-filterbar .count { font-size: 13px; color: var(--ink-500); margin-left: auto; }
 .filter-pill { background: transparent; border: 1px solid var(--ink-900); border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--ink-900); display: inline-flex; align-items: center; gap: 6px; transition: border-color 160ms var(--ease-soft), background 160ms var(--ease-soft), color 160ms var(--ease-soft); font-family: inherit; text-decoration: none; }
 .filter-pill:hover { background: var(--ink-900); color: var(--color-cream); text-decoration: none; }
