@@ -128,7 +128,8 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .hdr { position: sticky; top: 0; background: var(--bg-canvas); border-bottom: 1px solid var(--surface-line); z-index: 50; transition: box-shadow 200ms var(--ease-soft); }
 .hdr.scrolled { box-shadow: var(--shadow-1); }
 .hdr-inner { height: 80px; display: flex; align-items: center; gap: 32px; }
-.hdr-logo { font-size: 20px; font-weight: 500; text-decoration: none; color: var(--ink-900); letter-spacing: -0.01em; white-space: nowrap; }
+.hdr-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 20px; font-weight: 500; text-decoration: none; color: var(--ink-900); letter-spacing: -0.01em; white-space: nowrap; }
+.hdr-logo img { border-radius: 6px; display: block; }
 .hdr-logo:hover { text-decoration: none; color: var(--ink-900); }
 .hdr-nav { display: flex; gap: 28px; margin-left: auto; }
 .hdr-nav a { color: var(--ink-900); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 6px; font-size: 14px; font-weight: 500; padding: 8px 0; }

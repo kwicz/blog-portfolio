@@ -25,6 +25,7 @@ export function Navigation() {
     <header className={`hdr${scrolled ? ' scrolled' : ''}`}>
       <div className="hdr-inner container">
         <Link href="/" className="hdr-logo" aria-label="Katy Solovewicz — home">
+          <img src="/favicon.png" alt="" aria-hidden="true" width={28} height={28} />
           K. Solovewicz
         </Link>
 
