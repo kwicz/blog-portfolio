@@ -41,7 +41,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="ftr-bottom">
-          <div>© {new Date().getFullYear()} Katy Solovewicz</div>
+          <div>© {new Date().getFullYear()} K. Solovewicz</div>
           <div style={{ display: 'flex', gap: 24 }}>
             <Link href="/contact">Contact</Link>
             <a href="https://github.com/katysolovewicz" target="_blank" rel="noopener noreferrer">GitHub</a>

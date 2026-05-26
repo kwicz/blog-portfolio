@@ -4,14 +4,14 @@ interface TileProps {
   href: string;
   label: string;
   illustration?: string;
-  surface?: 'lilac' | 'sage' | 'lavender' | 'cream';
+  surface?: 'lilac' | 'sage' | 'honey' | 'lavender';
 }
 
 const SURFACE_MAP: Record<string, string> = {
-  lilac: 'var(--color-lilac)',
-  sage: 'var(--color-sage)',
-  lavender: '#D6CFE4',
-  cream: '#EDE8F2',
+  lilac:    'var(--color-lilac)', /* #E8D9F0 — cool light purple */
+  sage:     'var(--color-sage)',  /* #C8D4C4 — cool green        */
+  honey:    '#E26B4C',            /* orange/tomato               */
+  lavender: '#B0A8C4',            /* distinct muted purple       */
 };
 
 export function Tile({ href, label, illustration, surface = 'lilac' }: TileProps) {

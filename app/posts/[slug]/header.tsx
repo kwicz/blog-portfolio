@@ -54,8 +54,7 @@ export function Header({ post, views }: Props) {
                 href={post.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-ghost"
-                style={{ fontSize: 13 }}
+                className="btn btn-outline-caps"
               >
                 Visit site →
               </a>
@@ -65,8 +64,7 @@ export function Header({ post, views }: Props) {
                 href={`https://github.com/${post.repository}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-ghost"
-                style={{ fontSize: 13 }}
+                className="btn btn-outline-caps"
               >
                 GitHub →
               </a>

@@ -1,0 +1,13 @@
+Vibe: small-batch Brooklyn ecommerce store. Soft palette, generous radii, slightly serious humor. Playful but never punny — the harp is treated as a real object.
+
+Palette — five core colors: cream #F9F8FB (canvas, never pure white), soft lilac #E8D9F0, pale sage #C8D4C4, warm gray-lavender #B0A8C4 (THE brand color, used like a signature — underlines, focus rings, accents), and soft charcoal #85807A. Five accent extensions for state and stamps: berry #B8657A (sale/error), honey #D4B483 (ratings/awards), deep sage #8AA38C (success), tomato #E26B4C (ribbon flag stamps ONLY — never a button), butter #F2E26A (the highlighter dot — one per screen, max 80px).
+
+Type: Fraunces (variable serif — display, all headings, use opsz axis at 96-144 for large sizes), Inter (body, eyebrows, caption, buttons), Caveat (handwritten accent — three words max, never in buttons, never under 22px).
+
+Components: pill-shaped buttons (primary = ink, secondary = lilac, accent = sage); borderless image-led cards (the image is the frame); ribbon flag stamps with a notched right edge for "new / sale / limited"; outline pill buttons in caps with an arrow icon for "see more" editorial moments; full-bleed colored category tiles with single-stroke line art and sans labels underneath; a butter-yellow highlighter dot that points AT something (never floating in dead space).
+
+Hard don'ts: NO single colored left-border accent stripes on cards — use full-bleed tinted blocks instead for Do/Don't and alert patterns. No drop shadows above 12% opacity — we lift, we don't drop. No three-pastel stacks at full weight on one screen. No sharp corners anywhere a finger can land. No tomato or butter in hero positions or in buttons. No new hex values invented at component time — derive from tokens.css.
+
+Voice: warm, specific, a little surprised to see you. The humor comes from treating the harp seriously. Never "successfully" or "currently at this time." See spec.md for examples.
+
+Inspiration reference: Apartment Therapy's editorial layout patterns — full-bleed tile grids, ribbon stamps over imagery, confident serif headlines paired with outline-pill nav buttons, tiny caps metadata with leading icons.

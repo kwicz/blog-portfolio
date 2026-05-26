@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_preview.css">
+
+</head>
+<body>
+<div class="card">
+
+  <div class="lbl">Product card · image-led · borderless · 4:5</div>
+  <style>
+    .pc-row { display:flex; gap:16px; }
+    .pc { width: 200px; }
+    .pc .img { position: relative; aspect-ratio: 4/5; border-radius: 22px; overflow: hidden; }
+    .pc .img img, .pc .img svg { width: 100%; height: 100%; display:block; }
+    .pc .ribbon { position: absolute; left: -2px; top: 14px; height: 24px; padding: 0 16px 0 10px; color: #F9F8FB; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%); display:flex; align-items:center; }
+    .ribbon-t { background: var(--accent-tomato); }
+    .ribbon-c { background: var(--ink-900); }
+    .pc .meta { padding: 12px 4px 0; }
+    .pc .name { font-family: var(--font-display); font-size: 20px; line-height: 24px; font-variation-settings:'opsz' 48; }
+    .pc .price { font-family: var(--font-body); font-size: 14px; color: var(--ink-700); margin-top: 4px; }
+  </style>
+  <div class="pc-row">
+    <div class="pc">
+      <div class="img"><span class="ribbon ribbon-t">New</span>
+        <img src="../assets/placeholders/prod-brass.svg" alt="">
+      </div>
+      <div class="meta"><div class="name">The Brass One.</div><div class="price">$64</div></div>
+    </div>
+    <div class="pc">
+      <div class="img">
+        <img src="../assets/placeholders/prod-tiny-travel.svg" alt="">
+      </div>
+      <div class="meta"><div class="name">Tiny Travel Harp.</div><div class="price">$38</div></div>
+    </div>
+    <div class="pc">
+      <div class="img"><span class="ribbon ribbon-c">Limited</span>
+        <img src="../assets/placeholders/prod-jumbo.svg" alt="">
+      </div>
+      <div class="meta"><div class="name">The Jumbo.</div><div class="price">$118</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

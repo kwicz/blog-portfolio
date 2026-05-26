@@ -1,0 +1,39 @@
+/* Shared styles for preview specimen cards */
+@import url('../colors_and_type.css');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-canvas);
+  font-family: var(--font-body);
+  color: var(--fg-1);
+}
+
+.card {
+  box-sizing: border-box;
+  width: 700px;
+  padding: 24px;
+  background: var(--bg-canvas);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+
+.swatch {
+  border-radius: 14px;
+  border: 1px solid var(--surface-line);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+.swatch .name { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; }
+.swatch .hex  { font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; opacity: 0.8; }
+
+.lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; color: var(--fg-3); }
+.dim { color: var(--fg-3); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--fg-2); }

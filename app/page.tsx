@@ -1,15 +1,15 @@
 import { allProjects } from '@/.contentlayer/generated';
 import { Hero } from './components/hero';
 import { Tile } from './components/tile';
-import { ProductCard } from './components/product-card';
 import { EditorialHeader } from './components/editorial-header';
 import { Icon } from './components/icons';
+import { RecentCarousel } from './components/recent-carousel';
 
 const CATEGORY_TILES = [
-  { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/pouch-line.svg', surface: 'lilac' as const },
-  { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/note-music-line.svg', surface: 'sage' as const },
-  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/cat-2-line.svg', surface: 'lavender' as const },
-  { href: '/projects', label: 'All Work', illustration: '/illustrations/harp-line.svg', surface: 'cream' as const },
+  { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/category-ecommerce.svg', surface: 'lilac' as const },
+  { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/category-elearning.svg', surface: 'sage' as const },
+  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.svg', surface: 'honey' as const },
+  { href: '/projects', label: 'All Work', illustration: '/illustrations/category-allwork.svg', surface: 'lavender' as const },
 ];
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
     .filter(p => p.published !== false)
     .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
 
-  const featured = published.slice(0, 4);
+  const featured = published.slice(0, 8);
 
   return (
     <>
@@ -33,45 +33,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ padding: '64px 0 0' }}>
-        <div className="container">
-          <EditorialHeader title="Explore by type" />
-          <div className="tile-grid" style={{ marginTop: 24 }}>
-            {CATEGORY_TILES.map(tile => (
-              <Tile key={tile.href} {...tile} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={{ padding: '72px 0' }}>
-        <div className="container">
-          <EditorialHeader
-            title="Recent work"
-            seeMoreHref="/projects"
-            seeMoreLabel="All projects"
-          />
-          <div className="prod-grid" style={{ marginTop: 28 }}>
-            {featured.map(project => (
-              <ProductCard
-                key={project.slug}
-                slug={project.slug}
-                title={project.title}
-                image={project.image}
-                rating={project.rating}
-                reviewCount={project.reviewCount}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={{ padding: '0 0 32px' }}>
+      <section style={{ padding: '0 0 64px' }}>
         <div className="container">
           <div className="trust-strip">
             {[
               { icon: 'truck' as const, title: 'CRO & A/B Testing',      sub: 'Data-driven optimization.' },
-              { icon: 'pin' as const,   title: 'Based in Portland, OR',  sub: 'Freelance & creative partnerships.' },
+              { icon: 'code' as const,  title: 'Full-Stack Development',  sub: 'React, Next.js, Node, and more.' },
               { icon: 'check' as const, title: 'Business Automations',   sub: 'Less manual work, more revenue.' },
             ].map((item) => (
               <div key={item.title} className="trust-item">
@@ -85,6 +52,24 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section style={{ padding: '64px 0 0' }}>
+        <div className="container">
+          <EditorialHeader
+            eyebrow="Categories"
+            title="Work, by type."
+            seeMoreHref="/projects"
+            seeMoreLabel="All projects"
+          />
+          <div className="tile-grid" style={{ marginTop: 24 }}>
+            {CATEGORY_TILES.map(tile => (
+              <Tile key={tile.href} {...tile} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <RecentCarousel projects={featured} />
 
       <section style={{ padding: '40px 0 80px' }}>
         <div className="container">
@@ -103,7 +88,7 @@ export default function Home() {
               </a>
             </div>
             <div style={{ position: 'relative', aspectRatio: '1/1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src="/illustrations/hand-line.svg" alt="" style={{ width: '70%', height: '70%', objectFit: 'contain', opacity: 0.65 }} />
+              <img src="/illustrations/target.svg" alt="" style={{ width: '70%', height: '70%', objectFit: 'contain' }} />
             </div>
           </div>
         </div>

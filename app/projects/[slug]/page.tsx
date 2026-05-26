@@ -1,8 +1,6 @@
 import { notFound } from 'next/navigation';
 import { allProjects } from 'contentlayer/generated';
-import { Mdx } from '@/app/components/mdx';
 import { Header } from './header';
-import './mdx.css';
 import { ReportView } from './view';
 import { Redis } from '@upstash/redis';
 import { ProductCard } from '@/app/components/product-card';
@@ -36,19 +34,14 @@ export default async function PostPage({ params }: Props) {
     : [...sameCat, ...allProjects.filter(p => p.slug !== slug && p.published !== false && p.category !== project.category)].slice(0, 4);
 
   return (
-    <div style={{ paddingBottom: 120 }}>
-      <Header project={project} views={views} />
+    <div>
+      <Header project={project} />
       <ReportView slug={project.slug} />
 
-      <div className="container" style={{ paddingTop: 56 }}>
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
-          <article className="prose prose-quoteless">
-            <Mdx code={project.body.code} />
-          </article>
-        </div>
-
-        {(project.rating !== undefined && project.reviewCount !== undefined) && (
-          <section id="reviews" style={{ marginTop: 80 }}>
+      {/* ── Reviews ────────────────────────────────────────── */}
+      {(project.rating !== undefined && project.reviewCount !== undefined) && (
+        <section id="reviews" style={{ borderTop: '1px solid var(--surface-line)', padding: '72px 0' }}>
+          <div className="container">
             <EditorialHeader eyebrow={`${project.reviewCount} reviews`} title="What people say." />
             <div className="reviews-summary">
               <div>
@@ -90,11 +83,14 @@ export default async function PostPage({ params }: Props) {
                 </div>
               ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
+      )}
 
-        {related.length > 0 && (
-          <section style={{ marginTop: 80 }}>
+      {/* ── Related work ───────────────────────────────────── */}
+      {related.length > 0 && (
+        <section style={{ borderTop: '1px solid var(--surface-line)', padding: '72px 0' }}>
+          <div className="container">
             <EditorialHeader
               eyebrow="Goes well with"
               title="More work."
@@ -110,12 +106,13 @@ export default async function PostPage({ params }: Props) {
                   image={p.image}
                   rating={p.rating}
                   reviewCount={p.reviewCount}
+                  ribbon={p.ribbon}
                 />
               ))}
             </div>
-          </section>
-        )}
-      </div>
+          </div>
+        </section>
+      )}
 
       <PdpSticky
         title={project.title}

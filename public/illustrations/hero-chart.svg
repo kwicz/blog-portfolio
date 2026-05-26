@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 220" fill="none">
+  <!-- Card -->
+  <rect x="10" y="10" width="220" height="200" rx="14" fill="white" stroke="#E4DEEA" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <line x1="38" y1="48"  x2="218" y2="48"  stroke="#ECE7F1" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="38" y1="78"  x2="218" y2="78"  stroke="#ECE7F1" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="38" y1="108" x2="218" y2="108" stroke="#ECE7F1" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="38" y1="138" x2="218" y2="138" stroke="#ECE7F1" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- X axis -->
+  <line x1="38" y1="168" x2="218" y2="168" stroke="#C4BECC" stroke-width="1.5"/>
+
+  <!-- Bar 1 -->
+  <rect x="44"  y="128" width="26" height="40" rx="4" fill="#EFE3F4" stroke="#2A262F" stroke-width="1.75"/>
+  <!-- Bar 2 -->
+  <rect x="80"  y="108" width="26" height="60" rx="4" fill="#DCC8E8" stroke="#2A262F" stroke-width="1.75"/>
+  <!-- Bar 3 -->
+  <rect x="116" y="88"  width="26" height="80" rx="4" fill="#C8D4C4" stroke="#2A262F" stroke-width="1.75"/>
+  <!-- Bar 4 -->
+  <rect x="152" y="63"  width="26" height="105" rx="4" fill="#8AA38C" stroke="#2A262F" stroke-width="1.75"/>
+  <!-- Bar 5 -->
+  <rect x="188" y="38"  width="26" height="130" rx="4" fill="#8A809E" stroke="#2A262F" stroke-width="1.75"/>
+
+  <!-- Trend line -->
+  <path d="M57 128 C 80 110 100 100 129 88 C 155 77 168 62 201 38"
+        stroke="#2A262F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Arrow head at end of trend -->
+  <path d="M195 34 L203 30 L206 39" stroke="#2A262F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Up-tick badge -->
+  <rect x="24" y="24" width="52" height="22" rx="11" fill="#2A262F"/>
+  <text x="50" y="39" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" fill="white" text-anchor="middle">↑ CVR</text>
+</svg>

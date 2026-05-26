@@ -26,16 +26,15 @@ export function Hero({
         <div className="hero-actions">
           <Link href={ctaHref} className="btn btn-primary btn-lg">
             {ctaLabel}
-            <Icon name="arrow-right" size={16} strokeWidth={2} />
+            <Icon name="arrow-up-right" size={16} strokeWidth={2} />
           </Link>
-          <Link href="/contact" className="btn btn-ghost btn-lg">
+          <Link href="/contact" className="btn btn-outline-caps btn-lg">
             Get in touch
           </Link>
         </div>
       </div>
       <div className="hero-art">
-        <div className="hero-caveat">it works.</div>
-        <img src="/illustrations/harp-line.svg" alt="" aria-hidden="true" style={{ opacity: 0.6 }} />
+        <img src="/illustrations/hero-chart.svg" alt="" aria-hidden="true" />
         <div className="hero-dot" aria-hidden="true" />
       </div>
     </div>

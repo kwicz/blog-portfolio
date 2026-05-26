@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Screen body -->
+  <rect x="12" y="16" width="96" height="70" rx="7" fill="white" stroke="#2A262F" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Screen face -->
+  <rect x="22" y="26" width="76" height="52" rx="3" fill="#C8D4C4"/>
+  <!-- Left chevron < -->
+  <path d="M48 42 L36 52 L48 62" stroke="#2A262F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Right chevron > -->
+  <path d="M72 42 L84 52 L72 62" stroke="#2A262F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Slash / -->
+  <line x1="65" y1="39" x2="55" y2="65" stroke="#2A262F" stroke-width="3" stroke-linecap="round"/>
+  <!-- Keyboard base -->
+  <path d="M4 88 Q8 86 16 86 L104 86 Q112 86 116 88 L116 94 Q116 98 60 98 Q4 98 4 94 Z" fill="white" stroke="#2A262F" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Touchpad -->
+  <rect x="46" y="90" width="28" height="5" rx="2.5" fill="#C8D4C4" stroke="#2A262F" stroke-width="1.5"/>
+</svg>

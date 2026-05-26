@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <filter id="w1" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="21" result="t"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3.6" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+    <filter id="w2" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="4" result="t"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="4.2" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </defs>
+  <g filter="url(#w1)" stroke-width="3">
+
+    <path d="M42 18 C44 36 42 56 41 72"></path>
+    <path d="M41 72 C44 68 50 66 54 68 C58 70 58 76 54 78 C50 80 44 78 41 76 C39 74 39 72 41 72 Z"></path>
+    <path d="M42 18 C52 22 60 30 60 42 C58 40 54 38 50 38"></path>
+    <path d="M42 30 C50 32 56 38 56 46"></path>
+
+  </g>
+  <g filter="url(#w2)" stroke-width="1.6" opacity="0.55">
+
+    <path d="M43 18 C44 36 41 55 40 72"></path>
+    <path d="M41 72 C44 67 50 66 55 69 C58 71 58 76 53 78 C49 80 43 78 41 76"></path>
+    <path d="M42 19 C52 23 60 30 60 42"></path>
+    <path d="M42 30 C50 33 56 38 56 46"></path>
+
+  </g>
+</svg>

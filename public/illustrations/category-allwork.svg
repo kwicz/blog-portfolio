@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Case body -->
+  <rect x="8" y="36" width="84" height="56" rx="8" fill="white" stroke="#2A262F" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Handle arch -->
+  <path d="M34 36 L34 26 Q34 18 44 18 L56 18 Q66 18 66 26 L66 36" stroke="#2A262F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Center dividing line -->
+  <line x1="8" y1="64" x2="92" y2="64" stroke="#2A262F" stroke-width="1.75"/>
+  <!-- Clasp -->
+  <rect x="38" y="56" width="24" height="16" rx="4" fill="#B0A8C4" stroke="#2A262F" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Clasp keyhole -->
+  <circle cx="50" cy="62" r="3" fill="white" stroke="#2A262F" stroke-width="1.5"/>
+  <line x1="50" y1="65" x2="50" y2="69" stroke="#2A262F" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

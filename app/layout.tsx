@@ -39,7 +39,7 @@ const inter = localFont({
     { path: '../public/fonts/Inter-Regular.woff2', weight: '400' },
     { path: '../public/fonts/Inter-Bold.woff2', weight: '700' },
   ],
-  variable: '--font-inter',
+  variable: '--font-body',
   display: 'swap',
 });
 
@@ -52,7 +52,7 @@ const fraunces = Fraunces({
 
 const caveat = Caveat({
   subsets: ['latin'],
-  variable: '--font-caveat',
+  variable: '--font-script',
   display: 'swap',
 });
 

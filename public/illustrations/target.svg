@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Outer ring -->
+  <circle cx="60" cy="62" r="50" fill="none" stroke="#2A262F" stroke-width="3"/>
+  <!-- Middle ring -->
+  <circle cx="60" cy="62" r="34" fill="#E8D9F0" stroke="#2A262F" stroke-width="3"/>
+  <!-- Inner ring -->
+  <circle cx="60" cy="62" r="18" fill="white" stroke="#2A262F" stroke-width="3"/>
+  <!-- Bullseye dot -->
+  <circle cx="60" cy="62" r="6" fill="#2A262F"/>
+  <!-- Arrow shaft -->
+  <line x1="100" y1="20" x2="65" y2="58" stroke="#2A262F" stroke-width="3" stroke-linecap="round"/>
+  <!-- Arrow head -->
+  <path d="M100 20 L86 19 L99 32 Z" fill="#2A262F" stroke="#2A262F" stroke-width="1" stroke-linejoin="round"/>
+</svg>

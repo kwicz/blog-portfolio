@@ -1,10 +1,10 @@
 'use client';
 
 const MESSAGES = [
-  'Hand-crafted with love in Portland',
-  'Free US shipping on orders $50+',
-  'New: The Pocket Harp — compact & bright',
-  'Playable in 3 minutes, guaranteed',
+  'Full-stack ecommerce developer, Portland OR',
+  'Specializing in CRO, A/B testing & automations',
+  'Open to freelance & creative partnerships',
+  'Turning ecommerce sites into revenue machines',
 ];
 
 export function MarqueeBar() {

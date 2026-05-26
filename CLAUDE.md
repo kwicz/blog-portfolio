@@ -31,12 +31,35 @@ Package manager: **pnpm**
 
 All types have computed `path` and `slug` fields. Only items with `published: true` appear in static routes.
 
+## Design System
+
+The canonical design guide lives at:
+
+```
+.claude/design-system/
+```
+
+Key files:
+- `source/spec.md` — brand rules, typography, palette, component guidelines (read this first)
+- `source/tokens.css` — every CSS variable defined, with comments (source of truth for tokens)
+- `tokens.css` — flat token reference (same content, top-level copy)
+- `colors_and_type.css` — color + typography tokens only
+- `preview/` — HTML previews of every component (open in browser)
+- `ui_kits/store/` — full reference component library (JSX + CSS)
+
+**Typography rules (from spec):**
+- `--font-display` → Fraunces (variable serif) — headings, display sizes only
+- `--font-body` → Inter — body copy, eyebrows, captions, buttons, everything else
+- `--font-script` → Caveat — handwritten accents, 3 words max, never in buttons
+
+**When adding new styles:** derive from tokens in `source/tokens.css`. Never invent new hex values at component time.
+
 ## Styling
 
-- Tailwind CSS with custom color tokens: `ivory`, `slate`, `rose`, `gold`, `sage`, `ocean`
-- Custom fonts loaded locally from `public/fonts/`: Inter, Poppins, Raleway, OpenSans, CalSans
-- Prose styles for MDX content via `@tailwindcss/typography`
-- `global.css` sets CSS variables for colors and font families
+- The active theme is `soft-summer-ecommerce` — all styles live in `global.css` as CSS custom properties
+- Custom fonts loaded locally from `public/fonts/`: Inter (body), + Fraunces + Caveat via `next/font/google`
+- Font variables are injected by Next.js via `app/layout.tsx` and must match design system names (`--font-body`, `--font-display`, `--font-script`)
+- `global.css` is the single source of truth for component classes — no Tailwind utility classes in component files
 
 ## Environment Variables
 

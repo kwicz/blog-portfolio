@@ -12,16 +12,28 @@ type Props = {
     category?: string;
     image?: string;
     tags?: string[];
-    tag?: string;
+    rating?: number;
+    reviewCount?: number;
+    notes?: string;
+    features?: string[];
   };
-  views: number;
 };
 
-export function Header({ project, views }: Props) {
+function Stars({ value }: { value: number }) {
+  return (
+    <span className="stars">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span key={i} style={{ opacity: i < Math.round(value) ? 1 : 0.22 }}>★</span>
+      ))}
+    </span>
+  );
+}
+
+export function Header({ project }: Props) {
   const accordionItems = [
     ...(project.tags && project.tags.length > 0 ? [{
-      key: 'stack',
-      label: 'Tech stack',
+      key: 'specs',
+      label: 'Specs',
       content: (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {project.tags.map(tag => (
@@ -30,37 +42,24 @@ export function Header({ project, views }: Props) {
         </div>
       ),
     }] : []),
-    ...(project.url || project.repository ? [{
-      key: 'links',
-      label: 'Links',
+    ...(project.features && project.features.length > 0 ? [{
+      key: 'features',
+      label: 'Features',
       content: (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {project.url && (
-            <a href={project.url} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'var(--ink-700)', textDecoration: 'none' }}>
-              <Icon name="arrow-up-right" size={14} strokeWidth={2} style={{ color: 'var(--color-lavender)' }} />
-              Live site
-            </a>
-          )}
-          {project.repository && (
-            <a href={project.repository.startsWith('http') ? project.repository : `https://github.com/${project.repository}`}
-              target="_blank" rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'var(--ink-700)', textDecoration: 'none' }}>
-              <Icon name="arrow-up-right" size={14} strokeWidth={2} style={{ color: 'var(--color-lavender)' }} />
-              GitHub repository
-            </a>
-          )}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--ink-500)', marginTop: 4 }}>
-            <Icon name="user" size={13} strokeWidth={2} />
-            {views.toLocaleString()} view{views !== 1 ? 's' : ''}
-          </div>
-        </div>
+        <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column' as const, gap: 10 }}>
+          {(project.features as string[]).map((f, i) => (
+            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, lineHeight: '20px', color: 'var(--ink-700)' }}>
+              <Icon name="check" size={14} strokeWidth={2.5} style={{ color: 'var(--accent-deepsage)', flexShrink: 0, marginTop: 3 }} />
+              {f}
+            </li>
+          ))}
+        </ul>
       ),
     }] : []),
   ];
 
   return (
-    <div style={{ paddingTop: 48 }}>
+    <div style={{ background: 'var(--surface-2)', paddingTop: 48, paddingBottom: 56 }}>
       <div className="container">
         <div className="crumbs" style={{ marginBottom: 28 }}>
           <Link href="/">Home</Link>
@@ -79,6 +78,7 @@ export function Header({ project, views }: Props) {
         </div>
 
         <div className="pdp">
+          {/* ── Gallery ───────────────────────── */}
           <div className="pdp-gallery">
             {project.image ? (
               <div className="pdp-main-img">
@@ -100,21 +100,36 @@ export function Header({ project, views }: Props) {
             )}
           </div>
 
+          {/* ── Info ──────────────────────────── */}
           <div className="pdp-info">
             {project.category && (
               <p className="pdp-eyebrow">{project.category}</p>
             )}
             <h1>{project.title}</h1>
+
+            {(project.rating !== undefined && project.reviewCount !== undefined) && (
+              <div className="pdp-meta-row">
+                <span className="pdp-stars">
+                  <Stars value={project.rating} />
+                  {project.rating.toFixed(1)} ·{' '}
+                  <a href="#reviews" style={{
+                    textDecoration: 'underline',
+                    textDecorationColor: 'var(--color-lavender)',
+                    textDecorationThickness: 2,
+                    textUnderlineOffset: 3,
+                    color: 'inherit',
+                  }}>
+                    {project.reviewCount} reviews
+                  </a>
+                </span>
+              </div>
+            )}
+
             <p className="pdp-description">{project.description}</p>
 
             <div id="pdp-cta-anchor" className="pdp-actions">
               {project.url && (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary"
-                >
+                <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
                   Visit live site
                   <Icon name="arrow-up-right" size={16} strokeWidth={2} />
                 </a>
@@ -122,15 +137,27 @@ export function Header({ project, views }: Props) {
               {project.repository && (
                 <a
                   href={project.repository.startsWith('http') ? project.repository : `https://github.com/${project.repository}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-secondary"
+                  target="_blank" rel="noopener noreferrer" className="btn btn-outline-caps"
                 >
                   View on GitHub
                   <Icon name="arrow-up-right" size={16} strokeWidth={2} />
                 </a>
               )}
             </div>
+
+            {project.notes && (
+              <div className="pdp-section">
+                <h3>
+                  <Icon name="note" size={18} strokeWidth={1.75} style={{ color: 'var(--color-lavender)' }} />
+                  Katy's notes
+                </h3>
+                <p className="pdp-katy">
+                  <span className="pdp-quote-mark">"</span>
+                  {project.notes}
+                  <span className="pdp-quote-mark">"</span>
+                </p>
+              </div>
+            )}
 
             {accordionItems.length > 0 && (
               <PdpAccordion items={accordionItems} />

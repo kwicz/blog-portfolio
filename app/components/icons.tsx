@@ -61,6 +61,10 @@ const ICONS: Record<string, IconDef> = {
   ],
   minus: [{ type: 'path', d: 'M5 12h14' }],
   'chevron-down': [{ type: 'path', d: 'm6 9 6 6 6-6' }],
+  code: [
+    { type: 'path', d: 'm16 18 6-6-6-6' },
+    { type: 'path', d: 'M8 6 2 12l6 6' },
+  ],
 };
 
 interface IconProps extends SVGAttributes<SVGElement> {

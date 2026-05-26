@@ -1,0 +1,142 @@
+/* =========================================================================
+   Katy Lee's Mouth Harps — Colors & Type
+   Imports tokens.css and layers semantic styles + typography rules on top.
+
+   FONT NOTE: We use Google Fonts (Fraunces variable, Inter variable, Caveat)
+   as no .ttf files were provided. If/when self-hosted files arrive,
+   drop them into ./fonts/ and replace the @import below with @font-face.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap');
+
+@import url('./tokens.css');
+
+/* -------------------------------------------------------------------------
+   Semantic aliases — refer to these in product code; never to raw tokens.
+   ------------------------------------------------------------------------- */
+:root {
+  /* Foregrounds */
+  --fg-1: var(--ink-900);          /* primary text + ink */
+  --fg-2: var(--ink-700);          /* secondary text */
+  --fg-3: var(--ink-500);          /* tertiary / metadata */
+  --fg-muted: var(--ink-400);      /* placeholder, disabled */
+  --fg-on-ink: var(--color-cream); /* type that sits on ink backgrounds */
+  --fg-brand: var(--color-lavender); /* signature accent — underlines, focus rings */
+
+  /* Backgrounds */
+  --bg-canvas: var(--color-cream); /* the page */
+  --bg-card:   var(--surface-0);   /* solid white card (form/demo only) */
+  --bg-alt-1:  var(--surface-2);   /* alt section background */
+  --bg-alt-2:  var(--surface-3);   /* alt section background, deeper */
+  --bg-ink:    var(--ink-900);     /* footer, primary button */
+
+  /* Lines */
+  --line-hairline: var(--surface-line);
+  --line-strong:   var(--ink-300);
+
+  /* Signal colors */
+  --signal-sale:    var(--accent-berry);
+  --signal-warn:    var(--accent-honey);
+  --signal-success: var(--accent-deepsage);
+  --signal-stamp:   var(--accent-tomato);   /* ribbons only */
+  --signal-highlight: var(--accent-butter); /* highlighter dot only */
+
+  /* Font families (aliases for clarity at call site) */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-script:  'Caveat', 'Bradley Hand', cursive;
+
+  /* Weights */
+  --w-regular: 400;
+  --w-medium:  500;
+  --w-semi:    600;
+  --w-bold:    700;
+}
+
+/* -------------------------------------------------------------------------
+   Base + display type
+   ------------------------------------------------------------------------- */
+html, body {
+  background: var(--bg-canvas);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display — Fraunces, opsz cranked. Use class for explicit semantics. */
+.display-xl, .display-l, .display-m,
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--fg-1);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  text-wrap: balance;
+}
+
+.display-xl { font-size: 72px; line-height: 72px; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 50; }
+.display-l  { font-size: 48px; line-height: 50px; letter-spacing: -0.015em; font-variation-settings: "opsz" 120, "SOFT" 40; }
+.display-m  { font-size: 32px; line-height: 36px; }
+
+h1 { font-size: 48px; line-height: 50px; font-variation-settings: "opsz" 120, "SOFT" 40; }
+h2 { font-size: 32px; line-height: 36px; }
+h3 { font-size: 22px; line-height: 28px; font-variation-settings: "opsz" 36; }
+
+/* Body */
+p, .body { font-size: 16px; line-height: 26px; color: var(--fg-1); }
+.body-l   { font-size: 18px; line-height: 28px; }
+.body-s   { font-size: 14px; line-height: 22px; color: var(--fg-2); }
+
+/* Eyebrow / caps metadata */
+.caps, .eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: var(--w-semi);
+  color: var(--fg-3);
+}
+.caps-sm { font-size: 11px; }
+
+/* Caveat — three words MAX, never under 22px, never in buttons */
+.script {
+  font-family: var(--font-script);
+  font-weight: var(--w-regular);
+  font-size: 28px;
+  line-height: 1.1;
+  color: var(--fg-brand);
+}
+
+/* Form labels */
+label, .label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: var(--w-bold);
+  color: var(--fg-1);
+  letter-spacing: 0.01em;
+}
+
+/* Links — lavender underline, the signature move */
+a {
+  color: var(--fg-1);
+  text-decoration: underline;
+  text-decoration-color: var(--fg-brand);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 200ms var(--ease-soft);
+}
+a:hover { text-decoration-color: var(--ink-900); }
+
+/* Focus — lavender soft glow, never a hard outline */
+*:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-glow);
+  border-radius: var(--radius-sm);
+}
+
+/* Selection — lilac wash */
+::selection { background: var(--color-lilac); color: var(--ink-900); }

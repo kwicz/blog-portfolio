@@ -1,0 +1,103 @@
+/* =========================================================================
+   Katy Lee's Mouth Harps — Design Tokens
+   The source of truth. Every value in design-system.html derives from here.
+   ========================================================================= */
+
+:root {
+  /* ---- Brand colors ---- */
+  --color-cream:        #F9F8FB;  /* canvas — default page background */
+  --color-lilac:        #E8D9F0;  /* friendly accent — hero, secondary btn, tags */
+  --color-sage:         #C8D4C4;  /* grounding accent — in-stock, "save" buttons */
+  --color-lavender:     #B0A8C4;  /* THE brand color — use sparingly, like a signature */
+  --color-charcoal:     #85807A;  /* secondary type, mid-tone iconography */
+
+  /* ---- Ink scale — type contrast ---- */
+  --ink-900: #2A262F;             /* body type, primary buttons, headings */
+  --ink-700: #4A4550;             /* secondary type */
+  --ink-500: #85807A;             /* tertiary type (= --color-charcoal) */
+  --ink-400: #A29DA6;             /* placeholder type */
+  --ink-300: #C9C5CC;             /* dividers, disabled */
+
+  /* ---- Surface tints — layered backgrounds ---- */
+  --surface-0:    #FFFFFF;        /* card / input surface */
+  --surface-1:    #F9F8FB;        /* = cream, the page canvas */
+  --surface-2:    #F2EEF6;        /* alt surface */
+  --surface-3:    #ECE7F1;        /* alt surface, deeper */
+  --surface-line: #E4DEEA;        /* hairline dividers */
+
+  /* ---- Accent extensions — borrowed warm tones, used sparingly ---- */
+  --accent-berry:    #B8657A;     /* sale pills, errors, "low stock" */
+  --accent-honey:    #D4B483;     /* star ratings, awards, warnings */
+  --accent-deepsage: #8AA38C;     /* success toasts, "in stock" signals */
+  --accent-tomato:   #E26B4C;     /* RIBBON STAMPS ONLY ("new", "before", "limited") — never a button */
+  --accent-butter:   #F2E26A;     /* highlighter dot — one per screen, max 80px */
+
+  /* ---- Tint ladders (for hover/background/divider derivatives) ---- */
+  --lilac-50:   #F6EEF9;
+  --lilac-100:  #EFE3F4;
+  --lilac-200:  #E8D9F0;          /* = --color-lilac */
+  --lilac-300:  #DCC8E8;
+  --lilac-400:  #C7A8DA;
+  --lilac-500:  #9D7CB5;
+  --lilac-600:  #5C3D6E;
+
+  --sage-50:    #EDF1EB;
+  --sage-100:   #DDE5D9;
+  --sage-200:   #C8D4C4;          /* = --color-sage */
+  --sage-300:   #B8C6B4;
+  --sage-400:   #8AA38C;          /* = --accent-deepsage */
+  --sage-500:   #5E7861;
+  --sage-600:   #3D5240;
+
+  --lavender-50:   #ECE9F2;
+  --lavender-100:  #D8D2E1;
+  --lavender-200:  #C4BCD3;
+  --lavender-300:  #B0A8C4;       /* = --color-lavender */
+  --lavender-400:  #8A809E;
+  --lavender-500:  #605770;
+  --lavender-600:  #3A3344;
+
+  --charcoal-50:   #F2F1F0;
+  --charcoal-100:  #DCD9D7;
+  --charcoal-200:  #B5B0AB;
+  --charcoal-300:  #85807A;       /* = --color-charcoal */
+  --charcoal-400:  #5F5B57;
+  --charcoal-500:  #4A4540;
+  --charcoal-600:  #2A262F;       /* = --ink-900 */
+
+  /* ---- Spacing — 4pt grid ---- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;               /* default card padding */
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ---- Radius — round, rounder, roundest ---- */
+  --radius-xs:    4px;
+  --radius-sm:    8px;
+  --radius-md:   14px;            /* default for buttons, inputs, demo cards */
+  --radius-lg:   22px;            /* product cards, large tiles */
+  --radius-xl:   32px;            /* hero blocks */
+  --radius-pill: 999px;           /* pill buttons, ribbons, chips */
+
+  /* ---- Elevation — soft, long, slightly cool ---- */
+  --shadow-1: 0 1px 2px  rgba(42, 38, 47, 0.04), 0 1px 3px rgba(42, 38, 47, 0.05);  /* resting */
+  --shadow-2: 0 4px 12px rgba(42, 38, 47, 0.06), 0 2px 4px rgba(42, 38, 47, 0.04);  /* hovered */
+  --shadow-3: 0 12px 32px rgba(42, 38, 47, 0.08), 0 4px 8px rgba(42, 38, 47, 0.04); /* floating */
+  --shadow-glow: 0 0 0 4px rgba(184, 168, 196, 0.25);                               /* focus ring */
+
+  /* ---- Typography ---- */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-script:  'Caveat', 'Bradley Hand', cursive;
+
+  /* ---- Motion ---- */
+  --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);   /* buttons, hover lift */
+  --ease-soft:   cubic-bezier(.4, 0, .2, 1);        /* color/box-shadow transitions */
+}

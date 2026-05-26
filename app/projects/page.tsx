@@ -116,9 +116,12 @@ export default async function ProjectsPage({
                   <ProductCard
                     slug={project.slug}
                     title={project.title}
+                    tagline={project.tagline}
+                    category={project.category}
                     image={project.image}
                     rating={project.rating}
                     reviewCount={project.reviewCount}
+                    ribbon={project.ribbon}
                   />
                   {idx === 3 && (
                     <div className="coll-feature">
@@ -129,7 +132,7 @@ export default async function ProjectsPage({
                         <a href="/contact" className="btn btn-outline-caps">Get in touch</a>
                       </div>
                       <div className="feature-art">
-                        <img src="/illustrations/harp-line.svg" alt="" />
+                        <img src="/illustrations/code-laptop.svg" alt="" />
                       </div>
                     </div>
                   )}
@@ -138,21 +141,6 @@ export default async function ProjectsPage({
             </div>
           )}
 
-          <div className="trust-strip" style={{ marginTop: 64 }}>
-            {[
-              { icon: 'check' as const, title: 'CRO & A/B Testing',     sub: 'Data-driven revenue growth.' },
-              { icon: 'truck' as const, title: 'Business Automations',  sub: 'Workflows that run themselves.' },
-              { icon: 'pin'   as const, title: 'Based in Portland, OR', sub: 'Remote-friendly.' },
-            ].map(item => (
-              <div key={item.title} className="trust-item">
-                <div className="trust-icon"><Icon name={item.icon} size={20} strokeWidth={1.75} /></div>
-                <div>
-                  <div className="trust-title">{item.title}</div>
-                  <div className="trust-sub">{item.sub}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </>

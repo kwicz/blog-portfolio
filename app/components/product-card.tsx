@@ -6,6 +6,7 @@ interface ProductCardProps {
   slug: string;
   title: string;
   description?: string;
+  tagline?: string;
   image?: string;
   category?: string;
   ribbon?: string;
@@ -14,7 +15,7 @@ interface ProductCardProps {
   reviewCount?: number;
 }
 
-export function ProductCard({ slug, title, image, ribbon, rating, reviewCount }: ProductCardProps) {
+export function ProductCard({ slug, title, tagline, category, image, ribbon, rating, reviewCount }: ProductCardProps) {
   return (
     <article className="pcard">
       <div className="pcard-img">
@@ -41,9 +42,11 @@ export function ProductCard({ slug, title, image, ribbon, rating, reviewCount }:
         </div>
       </div>
       <div className="pcard-meta">
+        {category && <p className="pcard-category">{category}</p>}
         <p className="pcard-name">
           <Link href={`/projects/${slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>{title}</Link>
         </p>
+        {tagline && <p className="pcard-tagline">{tagline}</p>}
         {(rating !== undefined && reviewCount !== undefined) && (
           <div className="pcard-price">
             <span className="pcard-rating">

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_preview.css">
+
+</head>
+<body>
+<div class="card">
+
+  <div class="lbl">Voice · we say / we don't</div>
+  <style>
+    .vrow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .vcell { padding: 12px 14px; border-radius: 14px; font-size: 14px; line-height: 20px; }
+    .vsay { background: #DDE5D9; color: #2A262F; }
+    .vdont { background: #F2DDE3; color: #6E3445; text-decoration: line-through; text-decoration-color: rgba(184, 101, 122, 0.55); }
+    .vtag { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight:700; }
+  </style>
+  <div class="vrow">
+    <div>
+      <div class="vtag" style="color:#3D5240; margin-bottom:6px;">We say</div>
+      <div class="vcell vsay">Out of stock — we'll write to you when there are more.</div>
+    </div>
+    <div>
+      <div class="vtag" style="color:#6E3445; margin-bottom:6px;">We don't</div>
+      <div class="vcell vdont">Sorry! This product is currently unavailable at this time.</div>
+    </div>
+  </div>
+  <div class="vrow">
+    <div><div class="vcell vsay">Added. Your bag has three harps and one cotton pouch.</div></div>
+    <div><div class="vcell vdont">Item successfully added to cart.</div></div>
+  </div>
+
+</div>
+</body>
+</html>

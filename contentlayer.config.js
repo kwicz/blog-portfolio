@@ -64,6 +64,18 @@ export const Project = defineDocumentType(() => ({
     sampleReviews: {
       type: 'json',
     },
+    notes: {
+      type: 'string',
+    },
+    features: {
+      type: 'json',
+    },
+    ribbon: {
+      type: 'string',
+    },
+    tagline: {
+      type: 'string',
+    },
   },
   computedFields,
 }));

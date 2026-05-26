@@ -11,12 +11,14 @@ interface EditorialHeaderProps {
 export function EditorialHeader({ title, eyebrow, seeMoreHref, seeMoreLabel = 'See all' }: EditorialHeaderProps) {
   return (
     <div className="ed-head">
-      {eyebrow && <p className="ed-eyebrow">{eyebrow}</p>}
-      <h2>{title}</h2>
+      <div>
+        {eyebrow && <p className="ed-eyebrow">{eyebrow}</p>}
+        <h2>{title}</h2>
+      </div>
       {seeMoreHref && (
-        <Link href={seeMoreHref} className="btn btn-ghost" style={{ fontSize: 14 }}>
+        <Link href={seeMoreHref} className="btn btn-outline-caps">
           {seeMoreLabel}
-          <Icon name="arrow-right" size={15} strokeWidth={2} />
+          <Icon name="arrow-up-right" size={13} strokeWidth={2} />
         </Link>
       )}
     </div>

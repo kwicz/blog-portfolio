@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_preview.css">
+
+</head>
+<body>
+<div class="card">
+
+  <div class="lbl">Pill badges · lower-volume state</div>
+  <style>
+    .badge { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; font-size:12px; font-weight:600; letter-spacing:0.04em; }
+    .badge-instock { background: var(--sage-100); color: #3D5240; }
+    .badge-low { background: #F2DDE3; color: #6E3445; }
+    .badge-pre { background: var(--lilac-100); color: #5C3D6E; }
+    .badge-shipped { background: #ECE9F2; color: #3A3344; }
+  </style>
+  <div class="row" style="gap:10px;">
+    <span class="badge badge-instock">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+      In stock
+    </span>
+    <span class="badge badge-low">Low stock · 3 left</span>
+    <span class="badge badge-pre">Pre-order</span>
+    <span class="badge badge-shipped">Shipped</span>
+  </div>
+
+</div>
+</body>
+</html>
