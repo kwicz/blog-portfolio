@@ -2,6 +2,10 @@
 
 Personal blog and portfolio site for Katy Solovewicz — built with Next.js 13 App Router, Contentlayer, and Tailwind CSS.
 
+## Deployment
+
+Hosted on Vercel, connected to `kwicz/blog-portfolio` on GitHub. Every push to `main` triggers an automatic deploy. No manual steps needed — commit and push, and it's live.
+
 ## Dev Commands
 
 ```bash
