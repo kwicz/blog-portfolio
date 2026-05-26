@@ -1,4 +1,6 @@
-const BRANDS = [
+interface Brand { name: string; file: string; precolored?: boolean }
+
+const BRANDS: Brand[] = [
   { name: 'Danner',              file: 'danner.png' },
   { name: 'Fully',               file: 'fully.png' },
   { name: 'GLDN',                file: 'gldn.png' },
@@ -9,7 +11,7 @@ const BRANDS = [
   { name: 'Pirate Ship',         file: 'pirate_ship.png' },
   { name: 'Primally Pure',       file: 'primally_pure.png' },
   { name: 'ShirtSpace',          file: 'shirtspace.png' },
-  { name: 'SVS Sound',           file: 'svs_sound.png' },
+  { name: 'SVS Sound',           file: 'svs_sound.png',  precolored: true },
   { name: 'World Vision',        file: 'world_vision.png' },
 ];
 
@@ -24,7 +26,7 @@ export function BrandBanner() {
       <div className="brand-track-wrap">
         <div className="brand-track">
           {[...BRANDS, ...BRANDS].map((brand, i) => (
-            <div key={i} className="brand-logo" aria-hidden={i >= BRANDS.length}>
+            <div key={i} className={`brand-logo${brand.precolored ? ' brand-logo--precolored' : ''}`} aria-hidden={i >= BRANDS.length}>
               <img
                 src={`/logos/${brand.file}`}
                 alt={brand.name}
