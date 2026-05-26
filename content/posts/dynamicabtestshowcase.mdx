@@ -5,40 +5,46 @@ date: '2025-02-21'
 published: true
 ---
 
-A/B testing is essential for making data-driven decisions, but keeping track of all the experiments, variations, and results can quickly become a headache. I wanted a way to document past tests, easily toggle between the control and variant experiences, and showcase how different changes impacted performance—all in one place.
+I run a lot of A/B tests. And for a while, my documentation for past tests was scattered across notes, screenshots, and random repo files. I wanted something cleaner, so I built a showcase app where I could document tests, toggle between control and variant experiences, and see how each change played out.
 
-At first, the plan seemed simple: a Next.js app where I could store test details and dynamically render the corresponding components. But, as with most projects, things got more complicated. Between battling state management issues, handling dynamic code injection, and making the test pages flexible enough to work with multiple experiments, there were some interesting challenges along the way.
+The idea seemed pretty simple. It got complicated fast, which honestly made it more interesting.
 
-The Vision
-I wanted to build a system that could support any A/B test without modifying the core structure of the site. The test data needed to live in a single place, where I could define details like the control component, the variant, a description of the methodology, and even a function that would dynamically apply the test’s variant.
+## What I wanted to build
 
-The real challenge was making the test pages agnostic—meaning I didn’t want to rewrite or hardcode anything every time a new test was added. Instead, the test details page needed to pull from a central data file and adjust itself accordingly.
+The goal was a system that could support any A/B test without touching the core app structure every time I added a new one. Test details (the control, the variant, the methodology, the results) would live in a central data file. The test detail page would pull from that file and render itself accordingly.
 
-First Hurdle: Managing State
-At first, I had a wrapper component that handled toggling between the control and the variant. The problem? This led to an extra toggle button being rendered. It took a while to realize that the test page itself was already managing state and didn’t need an additional layer of complexity. Removing the wrapper component cleaned things up immediately.
+No hardcoded per-test pages. Just one flexible template that adjusted based on whatever test you were looking at.
 
-But that wasn’t the end of it.
+## First hurdle: state management
 
-Another issue appeared when I realized that React’s reactivity didn’t work well with the way I was trying to inject test-specific code dynamically. The variant should have applied instantly when the toggle button was clicked, but nothing happened. The solution required a different approach to how and when the build code was executed.
+My first version had a wrapper component handling the toggle between control and variant. That caused the toggle button to render twice, once in the wrapper and once in the test page itself, which was already managing its own state.
 
-Second Hurdle: Injecting Build Code
-One of the more unique challenges in this project was executing the variant logic only when needed. Each test had a function that would manipulate the page when triggered. However, Next.js doesn’t like dynamically modifying the DOM like this, and it was easy to run into issues where the build code wouldn’t execute properly—or worse, it would run too soon and break the page.
+Once I realized the test page didn't need the wrapper at all, removing it cleaned everything up immediately. Sometimes the fix really is just deleting code.
 
-The fix? Making sure the variant was only applied when explicitly triggered. This required stepping outside the React rendering cycle and ensuring that the function executed in a way that wouldn’t cause unexpected behavior.
+## Second hurdle: injecting build code
 
-Third Hurdle: ESLint and Vercel
-As if debugging the toggle function wasn’t enough, my linter hated the build code. Since the function contained a self-invoking script that dynamically altered the page, TypeScript flagged it with all sorts of warnings about implicit types. Vercel, too, wasn’t happy about deploying a file that wasn’t structured the way it expected.
+Each test has a function that manipulates the page when the variant gets triggered. The tricky part: Next.js doesn't love dynamic DOM manipulation, and it was easy to end up in a situation where the build code fired too early, or didn't fire at all when the toggle was clicked.
 
-The quick fix was to silence the linter for that file and adjust some settings to ensure that Vercel wouldn’t block the deployment. It wasn’t the most elegant solution, but sometimes, getting things working takes priority over getting them perfect.
+The fix was making sure the variant code only ran when explicitly triggered, and stepping outside the React rendering cycle to do it. It's not the most elegant solution, but it worked reliably once I got the timing right.
 
-What I Learned
-This project reinforced the importance of keeping things simple and avoiding unnecessary complexity. A few key takeaways:
+## Third hurdle: ESLint and Vercel
 
-Make test pages agnostic – Keeping test details in a separate data file made it much easier to manage.
-Be careful with state management – The extra wrapper file was redundant and caused more issues than it solved.
-Dynamically injecting code can be tricky – Next.js has opinions about modifying the DOM, and working around them requires some creativity.
-Sometimes, the linter needs to be ignored – Not everything fits into TypeScript’s ideal model, and that’s okay.
-What’s Next
-Now that the A/B Test Showcase is up and running, the next steps are integrating tracking tools like Google Tag Manager, creating a dashboard to visualize results, and expanding support for multiple test variants at once.
+The build functions are self-invoking scripts that modify the DOM directly, which TypeScript really doesn't like. It flagged pretty much everything with implicit type errors. Vercel wasn't happy either.
 
-This project turned out to be a fun mix of frontend flexibility, state management, and handling Next.js quirks—all while solving a real problem. If you’re thinking about building something similar, hopefully, this saves you a few headaches along the way.
+Honestly, I just silenced the linter for that file. Getting it working was more important than getting it perfect, and I can revisit it later if it actually becomes a problem. So far it hasn't.
+
+## What I took away from it
+
+A few things stuck with me after this one.
+
+Keeping test data in a separate file is genuinely worth the upfront effort. The test detail page is agnostic now. Adding a new test is just adding an object to the data file.
+
+State management gets messy fast when multiple layers are trying to manage the same thing. The wrapper component wasn't doing anything the test page wasn't already doing, and it was actively causing problems. Removing it was the right call.
+
+And Next.js has opinions about the DOM. If you need to manipulate it directly (which A/B test code injection kind of requires), you have to be intentional about when and how you do it.
+
+## What's next
+
+I want to integrate Google Tag Manager so I can track actual results inside the app, and build a dashboard to visualize performance across tests. Right now it's mainly a documentation and demo tool, which is useful, but the data layer would make it a lot more interesting.
+
+If you're thinking about building something similar, hopefully this saves you a few headaches on the weird parts.

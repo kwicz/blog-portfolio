@@ -5,32 +5,37 @@ date: '2025-02-21'
 published: true
 ---
 
-Deploying a containerized ASP.NET Core MVC app with a MySQL database can seem daunting, but Fly.io makes it surprisingly simple. If you've already launched your app and need to overwrite your existing deployment, follow this guide to smoothly redeploy your updated application.
+This is mostly a reference for myself (hi, future me) but hopefully useful for anyone who's already deployed an ASP.NET Core MVC app on Fly.io and just needs to push updates. The Fly.io docs are good, but I always want the shortest possible version.
 
-## Install Fly.io CLI
+Here's the workflow.
+
+## Install the CLI
+
+If you don't have flyctl yet:
 
 ```sh-session
 curl -L https://fly.io/install.sh | sh
 ```
 
-## Authenticate with Fly.io
+## Authenticate
 
 ```sh-session
 flyctl auth login
 ```
 
-## Deploy the Updated App
+## Deploy
 
-Ensure you're in the correct project directory where `fly.toml` is located:
+Make sure you're in the project directory where `fly.toml` lives, then:
 
 ```sh-session
-cd /Users/katysolovewicz/Projects/epicodus/c#/CreatureTeacher.Solution
 flyctl deploy
 ```
 
-## Apply Database Migrations (If Needed)
+That's usually it. Fly.io handles the containerization and the rest.
 
-If your database schema has changed, apply migrations to ensure MySQL is up to date.
+## Apply database migrations (if needed)
+
+If the schema changed, SSH in and run migrations before the new code starts serving requests:
 
 ```sh-session
 flyctl ssh console -a <your-app-name>
@@ -38,12 +43,14 @@ dotnet ef database update
 exit
 ```
 
-## Restart the App (If Needed)
+## Restart the app (if needed)
 
 ```sh-session
 flyctl apps restart <your-app-name>
 ```
 
-Fly.io provides a streamlined way to deploy and update **ASP.NET Core MVC** applications with **MySQL**, making container-based hosting simple and scalable. By following this workflow, you can ensure a **seamless redeployment** whenever your app needs updates.
+I've had to do this a couple times when the deploy succeeded but the app didn't pick up the changes right away. A little annoying, but fixable.
 
-Happy coding! 🚀
+---
+
+Fly.io is pretty nice for this kind of setup, honestly. The first deployment takes some doing, but redeployments are fast once everything's configured.

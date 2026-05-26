@@ -5,36 +5,26 @@ date: '2025-02-12'
 published: true
 ---
 
-Building an interactive **Flyout Menu** that works seamlessly within a **Bootstrap-style rotating carousel** sounds simple—until you realize the carousel moves automatically, elements get replaced dynamically, and managing a **single, persistent Flyout Menu** across slides becomes a challenge.
+This one was fun in a "why is it doing that" kind of way. I was building a flyout menu that needed to live inside a Bootstrap-style rotating carousel. Users would click a link in a slide, a full-width flyout would open, and it would stay open even as the carousel rotated underneath it.
 
-Recently, I tackled this issue and faced everything from **vanishing menus**, **state management struggles**, and **disappearing overlays**—all while ensuring the Flyout Menu remains accessible and user-friendly.
+Simple concept, several non-obvious problems.
 
-This post breaks down **the debugging journey**, **core issues encountered**, and the **final optimized solution**.
+## What I was trying to do
 
-## **🛑 The Initial Problem**
+The requirements were clear enough:
 
-The goal was to integrate a **Flyout Menu** into a **carousel**, where users could click a link inside a slide to open a **persistent, full-width menu**. The Flyout Menu should:
+- One flyout in the DOM (not one per slide)
+- Opens when any link in the carousel is clicked
+- Updates dynamically based on which link was clicked
+- Stays open if the carousel rotates while the menu is open
 
-- **Exist only once in the DOM** (not inside each slide).
-- **Appear when any link in the carousel is clicked**.
-- **Update dynamically based on the selected link**.
-- **Stay open even when the carousel rotates**.
+My first approach was to put the flyout inside each carousel slide. That was wrong.
 
-At first, I attempted to **attach the Flyout Menu inside each carousel slide (`<li>` elements)**, which caused several problems:
+## Problem 1: the flyout disappeared when the carousel rotated
 
-✅ Clicking a link opened the Flyout.  
-❌ But when the carousel rotated, the Flyout **disappeared**.  
-❌ Each slide had **its own menu instance**, leading to duplicate elements.
+When the flyout lived inside a slide, it got replaced every time the carousel moved. Makes sense in retrospect, but it took a few confused minutes to figure out what was actually happening.
 
-I needed **one persistent Flyout Menu** that dynamically updated without being tied to a specific slide.
-
----
-
-## **🛠 Debugging the Issues**
-
-### **1️⃣ The Flyout Menu Disappeared When the Carousel Rotated**
-
-Since the Flyout Menu was **inside a slide**, it was being replaced when the carousel rotated. The fix? **Move the Flyout outside the carousel**:
+The fix was moving the flyout outside the carousel entirely, injecting it right after the carousel container instead of inside any of the slides:
 
 ```javascript
 const renderFlyout = () => {
@@ -64,3 +54,54 @@ const renderFlyout = () => {
   }
 };
 ```
+
+This kept the flyout in the DOM independent of whatever the carousel was doing.
+
+## Problem 2: state wasn't updating after the carousel rotated
+
+After fixing the disappearing flyout, I ran into a different issue. If you opened the flyout from slide 1, then the carousel rotated to slide 2, clicking a link on slide 2 would open the flyout but it would still show the content from slide 1.
+
+The problem was that event listeners were attached once, to the slides that existed at initialization. When the carousel rotated and re-rendered slides, the new elements didn't have listeners attached.
+
+The fix was switching to event delegation. One listener on the carousel container, checking whether a clicked element was a flyout link:
+
+```javascript
+document.querySelector('.carousel-inner').addEventListener('click', (e) => {
+  const link = e.target.closest('[data-flyout-index]');
+  if (link) {
+    e.preventDefault();
+    const index = parseInt(link.dataset.flyoutIndex, 10);
+    openFlyout(index);
+  }
+});
+```
+
+One listener, always current, doesn't care which slide is active.
+
+## Problem 3: the overlay wasn't dismissing properly
+
+The flyout had a background overlay that closed the menu when clicked. It worked fine if you opened the flyout and clicked the overlay right away. But if the carousel rotated while the flyout was open, clicking the overlay would sometimes close the menu visually but leave the overlay itself in place, blocking the whole carousel.
+
+The issue was that the overlay's click handler was getting duplicated every time `renderFlyout` ran after a rotation. Multiple handlers, multiple conflicting "close" calls, state getting out of sync.
+
+The fix was making sure the overlay handler only got attached once:
+
+```javascript
+const attachOverlayHandler = () => {
+  const overlay = document.querySelector('#tg-overlay');
+  if (overlay && !overlay.dataset.handlerAttached) {
+    overlay.addEventListener('click', closeFlyout);
+    overlay.dataset.handlerAttached = 'true';
+  }
+};
+```
+
+A little blunt, but it works.
+
+## What I took away from this
+
+All three of these problems had the same root cause: I was thinking about the flyout as something that lived inside the carousel, when it really needed to be independent of it. Once I moved it outside and stopped treating it as part of any slide, a lot of the edge cases disappeared.
+
+Event delegation is also just worth using by default when you're working with dynamically rendered content. Attaching listeners directly to elements that might get replaced is asking for this kind of bug.
+
+Anyway. The flyout stays open, updates correctly, and the overlay closes when it's supposed to. Good enough.

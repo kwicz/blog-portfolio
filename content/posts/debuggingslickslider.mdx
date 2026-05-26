@@ -5,45 +5,42 @@ date: '2025-01-21'
 published: true
 ---
 
-Debugging can sometimes feel like an epic quest, and recently, I embarked on one that had me chasing ghost slides in **Slick Slider**. Everything worked perfectly on **desktop and mobile emulators**, but on a real **mobile device**, removed images still left blank slides in the carousel. Here's how I cracked the case and fixed it for good.
+Here's a fun one. I was removing lifestyle images from a product page slider (Slick Slider), and on desktop it worked great. On mobile emulators, also great. On an actual physical device, the images disappeared but the slides stayed, just sitting there empty.
 
-## The Problem: Ghost Slides in Slick Slider
+Ghost slides.
 
-The goal was simple: **remove all lifestyle images** (identified by a regex pattern) from a product page slider and reinitialize Slick so that it properly adjusted.
+## What was supposed to happen
 
-- **On desktop & emulators** → Everything worked as expected.
-- **On real mobile devices** → The images disappeared, but the slides remained, **holding empty space**.
+The goal was pretty simple: find images matching a lifestyle pattern (like `LS-1234.jpg`), remove them from the carousel, and reinitialize Slick so the layout adjusted. A few lines of code.
 
-The code was doing this:
+The code was doing four things:
 
-1. **Finding all images matching a pattern** like `LS-1234.jpg`.
-2. **Removing them from the DOM**.
-3. **Calling `slickRemove`** on matching slides.
-4. **Destroying and reinitializing Slick Slider**.
+1. Finding images matching the pattern
+2. Removing them from the DOM
+3. Calling `slickRemove` on the matching slides
+4. Destroying and reinitializing Slick
 
-Yet, on mobile, **Slick refused to let go** of the ghost slides.
+On desktop and emulators it worked. On a real phone, I got hollow slides with nothing in them.
 
-## Debugging the Issue
+## What didn't work
 
-After inspecting `.slick-track`, I realized:
+I tried a few things before landing on the fix.
 
-- The slides still **existed in the DOM**, but were empty.
-- `slickRemove` wasn’t **fully updating Slick’s internal state**.
-- Even after `unslick()`, reinitializing **didn't remove** the ghost slides.
+Just calling `.remove()` on the `<img>` elements: the images disappeared, but Slick's internal state still thought those slides existed.
 
-### What Didn’t Work
+Using `.slickRemove(index)`: worked sometimes on mobile, not reliably.
 
-❌ **Just using `.remove()`** – The elements were gone, but Slick still thought they were there.  
-❌ **Using `.slickRemove(index)`** – This worked _sometimes_, but wasn’t reliable on mobile.  
-❌ **Calling `.slick(‘setPosition’)`** – Didn’t clear out the extra slides.
+Calling `.slick('setPosition')`: did nothing about the extra slides.
 
-## The Fix: A Multi-Step Cleanup
+The confusing part was that the DOM inspector looked fine. Slick just maintains its own internal slide count separately, and it wasn't letting go of the old state.
 
-To **fully remove** unwanted slides and **ensure Slick resets correctly**, I used a **three-step process**:
+## What actually worked
 
-### 1️⃣ Remove Images AND Their Wrappers
+The fix was a three-step cleanup.
 
-Instead of only removing `<img>`, I targeted `.slick-slide` elements and ensured they were **properly detached**.
+### 1. Remove images and their wrappers
+
+Instead of targeting just the `<img>`, I went up to the parent `.slick-slide` and removed the whole wrapper:
 
 ```js
 const removeLifestyleImages = async (container) => {
@@ -61,9 +58,9 @@ const removeLifestyleImages = async (container) => {
 };
 ```
 
-### 2️⃣ Manually Remove Any Remaining Empty Slides
+### 2. Clean up any remaining empty slides
 
-After `slickRemove` failed to remove some slides, I **double-checked** for orphaned `.slick-slide` elements and deleted them manually.
+Even after that, sometimes an orphaned `.slick-slide` would hang around with no content. Added a pass to catch those:
 
 ```js
 const manuallyRemoveExtraSlides = () => {
@@ -75,9 +72,9 @@ const manuallyRemoveExtraSlides = () => {
 };
 ```
 
-### 3️⃣ Destroy and Fully Reinitialize Slick
+### 3. Destroy and reinitialize with a delay
 
-To **force a proper refresh**, I ensured Slick was completely **destroyed and rebuilt** with a delay.
+Slick needs a moment. If you reinitialize immediately after modifying the DOM, it doesn't always catch up. A 300ms delay before reinitializing fixed the remaining weirdness:
 
 ```js
 const resetSlick = () => {
@@ -99,13 +96,7 @@ const resetSlick = () => {
 };
 ```
 
-## Final Working Solution
-
-The full fix now follows these steps:
-
-1. **Remove all images & wrappers.**
-2. **Ensure extra `.slick-slide` elements are cleaned up.**
-3. **Destroy and reinitialize Slick after modifications.**
+### Putting it all together
 
 ```js
 const hideLifestyleImages = async () => {
@@ -118,10 +109,10 @@ const hideLifestyleImages = async () => {
 hideLifestyleImages();
 ```
 
-## Lessons Learned
+## What I took away from this
 
-🔹 **Desktop ≠ Mobile.** Always test on real devices—emulators don’t always mimic behavior perfectly.  
-🔹 **Slick Slider needs extra nudging** when dynamically modifying its slides.  
-🔹 **Always re-check the DOM** after removing elements—what looks gone may still be lurking in `.slick-track`.
+Always test on a real device. Emulators are close, but mobile Chrome behaves differently enough from desktop that you can have a feature that looks done and isn't. Literal edge case, lol.
 
-This debugging journey was a perfect example of why **real-world testing matters**. Now, no more ghost slides haunting my product pages! 👻
+Also: Slick tracks its own state separately from the DOM. If you modify slides manually, you kind of have to brute-force it into updating by destroying and rebuilding the whole thing. A little annoying, but reliable once you commit to it.
+
+No more ghost slides.
