@@ -16,6 +16,7 @@ type Props = {
     reviewCount?: number;
     notes?: string;
     features?: string[];
+    body?: { raw: string };
   };
 };
 
@@ -30,6 +31,10 @@ function Stars({ value }: { value: number }) {
 }
 
 export function Header({ project }: Props) {
+  const backgroundParagraphs = project.body?.raw
+    ? project.body.raw.trim().split(/\n\n+/).filter(Boolean)
+    : [];
+
   const accordionItems = [
     ...(project.tags && project.tags.length > 0 ? [{
       key: 'specs',
@@ -54,6 +59,19 @@ export function Header({ project }: Props) {
             </li>
           ))}
         </ul>
+      ),
+    }] : []),
+    ...(backgroundParagraphs.length > 0 ? [{
+      key: 'background',
+      label: 'Background',
+      content: (
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: 12 }}>
+          {backgroundParagraphs.map((para, i) => (
+            <p key={i} style={{ margin: 0, fontSize: 14, lineHeight: '22px', color: 'var(--ink-700)' }}>
+              {para}
+            </p>
+          ))}
+        </div>
       ),
     }] : []),
   ];
@@ -97,6 +115,13 @@ export function Header({ project }: Props) {
                   <img src="/illustrations/harp-line.svg" alt="" />
                 </div>
               </div>
+            )}
+            {project.notes && (
+              <blockquote className="pdp-katy">
+                <span className="pdp-quote-mark">"</span>
+                {project.notes}
+                <span className="pdp-quote-mark">"</span>
+              </blockquote>
             )}
           </div>
 
@@ -144,20 +169,6 @@ export function Header({ project }: Props) {
                 </a>
               )}
             </div>
-
-            {project.notes && (
-              <div className="pdp-section">
-                <h3>
-                  <Icon name="note" size={18} strokeWidth={1.75} style={{ color: 'var(--color-lavender)' }} />
-                  Katy's notes
-                </h3>
-                <p className="pdp-katy">
-                  <span className="pdp-quote-mark">"</span>
-                  {project.notes}
-                  <span className="pdp-quote-mark">"</span>
-                </p>
-              </div>
-            )}
 
             {accordionItems.length > 0 && (
               <PdpAccordion items={accordionItems} />

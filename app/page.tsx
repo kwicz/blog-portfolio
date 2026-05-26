@@ -33,7 +33,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ padding: '0 0 64px' }}>
+      <section style={{ padding: '0 0 40px' }}>
         <div className="container">
           <div className="trust-strip">
             {[
@@ -53,7 +53,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ padding: '64px 0 0' }}>
+      <section style={{ padding: '40px 0 0' }}>
         <div className="container">
           <EditorialHeader
             eyebrow="Categories"

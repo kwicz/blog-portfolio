@@ -10,6 +10,7 @@ interface CarouselProject {
   tagline?: string;
   category?: string;
   image?: string;
+  date?: string;
   rating?: number;
   reviewCount?: number;
   ribbon?: string;
@@ -36,7 +37,7 @@ export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
   }, []);
 
   return (
-    <section style={{ padding: '72px 0' }}>
+    <section style={{ padding: '48px 0' }}>
       <div className="container">
         <div className="ed-head" style={{ marginBottom: 28 }}>
           <div>
@@ -94,8 +95,8 @@ export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
                 tagline={p.tagline}
                 category={p.category}
                 image={p.image}
+                date={p.date}
                 rating={p.rating}
-                reviewCount={p.reviewCount}
                 ribbon={p.ribbon}
               />
             ))}

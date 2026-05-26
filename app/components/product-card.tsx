@@ -11,11 +11,17 @@ interface ProductCardProps {
   category?: string;
   ribbon?: string;
   url?: string;
+  date?: string;
   rating?: number;
   reviewCount?: number;
 }
 
-export function ProductCard({ slug, title, tagline, category, image, ribbon, rating, reviewCount }: ProductCardProps) {
+function formatCardDate(date: string): string {
+  const d = new Date(date);
+  return `${d.getMonth() + 1}/${String(d.getFullYear()).slice(-2)}`;
+}
+
+export function ProductCard({ slug, title, tagline, category, image, ribbon, date, rating }: ProductCardProps) {
   return (
     <article className="pcard">
       <div className="pcard-img">
@@ -35,11 +41,6 @@ export function ProductCard({ slug, title, tagline, category, image, ribbon, rat
             </div>
           )}
         </Link>
-        <div className="pcard-quickadd">
-          <Link href={`/projects/${slug}`} className="pcard-quickadd-btn">
-            View project <Icon name="arrow-up-right" size={14} strokeWidth={2} />
-          </Link>
-        </div>
       </div>
       <div className="pcard-meta">
         {category && <p className="pcard-category">{category}</p>}
@@ -47,14 +48,15 @@ export function ProductCard({ slug, title, tagline, category, image, ribbon, rat
           <Link href={`/projects/${slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>{title}</Link>
         </p>
         {tagline && <p className="pcard-tagline">{tagline}</p>}
-        {(rating !== undefined && reviewCount !== undefined) && (
-          <div className="pcard-price">
+        <div className="pcard-price">
+          {date && <span className="pcard-date">{formatCardDate(date)}</span>}
+          {rating !== undefined && (
             <span className="pcard-rating">
               <Icon name="star" size={12} strokeWidth={2} />
-              {rating.toFixed(1)} ({reviewCount})
+              {rating.toFixed(1)}
             </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </article>
   );

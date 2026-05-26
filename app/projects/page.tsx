@@ -103,7 +103,7 @@ export default async function ProjectsPage({
 
       {/* ── Content zone ───────────────────────────────────── */}
       <div style={{ paddingBottom: 80 }}>
-        <div className="container" style={{ paddingTop: 32 }}>
+        <div className="container" style={{ paddingTop: 64 }}>
           {filtered.length === 0 ? (
             <div className="empty-state">
               <Icon name="search" size={32} style={{ margin: '0 auto 16px', display: 'block', opacity: 0.4 }} />
@@ -119,8 +119,8 @@ export default async function ProjectsPage({
                     tagline={project.tagline}
                     category={project.category}
                     image={project.image}
+                    date={project.date}
                     rating={project.rating}
-                    reviewCount={project.reviewCount}
                     ribbon={project.ribbon}
                   />
                   {idx === 3 && (
