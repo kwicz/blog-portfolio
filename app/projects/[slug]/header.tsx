@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Icon } from '@/app/components/icons';
 import { PdpAccordion } from '@/app/components/pdp-accordion';
+import { Gallery } from './gallery';
 
 type Props = {
   project: {
@@ -11,6 +11,7 @@ type Props = {
     repository?: string;
     category?: string;
     image?: string;
+    images?: string[];
     tags?: string[];
     rating?: number;
     reviewCount?: number;
@@ -39,6 +40,7 @@ export function Header({ project }: Props) {
     ...(project.tags && project.tags.length > 0 ? [{
       key: 'specs',
       label: 'Specs',
+      defaultOpen: true,
       content: (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {project.tags.map(tag => (
@@ -97,33 +99,11 @@ export function Header({ project }: Props) {
 
         <div className="pdp">
           {/* ── Gallery ───────────────────────── */}
-          <div className="pdp-gallery">
-            {project.image ? (
-              <div className="pdp-main-img">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  priority
-                  unoptimized
-                />
-              </div>
-            ) : (
-              <div className="pdp-main-img">
-                <div className="pdp-main-img-placeholder">
-                  <img src="/illustrations/harp-line.svg" alt="" />
-                </div>
-              </div>
-            )}
-            {project.notes && (
-              <blockquote className="pdp-katy">
-                <span className="pdp-quote-mark">"</span>
-                {project.notes}
-                <span className="pdp-quote-mark">"</span>
-              </blockquote>
-            )}
-          </div>
+          <Gallery
+            title={project.title}
+            images={project.images?.length ? project.images : (project.image ? [project.image] : [])}
+            notes={project.notes}
+          />
 
           {/* ── Info ──────────────────────────── */}
           <div className="pdp-info">

@@ -6,10 +6,13 @@ interface AccordionItem {
   key: string;
   label: string;
   content: React.ReactNode;
+  defaultOpen?: boolean;
 }
 
 export function PdpAccordion({ items }: { items: AccordionItem[] }) {
-  const [open, setOpen] = useState<Set<string>>(new Set(items.map(i => i.key)));
+  const [open, setOpen] = useState<Set<string>>(
+    new Set(items.filter(i => i.defaultOpen === true).map(i => i.key))
+  );
 
   const toggle = (key: string) => {
     setOpen(prev => {

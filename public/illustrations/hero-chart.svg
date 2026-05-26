@@ -18,7 +18,7 @@
   <!-- Bar 3 -->
   <rect x="116" y="88"  width="26" height="80" rx="4" fill="#C8D4C4" stroke="#2A262F" stroke-width="1.75"/>
   <!-- Bar 4 -->
-  <rect x="152" y="63"  width="26" height="105" rx="4" fill="#8AA38C" stroke="#2A262F" stroke-width="1.75"/>
+  <rect x="152" y="63"  width="26" height="105" rx="4" fill="#E26B4C" stroke="#2A262F" stroke-width="1.75"/>
   <!-- Bar 5 -->
   <rect x="188" y="38"  width="26" height="130" rx="4" fill="#8A809E" stroke="#2A262F" stroke-width="1.75"/>
 
@@ -31,5 +31,5 @@
 
   <!-- Up-tick badge -->
   <rect x="24" y="24" width="52" height="22" rx="11" fill="#2A262F"/>
-  <text x="50" y="39" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" fill="white" text-anchor="middle">↑ CVR</text>
+  <text x="50" y="39" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" fill="white" text-anchor="middle">↑ CRO</text>
 </svg>

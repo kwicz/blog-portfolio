@@ -55,6 +55,10 @@ export const Project = defineDocumentType(() => ({
     image: {
       type: 'string',
     },
+    images: {
+      type: 'list',
+      of: { type: 'string' },
+    },
     rating: {
       type: 'number',
     },

@@ -77,7 +77,7 @@ export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
           </div>
         </div>
 
-        <div ref={containerRef} style={{ overflow: 'hidden' }}>
+        <div ref={containerRef} style={{ overflow: 'hidden', paddingTop: 8, marginTop: -8 }}>
           <div
             style={{
               display: 'grid',

@@ -4,6 +4,7 @@ import { Tile } from './components/tile';
 import { EditorialHeader } from './components/editorial-header';
 import { Icon } from './components/icons';
 import { RecentCarousel } from './components/recent-carousel';
+import { BrandBanner } from './components/brand-banner';
 
 const CATEGORY_TILES = [
   { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/category-ecommerce.svg', surface: 'lilac' as const },
@@ -70,6 +71,8 @@ export default function Home() {
       </section>
 
       <RecentCarousel projects={featured} />
+
+      <BrandBanner />
 
       <section style={{ padding: '40px 0 80px' }}>
         <div className="container">

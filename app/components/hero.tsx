@@ -35,7 +35,6 @@ export function Hero({
       </div>
       <div className="hero-art">
         <img src="/illustrations/hero-chart.svg" alt="" aria-hidden="true" />
-        <div className="hero-dot" aria-hidden="true" />
       </div>
     </div>
   );
