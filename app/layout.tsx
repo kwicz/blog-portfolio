@@ -31,7 +31,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  icons: { shortcut: '/favicon.png' },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
 const inter = localFont({
