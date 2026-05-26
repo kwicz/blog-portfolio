@@ -1,9 +1,4 @@
-'use client';
-import { Navigation } from '@/app/components/nav';
-import ToggleButton from '@/app/components/toggleButton';
-import { ArrowLeft, Eye, Github } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
 
 type Props = {
   post: {
@@ -12,70 +7,42 @@ type Props = {
     description: string;
     repository?: string;
   };
-
   views: number;
 };
 
-export const Header: React.FC<Props> = ({ post, views }) => {
-  const ref = useRef<HTMLElement>(null);
-  const [isIntersecting, setIntersecting] = useState(true);
-
-  const links: { label: string; href: string }[] = [];
-  if (post.repository) {
-    links.push({
-      label: 'GitHub',
-      href: `https://github.com/${post.repository}`,
-    });
-  }
-  if (post.url) {
-    links.push({
-      label: 'Website',
-      href: post.url,
-    });
-  }
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setIntersecting(entry.isIntersecting)
-    );
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
+export function Header({ post, views }: Props) {
   return (
-    <header
-      ref={ref}
-      className='relative isolate overflow-hidden bg-ivory dark:bg-slate'
-    >
-      <Navigation />
-      <div className='container mx-auto relative isolate overflow-hidden py-24 border-b border-slate dark:border-ivory sm:py-32'>
-        <div className='mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center'>
-          <div className='mx-auto max-w-2xl lg:mx-0'>
-            <h1 className='text-4xl font-bold tracking-tight text-slate dark:text-ivory sm:text-6xl font-display'>
-              {post.title}
-            </h1>
-            <p className='mt-6 text-lg leading-8 text-slate dark:text-ivory/70'>
-              {post.description}
-            </p>
-          </div>
-          <div className='mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none'>
-            <div className='grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-slate dark:text-ivory sm:grid-cols-2 md:flex lg:gap-x-10'>
-              {links.map((link) => (
-                <Link
-                  target='_blank'
-                  key={link.label}
-                  href={link.href}
-                  className='hover:text-rose dark:hover:text-gold transition-colors duration-300'
-                >
-                  {link.label} <span aria-hidden='true'>&rarr;</span>
-                </Link>
-              ))}
-            </div>
+    <div style={{ paddingTop: 48, paddingBottom: 0 }}>
+      <div className="container">
+        <div className="crumbs" style={{ marginBottom: 28 }}>
+          <Link href="/">Home</Link>
+          <span className="sep">/</span>
+          <Link href="/posts">Journal</Link>
+          <span className="sep">/</span>
+          <span className="current">{post.title}</span>
+        </div>
+
+        <div style={{ maxWidth: 720, marginBottom: 48 }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4.5vw, 48px)', lineHeight: 1.1, marginBottom: 16 }}>
+            {post.title}
+          </h1>
+          <p style={{ color: 'var(--ink-500)', fontSize: 17, lineHeight: 1.6, marginBottom: 24 }}>
+            {post.description}
+          </p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {post.url && (
+              <a href={post.url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ fontSize: 13 }}>
+                Visit site →
+              </a>
+            )}
+            {post.repository && (
+              <a href={`https://github.com/${post.repository}`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ fontSize: 13 }}>
+                GitHub →
+              </a>
+            )}
           </div>
         </div>
       </div>
-    </header>
+    </div>
   );
-};
+}

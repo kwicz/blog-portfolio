@@ -1,7 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
 import { allPosts } from 'contentlayer/generated';
-import { Navigation } from '../components/nav';
 import { Redis } from '@upstash/redis';
 import PostList from './list';
 
@@ -12,27 +10,31 @@ export const revalidate = 60;
 export default async function PostsPage() {
   const views = (
     await redis.mget<number[]>(
-      ...allPosts.map((p) => ['pageviews', 'posts', p.slug].join(':'))
+      ...allPosts.map(p => ['pageviews', 'posts', p.slug].join(':'))
     )
-  ).reduce((acc, v, i) => {
-    acc[allPosts[i].slug] = v ?? 0;
-    return acc;
-  }, {} as Record<string, number>);
+  ).reduce(
+    (acc, v, i) => { acc[allPosts[i].slug] = v ?? 0; return acc; },
+    {} as Record<string, number>
+  );
 
   return (
-    <div className='relative pb-16 bg-ivory text-slate dark:bg-slate dark:text-ivory transition-colors duration-300'>
-      <Navigation />
-      <div className='px-6 pt-20 mx-auto max-w-7xl lg:px-8 md:pt-24 lg:pt-32'>
-        <div className='mx-auto lg:mx-0'>
-          <h2 className='text-3xl font-bold tracking-tight text-slate dark:text-ivory sm:text-4xl'>
-            Blog
-          </h2>
-          <p className='mt-4 text-slate-600 dark:text-slate-300 mb-4'>
-            A digital record of what I've been working on.
-          </p>
+    <div style={{ paddingTop: 48, paddingBottom: 80 }}>
+      <div className="container">
+        <div className="crumbs" style={{ marginBottom: 28 }}>
+          <Link href="/">Home</Link>
+          <span className="sep">/</span>
+          <span className="current">Journal</span>
         </div>
 
-        <div className='w-full h-px bg-slate dark:bg-ivory mb-4' />
+        <div style={{ maxWidth: 560, marginBottom: 48 }}>
+          <p className="hero-eyebrow" style={{ marginBottom: 8 }}>Writing</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 5vw, 52px)', lineHeight: 1.1, marginBottom: 16 }}>
+            Journal
+          </h1>
+          <p style={{ color: 'var(--ink-500)', fontSize: 16 }}>
+            A record of what I've been thinking, building, and learning.
+          </p>
+        </div>
 
         <PostList posts={allPosts} views={views} />
       </div>

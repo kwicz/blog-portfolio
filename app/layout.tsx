@@ -1,26 +1,22 @@
 import '../global.css';
 import localFont from 'next/font/local';
+import { Fraunces, Caveat } from 'next/font/google';
 import { Metadata } from 'next';
 import GoogleAnalytics from './components/analytics';
+import { StoreShell } from './components/store-shell';
 
 export const metadata: Metadata = {
   title: {
-    default: 'K Wicz',
+    default: 'Katy Solovewicz',
     template: '%s | k.solovewi.cz',
   },
-  description: 'Frontent Engineer and Certified Basic Problem Solver',
+  description: 'Frontend engineer & designer based in New York.',
   openGraph: {
-    title: 'K Wicz',
-    description: 'Frontent Engineer and Certified Basic Problem Solver',
+    title: 'Katy Solovewicz',
+    description: 'Frontend engineer & designer based in New York.',
     url: 'https://k.solovewi.cz',
     siteName: 'k.solovewi.cz',
-    images: [
-      {
-        url: '/favicon.png',
-        width: 1920,
-        height: 1080,
-      },
-    ],
+    images: [{ url: '/favicon.png', width: 1920, height: 1080 }],
     locale: 'en-US',
     type: 'website',
   },
@@ -35,10 +31,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    shortcut: '/favicon.png',
-  },
+  icons: { shortcut: '/favicon.png' },
 };
+
 const inter = localFont({
   src: [
     { path: '../public/fonts/Inter-Regular.woff2', weight: '400' },
@@ -47,62 +42,31 @@ const inter = localFont({
   variable: '--font-inter',
   display: 'swap',
 });
-const calSans = localFont({
-  src: '../public/fonts/CalSans-SemiBold.ttf',
-  variable: '--font-calsans',
-});
-const poppins = localFont({
-  src: [
-    { path: '../public/fonts/Poppins-Regular.woff2', weight: '400' },
-    { path: '../public/fonts/Poppins-SemiBold.woff2', weight: '600' },
-    { path: '../public/fonts/Poppins-Bold.woff2', weight: '700' },
-  ],
-  variable: '--font-poppins',
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
   display: 'swap',
+  axes: ['SOFT', 'WONK', 'opsz'],
 });
-const raleway = localFont({
-  src: [
-    { path: '../public/fonts/Raleway-Regular.woff2', weight: '400' },
-    { path: '../public/fonts/Raleway-SemiBold.woff2', weight: '600' },
-    { path: '../public/fonts/Raleway-Bold.woff2', weight: '700' },
-  ],
-  variable: '--font-raleway',
-  display: 'swap',
-});
-const openSans = localFont({
-  src: [
-    { path: '../public/fonts/OpenSans-Regular.woff2', weight: '400' },
-    { path: '../public/fonts/OpenSans-SemiBold.woff2', weight: '600' },
-    { path: '../public/fonts/OpenSans-Bold.woff2', weight: '700' },
-  ],
-  variable: '--font-openSans',
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-caveat',
   display: 'swap',
 });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang='en'
-      className={[
-        inter.variable,
-        poppins.variable,
-        raleway.variable,
-        openSans.variable,
-      ].join(' ')}
+      lang="en"
+      className={[inter.variable, fraunces.variable, caveat.variable].join(' ')}
     >
       <head>
         <GoogleAnalytics />
       </head>
-      <body
-        className={`bg-black ${
-          process.env.NODE_ENV === 'development' ? 'debug-screens' : undefined
-        }`}
-      >
-        {children}
+      <body>
+        <StoreShell>{children}</StoreShell>
       </body>
     </html>
   );

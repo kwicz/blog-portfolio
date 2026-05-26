@@ -1,0 +1,122 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'class',
+  content: [
+    './app/**/*.{js,ts,jsx,tsx}',
+    './mdx-components.tsx',
+    'content/**/*.mdx',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        ivory: '#FAF3E0',
+        slate: '#2B2D42',
+        rose: '#B56D6F',
+        gold: '#A6763E',
+        sage: '#5A7D5A',
+        ocean: '#376995',
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          },
+        },
+        quoteless: {
+          css: {
+            'blockquote p:first-of-type::before': { content: 'none' },
+            'blockquote p:first-of-type::after': { content: 'none' },
+          },
+        },
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+        display: ['var(--font-calsans)'],
+        sans: ['Open Sans', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+        accent: ['Raleway', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-radial':
+          'radial-gradient(10% 10% at 10% 10%, var(--tw-gradient-stops))',
+      },
+      animation: {
+        'fade-in': 'fade-in 3s ease-in-out forwards',
+        title: 'title 3s ease-out forwards',
+        'fade-left': 'fade-left 3s ease-in-out forwards',
+        'fade-right': 'fade-right 3s ease-in-out forwards',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': {
+            opacity: '0%',
+          },
+          '75%': {
+            opacity: '0%',
+          },
+          '100%': {
+            opacity: '100%',
+          },
+        },
+        'fade-left': {
+          '0%': {
+            transform: 'translateX(100%)',
+            opacity: '0%',
+          },
+
+          '30%': {
+            transform: 'translateX(0%)',
+            opacity: '100%',
+          },
+          '100%': {
+            opacity: '0%',
+          },
+        },
+        'fade-right': {
+          '0%': {
+            transform: 'translateX(-100%)',
+            opacity: '0%',
+          },
+
+          '30%': {
+            transform: 'translateX(0%)',
+            opacity: '100%',
+          },
+          '100%': {
+            opacity: '0%',
+          },
+        },
+        title: {
+          '0%': {
+            'line-height': '0%',
+            'letter-spacing': '0.25em',
+            opacity: '0',
+          },
+          '25%': {
+            'line-height': '0%',
+            opacity: '0%',
+          },
+          '80%': {
+            opacity: '100%',
+          },
+
+          '100%': {
+            'line-height': '100%',
+            opacity: '100%',
+          },
+        },
+      },
+    },
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('tailwindcss-debug-screens'),
+  ],
+};

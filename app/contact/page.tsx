@@ -1,63 +1,90 @@
 'use client';
 import { Github, Mail, Linkedin } from 'lucide-react';
 import Link from 'next/link';
-import { Navigation } from '../components/nav';
-import { Card } from '../components/card';
 
 const socials = [
   {
-    icon: <Linkedin size={20} />,
+    icon: <Linkedin size={24} />,
     href: 'https://www.linkedin.com/in/kwicz/',
     label: 'LinkedIn',
     handle: 'Katy Solovewicz',
+    surface: 'var(--surface-lilac)',
   },
   {
-    icon: <Mail size={20} />,
+    icon: <Mail size={24} />,
     href: 'mailto:katy@solovewicz.com',
     label: 'Email',
     handle: 'katy@solovewicz.com',
+    surface: 'var(--surface-sage)',
   },
   {
-    icon: <Github size={20} />,
+    icon: <Github size={24} />,
     href: 'https://github.com/kwicz',
-    label: 'Github',
+    label: 'GitHub',
     handle: 'kwicz',
+    surface: 'var(--surface-lavender)',
   },
 ];
 
-export default function Example() {
+export default function ContactPage() {
   return (
-    <div className='relative min-h-screen bg-ivory text-slate dark:bg-slate dark:text-ivory transition-colors duration-300'>
-      <Navigation />
-      <div className='container flex items-center justify-center min-h-screen px-4 mx-auto'>
-        <div className='grid w-full grid-cols-1 gap-8 mx-auto mt-32 sm:mt-0 sm:grid-cols-3 lg:gap-16'>
-          {socials.map((s) => (
-            <Card key={s.href}>
-              <Link
-                href={s.href}
-                target='_blank'
-                className='p-4 relative flex flex-col items-center gap-4 duration-300 group md:gap-8 md:py-24 lg:pb-48 md:p-16'
-              >
-                {/* Icon Circle */}
-                <span
-                  className='relative z-10 flex items-center justify-center w-12 h-12 text-sm duration-300 border rounded-full
-                  text-ivory bg-rose border-rose group-hover:text-slate group-hover:bg-rose/80
-                  dark:text-ivory dark:bg-gold dark:border-gold dark:group-hover:bg-gold dark:group-hover:text-slate'
-                >
-                  {s.icon}
-                </span>
+    <div style={{ paddingTop: 48, paddingBottom: 80 }}>
+      <div className="container">
+        <div className="crumbs" style={{ marginBottom: 28 }}>
+          <Link href="/">Home</Link>
+          <span className="sep">/</span>
+          <span className="current">Contact</span>
+        </div>
 
-                {/* Social Handle & Label */}
-                <div className='z-10 flex flex-col items-center'>
-                  <span className='lg:text-xl font-medium duration-150 xl:text-3xl text-slate-700 group-hover:text-slate-900 dark:text-ivory font-display text-center'>
-                    {s.handle}
-                  </span>
-                  <span className='mt-4 text-sm text-center duration-300 text-slate-500 group-hover:text-slate-700 dark:text-ivory/70 dark:group-hover:text-ivory'>
-                    {s.label}
-                  </span>
+        <div style={{ maxWidth: 560, marginBottom: 48 }}>
+          <p className="hero-eyebrow" style={{ marginBottom: 8 }}>Get in touch</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 5vw, 52px)', lineHeight: 1.1, marginBottom: 16 }}>
+            Say hello.
+          </h1>
+          <p style={{ color: 'var(--ink-500)', fontSize: 16, lineHeight: 1.65 }}>
+            Open to freelance projects, full-time opportunities, and interesting conversations. Drop me a line.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 20 }}>
+          {socials.map(s => (
+            <a
+              key={s.href}
+              href={s.href}
+              target={s.href.startsWith('mailto') ? undefined : '_blank'}
+              rel="noopener noreferrer"
+              style={{
+                background: s.surface,
+                borderRadius: 'var(--radius-xl)',
+                padding: '36px 28px',
+                display: 'flex', flexDirection: 'column', gap: 20,
+                textDecoration: 'none', color: 'var(--ink-900)',
+                transition: 'transform 0.2s var(--ease-bounce), box-shadow 0.2s',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
+                (e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-card-hover)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.transform = '';
+                (e.currentTarget as HTMLElement).style.boxShadow = '';
+              }}
+            >
+              <span style={{
+                width: 48, height: 48, borderRadius: '50%',
+                background: 'rgba(255,255,255,0.6)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'var(--ink-700)',
+              }}>
+                {s.icon}
+              </span>
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, marginBottom: 4 }}>
+                  {s.handle}
                 </div>
-              </Link>
-            </Card>
+                <div style={{ fontSize: 13, color: 'var(--ink-500)' }}>{s.label}</div>
+              </div>
+            </a>
           ))}
         </div>
       </div>

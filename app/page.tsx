@@ -1,70 +1,85 @@
-import Link from 'next/link';
-import React from 'react';
-import Particles from './components/particles';
-import ToggleButton from './components/toggleButton';
+import { allProjects } from '@/.contentlayer/generated';
+import { Hero } from './components/hero';
+import { Tile } from './components/tile';
+import { ProductCard } from './components/product-card';
+import { EditorialHeader } from './components/editorial-header';
 
-const navigation = [
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/posts' },
-  { name: 'Contact', href: '/contact' },
+const CATEGORY_TILES = [
+  { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/pouch-line.svg', surface: 'lilac' as const },
+  { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/note-music-line.svg', surface: 'sage' as const },
+  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/cat-2-line.svg', surface: 'lavender' as const },
+  { href: '/projects', label: 'All Work', illustration: '/illustrations/harp-line.svg', surface: 'cream' as const },
 ];
 
 export default function Home() {
+  const published = allProjects
+    .filter(p => p.published !== false)
+    .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+
+  const featured = published.slice(0, 4);
+
   return (
-    <div
-      className='works-with-gradient flex flex-col items-center justify-center w-screen h-screen overflow-hidden from-ivory via-ivory to-ivory dark:text-ivory
-     text-slate bg-gradient-to-t dark:from-slate dark:via-blue-200/20 dark:to-slate dark:text-ivory'
-    >
-      {/* <div
-      className='solid-colors flex flex-col items-center justify-center w-screen h-screen overflow-hidden text-slate bg-ivory/90
-    transition-colors duration-300 dark:text-ivory dark:bg-slate'
-    > */}
-
-      {/* absolute inset-0 bg-gradient-to-tl from-slate-700/30 via-slate-800/30 to-slate-700/30 dark:from-slate-800/30 dark:via-slate-900/30 dark:to-slate-800/30 pointer-events-none */}
-      <nav className='my-16 animate-fade-in'>
-        <div className='absolute top-4 right-4'>
-          <ToggleButton />
-        </div>
-        <ul className='flex items-center justify-center gap-4'>
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className='text-sm duration-500 text-slate hover:text-rose dark:text-ivory dark:hover:text-gold'
-            >
-              {item.name}
-            </Link>
-          ))}
-        </ul>
-      </nav>
-
-      <div className='hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-slate/0 via-slate/50 to-slate/0 dark:from-ivory/0 dark:via-ivory/50 dark:to-ivory/0' />
-
-      <Particles
-        className='particles absolute inset-0 -z-10 animate-fade-in'
-        quantity={300}
+    <>
+      <Hero
+        eyebrow="Frontend engineer & designer"
+        headline="Building things that feel as good as they look."
+        subline="I design and build thoughtful digital experiences — from e-commerce storefronts to learning platforms."
+        ctaHref="/projects"
+        ctaLabel="See my work"
       />
 
-      <h1 className='py-3.5 px-0.5 z-10 text-4xl text-transparent duration-1000 bg-slate cursor-default animate-title font-display sm:text-6xl md:text-7xl lg:text-9xl whitespace-nowrap bg-clip-text dark:bg-ivory'>
-        Katy Solovewicz
-      </h1>
+      <section style={{ padding: '64px 0 0' }}>
+        <div className="container">
+          <EditorialHeader title="Explore by type" />
+          <div className="tile-grid" style={{ marginTop: 24 }}>
+            {CATEGORY_TILES.map(tile => (
+              <Tile key={tile.href} {...tile} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <div className='hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-slate/0 via-slate/50 to-slate/0 dark:from-ivory/0 dark:via-ivory/50 dark:to-ivory/0' />
+      <section style={{ padding: '72px 0' }}>
+        <div className="container">
+          <EditorialHeader
+            title="Recent work"
+            seeMoreHref="/projects"
+            seeMoreLabel="All projects"
+          />
+          <div className="prod-grid" style={{ marginTop: 28 }}>
+            {featured.map(project => (
+              <ProductCard
+                key={project.slug}
+                slug={project.slug}
+                title={project.title}
+                description={project.description}
+                image={project.image}
+                category={project.category}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <div className='my-16 text-center animate-fade-in'>
-        <h2 className='text-sm text-slate dark:text-ivory duration-300'>
-          Frontend Engineer
-        </h2>
-        <a
-          href='https://www.hackerrank.com/certificates/f2ef8981ecea'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2 className='text-sm duration-500 text-slate text-slate hover:text-rose dark:text-ivory dark:hover:text-gold'>
-            Certified Basic Problem Solver
-          </h2>
-        </a>
-      </div>
-    </div>
+      <section style={{ padding: '40px 0 80px' }}>
+        <div className="container">
+          <div className="ed-block">
+            <div className="ed-block-copy">
+              <p className="hero-eyebrow">A note</p>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', lineHeight: 1.15, marginBottom: 16 }}>
+                I care about work that{' '}
+                <span className="word--highlighted">means something.</span>
+              </h2>
+              <p style={{ color: 'var(--ink-500)', fontSize: 16, lineHeight: 1.7, marginBottom: 28 }}>
+                Every project I take on is an opportunity to make something genuinely useful — whether that's a storefront that converts, a learning tool that sticks, or a small site that makes someone smile.
+              </p>
+              <a href="/contact" className="btn btn-primary">
+                Work with me
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

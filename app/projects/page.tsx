@@ -1,11 +1,8 @@
 import Link from 'next/link';
-import React from 'react';
 import { allProjects } from 'contentlayer/generated';
-import { Navigation } from '../components/nav';
-import { Card } from '../components/card';
-import { Article } from './article';
+import { ProductCard } from '../components/product-card';
 import { Redis } from '@upstash/redis';
-import { Eye } from 'lucide-react';
+import { Icon } from '../components/icons';
 
 const redis = Redis.fromEnv();
 
@@ -18,90 +15,91 @@ export default async function ProjectsPage({
 }) {
   const views = (
     await redis.mget<number[]>(
-      ...allProjects.map((p) => ['pageviews', 'projects', p.slug].join(':'))
+      ...allProjects.map(p => ['pageviews', 'projects', p.slug].join(':'))
     )
-  ).reduce((acc, v, i) => {
-    acc[allProjects[i].slug] = v ?? 0;
-    return acc;
-  }, {} as Record<string, number>);
+  ).reduce(
+    (acc, v, i) => { acc[allProjects[i].slug] = v ?? 0; return acc; },
+    {} as Record<string, number>
+  );
 
   const categories = Array.from(
-    new Set(allProjects.map((p) => p.category).filter(Boolean))
-  );
-  const selectedCategory = searchParams.category || null;
+    new Set(allProjects.map(p => p.category).filter(Boolean))
+  ) as string[];
 
-  const featuredSlugs = [
-    'abtestdashboard',
-    'securinghardware',
-    'dogbreedidentifier',
-  ];
+  const selectedCategory = searchParams.category ?? null;
 
-  const filteredProjects = (selectedCategory
-    ? allProjects.filter((p) => p.category === selectedCategory)
-    : allProjects)
+  const filtered = (selectedCategory
+    ? allProjects.filter(p => p.category === selectedCategory)
+    : allProjects
+  )
+    .filter(p => p.published !== false)
     .sort((a, b) => {
-      // Sort by date in descending order (newest first)
       if (!a.date && !b.date) return 0;
-      if (!a.date) return 1; // Projects without dates go to the end
+      if (!a.date) return 1;
       if (!b.date) return -1;
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
 
   return (
-    <div className='relative pb-16 bg-ivory text-slate dark:bg-slate dark:text-ivory transition-colors duration-300'>
-      <Navigation />
-      <div className='px-6 pt-20 mx-auto max-w-7xl lg:px-8 md:pt-24 lg:pt-32'>
-        <div className='mx-auto lg:mx-0'>
-          <h2 className='text-3xl font-bold tracking-tight text-slate dark:text-ivory sm:text-4xl'>
-            Projects
-          </h2>
-          <p className='mt-4 text-slate-600 dark:text-slate-300 mb-4'>
-            Some of the projects are from work and some are on my own time.
-          </p>
-        </div>
+    <>
+      <div style={{ paddingTop: 48, paddingBottom: 80 }}>
+        <div className="container">
+          <div className="crumbs" style={{ marginBottom: 24 }}>
+            <Link href="/">Home</Link>
+            <span className="sep">/</span>
+            <span className="current">Work</span>
+          </div>
 
-        {/* Divider */}
-        <div className='w-full h-px bg-slate dark:bg-ivory mb-4' />
+          <div style={{ marginBottom: 32 }}>
+            <p className="hero-eyebrow" style={{ marginBottom: 8 }}>Portfolio</p>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 5vw, 52px)', lineHeight: 1.1, marginBottom: 12 }}>
+              {selectedCategory ? selectedCategory : 'All work'}
+            </h1>
+            <p style={{ color: 'var(--ink-500)', fontSize: 16 }}>
+              {filtered.length} project{filtered.length !== 1 ? 's' : ''}
+            </p>
+          </div>
 
-        {/* Category Filters */}
-        <div className='mt-8 flex flex-wrap gap-2 mb-8'>
-          {/* "All" Button */}
-          <Link
-            href='/projects'
-            className={`px-4 py-2 rounded transition-colors transition-opacity duration-300
-      bg-rose text-ivory dark:bg-gold dark:text-ivory 
-      ${!selectedCategory ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
-          >
-            All
-          </Link>
-
-          {/* Category Buttons */}
-          {categories.map((category) => {
-            const isSelected = selectedCategory === category; // Ensure exact match
-
-            return (
+          <div className="coll-filterbar">
+            <Link
+              href="/projects"
+              className={`filter-pill${!selectedCategory ? ' active' : ''}`}
+            >
+              All
+            </Link>
+            {categories.map(cat => (
               <Link
-                key={category}
-                href={`/projects?category=${category}`}
-                className={`px-4 py-2 rounded transition-colors transition-opacity duration-300
-          bg-rose text-ivory dark:bg-gold dark:text-ivory
-          ${isSelected ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
+                key={cat}
+                href={`/projects?category=${encodeURIComponent(cat)}`}
+                className={`filter-pill${selectedCategory === cat ? ' active' : ''}`}
               >
-                {category}
+                {cat}
               </Link>
-            );
-          })}
-        </div>
+            ))}
+          </div>
 
-        {/* Project Cards */}
-        <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3'>
-          {filteredProjects.map((project) => (
-            <Card key={project.slug}>
-              <Article project={project} views={views[project.slug] ?? 0} />
-            </Card>
-          ))}
+          {filtered.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '80px 0', color: 'var(--ink-500)' }}>
+              <Icon name="search" size={32} style={{ margin: '0 auto 16px', display: 'block', opacity: 0.4 }} />
+              <p>No projects in this category yet.</p>
+            </div>
+          ) : (
+            <div className="prod-grid" style={{ marginTop: 32 }}>
+              {filtered.map(project => (
+                <ProductCard
+                  key={project.slug}
+                  slug={project.slug}
+                  title={project.title}
+                  description={project.description}
+                  image={project.image}
+                  category={project.category}
+                  url={project.url}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

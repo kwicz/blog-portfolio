@@ -36,13 +36,17 @@ export default async function PostPage({ params }: Props) {
     (await redis.get<number>(['pageviews', 'posts', slug].join(':'))) ?? 0;
 
   return (
-    <div className='min-h-screen bg-ivory text-slate dark:bg-slate dark:text-ivory transition-colors duration-300'>
+    <div style={{ paddingBottom: 80 }}>
       <Header post={post} views={views} />
       <ReportView slug={post.slug} />
 
-      <article className='px-4 py-12 mx-auto prose prose-slate dark:prose-invert prose-quoteless'>
-        <Mdx code={post.body.code} />
-      </article>
+      <div className="container" style={{ paddingTop: 8 }}>
+        <div style={{ maxWidth: 720, margin: '0 auto' }}>
+          <article className="prose prose-slate dark:prose-invert prose-quoteless">
+            <Mdx code={post.body.code} />
+          </article>
+        </div>
+      </div>
     </div>
   );
 }

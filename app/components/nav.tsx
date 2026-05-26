@@ -1,74 +1,49 @@
 'use client';
-import Link from 'next/link';
-import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
-import ToggleButton from './toggleButton';
 
-export const Navigation: React.FC = () => {
-  const ref = useRef<HTMLElement>(null);
-  const [isIntersecting, setIntersecting] = useState(true);
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Icon } from './icons';
+import { useStore } from './store-context';
+
+const NAV_LINKS = [
+  { href: '/projects', label: 'Work' },
+  { href: '/posts', label: 'Journal' },
+  { href: '/contact', label: 'Contact' },
+];
+
+export function Navigation() {
+  const [scrolled, setScrolled] = useState(false);
+  const { openDrawer } = useStore();
 
   useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setIntersecting(entry.isIntersecting)
-    );
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <header ref={ref}>
-      <div
-        className={`fixed inset-x-0 top-0 z-50 backdrop-blur  duration-200 border-b  ${
-          isIntersecting
-            ? 'bg-zinc-900/0 border-transparent'
-            : 'bg-zinc-900/500  border-zinc-800 '
-        }`}
-      >
-        <div className='flex flex-row-reverse items-center justify-between p-6'>
-          <div className='flex justify-between gap-8 items-center'>
-            <Link
-              href='/projects'
-              className='duration-200 text-slate hover:text-rose dark:text-ivory dark:hover:text-gold'
-            >
-              Projects
-            </Link>
-            <Link
-              href='/posts'
-              className='duration-200 text-slate hover:text-rose dark:text-ivory dark:hover:text-gold'
-            >
-              Blog
-            </Link>
-            <Link
-              href='/contact'
-              className='duration-200 text-slate hover:text-rose dark:text-ivory dark:hover:text-gold'
-            >
-              Contact
-            </Link>
-            <ToggleButton />
-          </div>
+    <header className={`hdr${scrolled ? ' scrolled' : ''}`}>
+      <div className="hdr-inner container">
+        <Link href="/" className="hdr-logo" aria-label="Katy Solovewicz — home">
+          k.solovewi.cz
+        </Link>
 
-          <Link
-            href='/'
-            className='duration-200 text-slate hover:text-rose dark:text-ivory dark:hover:text-gold'
+        <nav className="hdr-nav" aria-label="Main">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link key={href} href={href}>
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hdr-tools">
+          <button
+            className="icon-btn"
+            aria-label="Get in touch"
+            onClick={openDrawer}
           >
-            <Image
-              src='/logos/logo-rose.svg'
-              alt='KS Logo Light'
-              width={40}
-              height={40}
-              className='block dark:hidden'
-            />
-            <Image
-              src='/logos/logo-gold.svg'
-              alt='KS Logo Dark'
-              width={40}
-              height={40}
-              className='hidden dark:block'
-            />
-          </Link>
+            <Icon name="cart" size={20} />
+          </button>
         </div>
       </div>
     </header>

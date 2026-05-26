@@ -1,0 +1,71 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  .text-edge-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  }
+}
+
+body {
+  background-color: var(--bg-ivory);
+  color: var(--text-slate);
+}
+
+body.dark {
+  background-color: var(--bg-slate);
+  color: var(--text-ivory);
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem; /* text-5xl */
+  font-weight: 700; /* font-bold */
+}
+
+h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 600; /* font-semibold */
+}
+
+h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 500; /* font-medium */
+}
+
+h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+}
+
+h5 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 500; /* font-medium */
+}
+
+h6 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 400; /* font-normal */
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem; /* text-base */
+  line-height: 1.75rem; /* leading-relaxed */
+}
+
+.bg-ivory\/90 {
+  background-color: rgb(250 243 224 / 0.9);
+}
+.bg-slate\/90 {
+  background-color: rgb(30 41 59 / 0.9);
+}
+.bg-slate-70 {
+  background-color: rgb(30 41 59 / 0.7);
+}

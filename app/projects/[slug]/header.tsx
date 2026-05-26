@@ -1,9 +1,6 @@
-'use client';
-import { Navigation } from '@/app/components/nav';
-import ToggleButton from '@/app/components/toggleButton';
-import { ArrowLeft, Eye, Github } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { Icon } from '@/app/components/icons';
 
 type Props = {
   project: {
@@ -11,71 +8,102 @@ type Props = {
     title: string;
     description: string;
     repository?: string;
+    category?: string;
+    image?: string;
+    tags?: string[];
   };
-
   views: number;
 };
 
-export const Header: React.FC<Props> = ({ project, views }) => {
-  const ref = useRef<HTMLElement>(null);
-  const [isIntersecting, setIntersecting] = useState(true);
-
-  const links: { label: string; href: string }[] = [];
-  if (project.repository) {
-    links.push({
-      label: 'GitHub',
-      href: `https://github.com/${project.repository}`,
-    });
-  }
-  if (project.url) {
-    links.push({
-      label: 'Website',
-      href: project.url,
-    });
-  }
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setIntersecting(entry.isIntersecting)
-    );
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
+export function Header({ project, views }: Props) {
   return (
-    <header
-      ref={ref}
-      className='relative isolate overflow-hidden bg-ivory dark:bg-slate'
-    >
-      <Navigation />
-      <div className='container mx-auto relative isolate overflow-hidden py-24 border-b border-slate dark:border-ivory sm:py-32'>
-        <div className='mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center'>
-          <div className='mx-auto max-w-2xl lg:mx-0'>
-            <h1 className='text-4xl font-bold tracking-tight text-slate dark:text-ivory sm:text-6xl font-display'>
-              {project.title}
-            </h1>
-            <p className='mt-6 text-lg leading-8 text-slate dark:text-ivory/70'>
-              {project.description}
-            </p>
+    <div style={{ paddingTop: 48 }}>
+      <div className="container">
+        <div className="crumbs" style={{ marginBottom: 28 }}>
+          <Link href="/">Home</Link>
+          <span className="sep">/</span>
+          <Link href="/projects">Work</Link>
+          {project.category && (
+            <>
+              <span className="sep">/</span>
+              <Link href={`/projects?category=${encodeURIComponent(project.category)}`}>
+                {project.category}
+              </Link>
+            </>
+          )}
+          <span className="sep">/</span>
+          <span className="current">{project.title}</span>
+        </div>
+
+        <div className="pdp">
+          <div className="pdp-gallery">
+            {project.image ? (
+              <div className="pdp-main-img">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  priority
+                  unoptimized
+                />
+              </div>
+            ) : (
+              <div className="pdp-main-img">
+                <div className="pdp-main-img-placeholder">
+                  <img src="/illustrations/harp-line.svg" alt="" />
+                </div>
+              </div>
+            )}
           </div>
-          <div className='mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none'>
-            <div className='grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-slate dark:text-ivory sm:grid-cols-2 md:flex lg:gap-x-10'>
-              {links.map((link) => (
-                <Link
-                  target='_blank'
-                  key={link.label}
-                  href={link.href}
-                  className='hover:text-rose dark:hover:text-gold transition-colors duration-300'
+
+          <div className="pdp-info">
+            {project.category && (
+              <p className="pdp-eyebrow">{project.category}</p>
+            )}
+            <h1>{project.title}</h1>
+            <p className="pdp-description">{project.description}</p>
+
+            {project.tags && project.tags.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
+                {project.tags.map(tag => (
+                  <span key={tag} className="badge badge-instock">{tag}</span>
+                ))}
+              </div>
+            )}
+
+            <div className="pdp-actions">
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
                 >
-                  {link.label} <span aria-hidden='true'>&rarr;</span>
-                </Link>
-              ))}
+                  Visit live site
+                  <Icon name="arrow-up-right" size={16} strokeWidth={2} />
+                </a>
+              )}
+              {project.repository && (
+                <a
+                  href={`https://github.com/${project.repository}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  View on GitHub
+                  <Icon name="arrow-up-right" size={16} strokeWidth={2} />
+                </a>
+              )}
+            </div>
+
+            <div style={{ marginTop: 24, display: 'flex', alignItems: 'center', gap: 6, color: 'var(--ink-500)', fontSize: 13 }}>
+              <Icon name="user" size={14} strokeWidth={2} />
+              {views.toLocaleString()} view{views !== 1 ? 's' : ''}
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </div>
   );
-};
+}
