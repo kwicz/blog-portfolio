@@ -59,8 +59,6 @@ export default function Home() {
           <EditorialHeader
             eyebrow="Categories"
             title="Work, by type."
-            seeMoreHref="/projects"
-            seeMoreLabel="All projects"
           />
           <div className="tile-grid" style={{ marginTop: 24 }}>
             {CATEGORY_TILES.map(tile => (

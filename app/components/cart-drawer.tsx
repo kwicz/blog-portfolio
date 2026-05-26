@@ -1,22 +1,46 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
+import { Github, Mail, Linkedin } from 'lucide-react';
 import { Icon } from './icons';
 import { useStore } from './store-context';
 
+const CONTACTS = [
+  {
+    icon: <Linkedin size={22} />,
+    href: 'https://www.linkedin.com/in/kwicz/',
+    label: 'LinkedIn',
+    handle: 'Katy Solovewicz',
+    surface: 'var(--surface-lilac)',
+    iconBg: 'var(--lilac-300)',
+    iconColor: 'var(--lilac-600)',
+  },
+  {
+    icon: <Mail size={22} />,
+    href: 'mailto:katy@solovewicz.com',
+    label: 'Email',
+    handle: 'katy@solovewicz.com',
+    surface: 'var(--surface-sage)',
+    iconBg: 'var(--sage-300)',
+    iconColor: 'var(--sage-600)',
+  },
+  {
+    icon: <Github size={22} />,
+    href: 'https://github.com/kwicz',
+    label: 'GitHub',
+    handle: 'kwicz',
+    surface: 'var(--surface-lavender)',
+    iconBg: 'var(--lavender-300)',
+    iconColor: 'var(--lavender-600)',
+  },
+];
+
 export function CartDrawer() {
   const { drawerOpen, closeDrawer } = useStore();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
-  const firstFieldRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (drawerOpen) {
       document.body.style.overflow = 'hidden';
-      setTimeout(() => firstFieldRef.current?.focus(), 120);
     } else {
       document.body.style.overflow = '';
     }
@@ -30,14 +54,6 @@ export function CartDrawer() {
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [closeDrawer]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    await new Promise(r => setTimeout(r, 800));
-    setSent(true);
-    setSending(false);
-  };
 
   return (
     <>
@@ -62,97 +78,52 @@ export function CartDrawer() {
         </div>
 
         <div className="cart-body">
-          {sent ? (
-            <div style={{ textAlign: 'center', padding: '40px 0' }}>
-              <div style={{
-                width: 56, height: 56, borderRadius: '50%',
-                background: 'var(--surface-sage)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                margin: '0 auto 20px',
-              }}>
-                <Icon name="check" size={24} strokeWidth={2.5} style={{ color: 'var(--ink-700)' }} />
-              </div>
-              <p style={{ fontFamily: 'var(--font-display)', fontSize: 20, marginBottom: 8 }}>
-                Message received!
-              </p>
-              <p style={{ color: 'var(--ink-500)', fontSize: 14, lineHeight: 1.6 }}>
-                I'll get back to you within a couple of days.
-              </p>
-              <button
-                className="btn btn-outline-caps"
-                style={{ marginTop: 28 }}
-                onClick={() => { setSent(false); setName(''); setEmail(''); setMessage(''); closeDrawer(); }}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {CONTACTS.map(c => (
+              <a
+                key={c.href}
+                href={c.href}
+                target={c.href.startsWith('mailto') ? undefined : '_blank'}
+                rel="noopener noreferrer"
+                style={{
+                  background: c.surface,
+                  borderRadius: 'var(--radius-xl)',
+                  padding: '20px 24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  textDecoration: 'none',
+                  color: 'var(--ink-900)',
+                  transition: 'transform 0.2s var(--ease-bounce), box-shadow 0.2s',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-card-hover)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.transform = '';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '';
+                }}
               >
-                Close
-              </button>
-            </div>
-          ) : (
-            <>
-              <p style={{ color: 'var(--ink-500)', fontSize: 14, lineHeight: 1.65, marginBottom: 24 }}>
-                Interested in working together? Have a question? Drop me a note and I'll be in touch.
-              </p>
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div className="field">
-                  <label htmlFor="drawer-name">Name</label>
-                  <input
-                    id="drawer-name"
-                    ref={firstFieldRef}
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    required
-                  />
+                <span style={{
+                  width: 40, height: 40, borderRadius: '50%',
+                  background: c.iconBg,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: c.iconColor, flexShrink: 0,
+                }}>
+                  {c.icon}
+                </span>
+                <div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginBottom: 2 }}>
+                    {c.handle}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--ink-500)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
+                    {c.label}
+                  </div>
                 </div>
-                <div className="field">
-                  <label htmlFor="drawer-email">Email</label>
-                  <input
-                    id="drawer-email"
-                    type="email"
-                    placeholder="you@somewhere.com"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="field">
-                  <label htmlFor="drawer-message">Message</label>
-                  <textarea
-                    id="drawer-message"
-                    rows={5}
-                    placeholder="Tell me about your project…"
-                    value={message}
-                    onChange={e => setMessage(e.target.value)}
-                    required
-                    style={{ resize: 'vertical' }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={sending}
-                  style={{ marginTop: 8 }}
-                >
-                  {sending ? 'Sending…' : 'Send message'}
-                </button>
-              </form>
-
-              <div className="trust-strip" style={{ marginTop: 32 }}>
-                <div className="trust-item">
-                  <Icon name="check" size={14} strokeWidth={2.2} />
-                  CRO & A/B testing specialist
-                </div>
-                <div className="trust-item">
-                  <Icon name="note" size={14} strokeWidth={2} />
-                  Usually replies in 1–2 days
-                </div>
-                <div className="trust-item">
-                  <Icon name="heart" size={14} strokeWidth={2} />
-                  Freelance & creative partnerships
-                </div>
-              </div>
-            </>
-          )}
+              </a>
+            ))}
+          </div>
         </div>
       </aside>
     </>

@@ -9,6 +9,8 @@ const socials = [
     label: 'LinkedIn',
     handle: 'Katy Solovewicz',
     surface: 'var(--surface-lilac)',
+    iconBg: 'var(--lilac-300)',
+    iconColor: 'var(--lilac-600)',
   },
   {
     icon: <Mail size={24} />,
@@ -16,6 +18,8 @@ const socials = [
     label: 'Email',
     handle: 'katy@solovewicz.com',
     surface: 'var(--surface-sage)',
+    iconBg: 'var(--sage-300)',
+    iconColor: 'var(--sage-600)',
   },
   {
     icon: <Github size={24} />,
@@ -23,6 +27,8 @@ const socials = [
     label: 'GitHub',
     handle: 'kwicz',
     surface: 'var(--surface-lavender)',
+    iconBg: 'var(--lavender-300)',
+    iconColor: 'var(--lavender-600)',
   },
 ];
 
@@ -41,9 +47,6 @@ export default function ContactPage() {
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 5vw, 52px)', lineHeight: 1.1, marginBottom: 16 }}>
             Say hello.
           </h1>
-          <p style={{ color: 'var(--ink-500)', fontSize: 16, lineHeight: 1.65 }}>
-            Open to freelance projects, creative partnerships, and interesting conversations. Drop me a line.
-          </p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 20 }}>
@@ -72,9 +75,9 @@ export default function ContactPage() {
             >
               <span style={{
                 width: 48, height: 48, borderRadius: '50%',
-                background: 'rgba(255,255,255,0.6)',
+                background: s.iconBg,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--ink-700)',
+                color: s.iconColor,
               }}>
                 {s.icon}
               </span>

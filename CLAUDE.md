@@ -5,10 +5,10 @@ Personal blog and portfolio site for Katy Solovewicz — built with Next.js 13 A
 ## Dev Commands
 
 ```bash
-npm run dev      # Start dev server on :3000
-npm run build    # Production build
-npm run start    # Start production server
-npm run fmt      # Lint + format with Rome
+pnpm dev         # Start dev server on :3000
+pnpm build       # Production build
+pnpm start       # Start production server
+pnpm fmt         # Lint + format (Rome — see Known Issues)
 ```
 
 Package manager: **pnpm**
@@ -30,6 +30,10 @@ Package manager: **pnpm**
 | `Page` | `content/pages/**/*.mdx` | `title` |
 
 All types have computed `path` and `slug` fields. Only items with `published: true` appear in static routes.
+
+**Project optional fields:** `tagline`, `category`, `image`, `images[]`, `tags[]`, `features[]`, `specs{}`, `rating`, `reviewCount`, `ribbon`, `repository`, `url`, `date`, `notes`
+
+The `images[]` array powers the PDP gallery thumbnails. The first image should match the `image` field (hero/card image).
 
 ## Design System
 
@@ -83,10 +87,18 @@ Never commit `.env` — credentials must stay out of git.
 | `pages/api/incr.ts` | Edge runtime view counter (Upstash Redis) |
 | `types/global.d.ts` | `window.gtag` type declaration |
 
+## Adding a New Project
+
+Use the `/add-to-portfolio` skill from inside any project directory. It will:
+1. Read the project (README, package.json, source files)
+2. Start the dev server and take 5 screenshots
+3. Generate a complete MDX file with all frontmatter filled in
+4. Bundle everything into `~/Downloads/<slug>.zip`
+
+Then drop `<slug>.mdx` into `content/projects/` and the images into `public/projects/`.
+
 ## Known Issues
 
-- `zw-full` CSS typo (should be `w-full`) in project image containers
-- Duplicate `sans` key in `tailwind.config.js` — Inter config is overwritten by Open Sans
 - `unoptimized={true}` on `<Image>` components disables Next.js image optimization
 - Several files use `@ts-nocheck` / `any` — TypeScript coverage is incomplete
 - `rome` formatter is deprecated; successor is [Biome](https://biomejs.dev/)
