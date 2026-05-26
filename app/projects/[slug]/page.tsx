@@ -47,6 +47,52 @@ export default async function PostPage({ params }: Props) {
           </article>
         </div>
 
+        {(project.rating !== undefined && project.reviewCount !== undefined) && (
+          <section id="reviews" style={{ marginTop: 80 }}>
+            <EditorialHeader eyebrow={`${project.reviewCount} reviews`} title="What people say." />
+            <div className="reviews-summary">
+              <div>
+                <div className="reviews-avg">{project.rating.toFixed(1)}</div>
+                <div className="pdp-stars">
+                  {'★★★★★'.slice(0, Math.round(project.rating)).split('').map((s, i) => (
+                    <span key={i} style={{ color: 'var(--accent-honey)', fontSize: 18 }}>{s}</span>
+                  ))}
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--ink-500)', marginTop: 6 }}>{project.reviewCount} written reviews</div>
+              </div>
+              <div className="reviews-bars">
+                {[5, 4, 3, 2, 1].map(stars => {
+                  const total = project.reviewCount ?? 1;
+                  const weights: Record<number, number> = { 5: 0.78, 4: 0.16, 3: 0.04, 2: 0.01, 1: 0.01 };
+                  const count = Math.round(total * weights[stars]);
+                  return (
+                    <div key={stars} className="reviews-bar">
+                      <span>{stars}★</span>
+                      <div className="reviews-bar-track"><div className="reviews-bar-fill" style={{ width: `${(count / total) * 100}%` }} /></div>
+                      <span>{count}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              {((project.sampleReviews ?? []) as Array<{ rating: number; name: string; loc: string; title: string; body: string }>).map((r, i) => (
+                <div key={i} className="review-card">
+                  <div className="review-meta">
+                    <div style={{ color: 'var(--accent-honey)', fontSize: 14, marginBottom: 8 }}>{'★'.repeat(r.rating)}</div>
+                    <div className="review-author">{r.name}</div>
+                    <div className="review-loc">{r.loc}</div>
+                  </div>
+                  <div>
+                    <div className="review-title">{r.title}</div>
+                    <p className="review-body">{r.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {related.length > 0 && (
           <section style={{ marginTop: 80 }}>
             <EditorialHeader
@@ -61,10 +107,9 @@ export default async function PostPage({ params }: Props) {
                   key={p.slug}
                   slug={p.slug}
                   title={p.title}
-                  description={p.description}
                   image={p.image}
-                  category={p.category}
-                  url={p.url}
+                  rating={p.rating}
+                  reviewCount={p.reviewCount}
                 />
               ))}
             </div>

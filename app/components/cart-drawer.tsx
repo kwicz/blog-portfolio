@@ -140,7 +140,7 @@ export function CartDrawer() {
               <div className="trust-strip" style={{ marginTop: 32 }}>
                 <div className="trust-item">
                   <Icon name="check" size={14} strokeWidth={2.2} />
-                  Based in Portland, OR
+                  CRO & A/B testing specialist
                 </div>
                 <div className="trust-item">
                   <Icon name="note" size={14} strokeWidth={2} />
@@ -148,7 +148,7 @@ export function CartDrawer() {
                 </div>
                 <div className="trust-item">
                   <Icon name="heart" size={14} strokeWidth={2} />
-                  Open to freelance
+                  Freelance & creative partnerships
                 </div>
               </div>
             </>

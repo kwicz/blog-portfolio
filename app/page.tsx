@@ -21,13 +21,17 @@ export default function Home() {
 
   return (
     <>
-      <Hero
-        eyebrow="Frontend engineer & designer"
-        headline="Building things that feel as good as they look."
-        subline="I design and build thoughtful digital experiences — from e-commerce storefronts to learning platforms."
-        ctaHref="/projects"
-        ctaLabel="See my work"
-      />
+      <section style={{ paddingBlock: '40px 64px' }}>
+        <div className="container">
+          <Hero
+            eyebrow="Full-stack ecommerce developer"
+            headline="Building stores that convert, retain, and scale."
+            subline="I specialize in CRO, A/B testing, and business automations — turning ecommerce sites into high-performing revenue machines."
+            ctaHref="/projects"
+            ctaLabel="See my work"
+          />
+        </div>
+      </section>
 
       <section style={{ padding: '64px 0 0' }}>
         <div className="container">
@@ -53,9 +57,9 @@ export default function Home() {
                 key={project.slug}
                 slug={project.slug}
                 title={project.title}
-                description={project.description}
                 image={project.image}
-                category={project.category}
+                rating={project.rating}
+                reviewCount={project.reviewCount}
               />
             ))}
           </div>
@@ -66,9 +70,9 @@ export default function Home() {
         <div className="container">
           <div className="trust-strip">
             {[
-              { icon: 'truck' as const, title: 'Available for freelance', sub: 'Usually replies in 1–2 days.' },
-              { icon: 'pin' as const,   title: 'Based in Portland, OR',   sub: 'Open to remote and on-site.' },
-              { icon: 'check' as const, title: 'Full-stack capable',      sub: 'Design through deployment.' },
+              { icon: 'truck' as const, title: 'CRO & A/B Testing',      sub: 'Data-driven optimization.' },
+              { icon: 'pin' as const,   title: 'Based in Portland, OR',  sub: 'Freelance & creative partnerships.' },
+              { icon: 'check' as const, title: 'Business Automations',   sub: 'Less manual work, more revenue.' },
             ].map((item) => (
               <div key={item.title} className="trust-item">
                 <div className="trust-icon"><Icon name={item.icon} size={20} strokeWidth={1.75} /></div>
@@ -88,11 +92,11 @@ export default function Home() {
             <div>
               <p className="ed-eyebrow">A note</p>
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', lineHeight: 1.15, marginBottom: 16 }}>
-                I care about work that{' '}
-                <span className="word--highlighted">means something.</span>
+                I build ecommerce that{' '}
+                <span className="word--highlighted">actually performs.</span>
               </h2>
               <p style={{ fontSize: 17, lineHeight: '28px', color: 'var(--ink-700)', maxWidth: 520, margin: '0 0 24px' }}>
-                Every project I take on is an opportunity to make something genuinely useful — whether that's a storefront that converts, a learning tool that sticks, or a small site that makes someone smile.
+                From conversion rate optimization to automated workflows, I help ecommerce brands do more with what they already have — smarter funnels, sharper experiments, less manual overhead.
               </p>
               <a href="/contact" className="btn btn-primary">
                 Work with me

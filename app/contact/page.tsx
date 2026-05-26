@@ -42,7 +42,7 @@ export default function ContactPage() {
             Say hello.
           </h1>
           <p style={{ color: 'var(--ink-500)', fontSize: 16, lineHeight: 1.65 }}>
-            Open to freelance projects, full-time opportunities, and interesting conversations. Drop me a line.
+            Open to freelance projects, creative partnerships, and interesting conversations. Drop me a line.
           </p>
         </div>
 

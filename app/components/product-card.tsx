@@ -10,12 +10,14 @@ interface ProductCardProps {
   category?: string;
   ribbon?: string;
   url?: string;
+  rating?: number;
+  reviewCount?: number;
 }
 
-export function ProductCard({ slug, title, description, image, category, ribbon, url }: ProductCardProps) {
+export function ProductCard({ slug, title, image, ribbon, rating, reviewCount }: ProductCardProps) {
   return (
     <article className="pcard">
-      <div className="pcard-img" style={{ position: 'relative' }}>
+      <div className="pcard-img">
         {ribbon && <span className="ribbon ribbon-tomato pcard-ribbon">{ribbon}</span>}
         <Link href={`/projects/${slug}`} style={{ display: 'block', width: '100%', height: '100%' }}>
           {image ? (
@@ -32,22 +34,23 @@ export function ProductCard({ slug, title, description, image, category, ribbon,
             </div>
           )}
         </Link>
+        <div className="pcard-quickadd">
+          <Link href={`/projects/${slug}`} className="pcard-quickadd-btn">
+            View project <Icon name="arrow-up-right" size={14} strokeWidth={2} />
+          </Link>
+        </div>
       </div>
       <div className="pcard-meta">
-        {category && <span className="pcard-tag">{category}</span>}
         <p className="pcard-name">
           <Link href={`/projects/${slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>{title}</Link>
         </p>
-        {description && <p className="pcard-sub">{description}</p>}
-        {url && (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 12, color: 'var(--ink-500)', marginTop: 8, textDecoration: 'none' }}
-          >
-            Live site <Icon name="arrow-up-right" size={12} strokeWidth={2} />
-          </a>
+        {(rating !== undefined && reviewCount !== undefined) && (
+          <div className="pcard-price">
+            <span className="pcard-rating">
+              <Icon name="star" size={12} strokeWidth={2} />
+              {rating.toFixed(1)} ({reviewCount})
+            </span>
+          </div>
         )}
       </div>
     </article>

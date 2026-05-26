@@ -12,7 +12,7 @@ const redis = Redis.fromEnv();
 export const revalidate = 60;
 
 const CATEGORY_COPY: Record<string, { eyebrow: string; intro: string }> = {
-  'E-Commerce': { eyebrow: 'E-Commerce', intro: 'Storefronts, checkout flows, and conversion-focused interfaces built for real businesses.' },
+  'E-Commerce': { eyebrow: 'E-Commerce', intro: 'Storefronts, checkout flows, and CRO-driven interfaces — built to convert, retain, and scale.' },
   'E-Learning': { eyebrow: 'E-Learning', intro: 'Learning platforms and educational tools designed to make complex topics click.' },
   'Just For Fun': { eyebrow: 'Just For Fun', intro: 'Side projects and passion work — built for community, curiosity, or the craft itself.' },
 };
@@ -70,7 +70,7 @@ export default async function ProjectsPage({
               <p className="pdp-eyebrow">{copy?.eyebrow ?? 'Portfolio'}</p>
               <h1>{selectedCategory ?? 'All work.'}</h1>
               <p className="coll-intro">
-                {copy?.intro ?? 'Frontend engineering and design projects — from e-commerce storefronts to learning platforms. Built for real users, real businesses.'}
+                {copy?.intro ?? 'Full-stack ecommerce work — CRO, A/B testing, automations, and storefronts. Built for real businesses, measured by real results.'}
               </p>
             </div>
             <div className="coll-stats">
@@ -116,17 +116,16 @@ export default async function ProjectsPage({
                   <ProductCard
                     slug={project.slug}
                     title={project.title}
-                    description={project.description}
                     image={project.image}
-                    category={project.category}
-                    url={project.url}
+                    rating={project.rating}
+                    reviewCount={project.reviewCount}
                   />
                   {idx === 3 && (
                     <div className="coll-feature">
                       <div>
                         <div className="ed-eyebrow">About me</div>
-                        <h3>Frontend engineer & designer, based in Portland, OR.</h3>
-                        <p>I build thoughtful digital experiences from the ground up — from concept through launch. Open to freelance and full-time roles.</p>
+                        <h3>Full-stack ecommerce developer, based in Portland, OR.</h3>
+                        <p>I specialize in CRO, A/B testing, and business automations — helping ecommerce brands convert more, automate more, and grow faster. Open to freelance projects and creative partnerships.</p>
                         <a href="/contact" className="btn btn-outline-caps">Get in touch</a>
                       </div>
                       <div className="feature-art">
@@ -141,9 +140,9 @@ export default async function ProjectsPage({
 
           <div className="trust-strip" style={{ marginTop: 64 }}>
             {[
-              { icon: 'check' as const, title: 'Frontend engineering', sub: 'React, Next.js, TypeScript.' },
-              { icon: 'pin'   as const, title: 'UX + visual design',   sub: 'Figma to production.' },
-              { icon: 'truck' as const, title: 'Based in Portland, OR', sub: 'Remote-friendly.' },
+              { icon: 'check' as const, title: 'CRO & A/B Testing',     sub: 'Data-driven revenue growth.' },
+              { icon: 'truck' as const, title: 'Business Automations',  sub: 'Workflows that run themselves.' },
+              { icon: 'pin'   as const, title: 'Based in Portland, OR', sub: 'Remote-friendly.' },
             ].map(item => (
               <div key={item.title} className="trust-item">
                 <div className="trust-icon"><Icon name={item.icon} size={20} strokeWidth={1.75} /></div>

@@ -17,25 +17,27 @@ export function Hero({
   ctaLabel = 'See my work',
 }: HeroProps) {
   return (
-    <section className="hero">
+    <div className="hero">
       <div className="hero-bg" />
       <div>
         {eyebrow && <p className="hero-eyebrow">{eyebrow}</p>}
         <h1>{headline}</h1>
         {subline && <p>{subline}</p>}
         <div className="hero-actions">
-          <Link href={ctaHref} className="btn btn-primary">
+          <Link href={ctaHref} className="btn btn-primary btn-lg">
             {ctaLabel}
             <Icon name="arrow-right" size={16} strokeWidth={2} />
           </Link>
-          <Link href="/contact" className="btn btn-ghost">
+          <Link href="/contact" className="btn btn-ghost btn-lg">
             Get in touch
           </Link>
         </div>
       </div>
       <div className="hero-art">
-        <img src="/illustrations/harp-line.svg" alt="" aria-hidden="true" style={{ opacity: 0.55 }} />
+        <div className="hero-caveat">it works.</div>
+        <img src="/illustrations/harp-line.svg" alt="" aria-hidden="true" style={{ opacity: 0.6 }} />
+        <div className="hero-dot" aria-hidden="true" />
       </div>
-    </section>
+    </div>
   );
 }
