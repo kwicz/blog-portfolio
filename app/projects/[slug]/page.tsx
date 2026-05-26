@@ -42,7 +42,7 @@ export default async function PostPage({ params }: Props) {
 
       <div className="container" style={{ paddingTop: 56 }}>
         <div style={{ maxWidth: 720, margin: '0 auto' }}>
-          <article className="prose prose-slate dark:prose-invert prose-quoteless">
+          <article className="prose prose-quoteless">
             <Mdx code={project.body.code} />
           </article>
         </div>

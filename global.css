@@ -342,4 +342,16 @@ a:hover { text-decoration-color: var(--ink-900); }
 
 /* ─── MDX code highlight ───────────────────────────────────── */
 .word--highlighted { background: rgba(176,168,196,.25); border-radius: 4px; padding: 2px 4px; }
+
+/* ─── Journal / Post list ──────────────────────────────────── */
+.post-list { border-top: 1px solid var(--surface-line); }
+.post-row { display: grid; grid-template-columns: 120px 1fr; gap: 32px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--surface-line); text-decoration: none; color: inherit; }
+.post-row:hover .post-row-title { color: var(--color-lavender); }
+.post-row-date { font-size: 12px; color: var(--ink-500); letter-spacing: 0.03em; text-transform: uppercase; white-space: nowrap; padding-top: 5px; }
+.post-row-title { font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-variation-settings: 'opsz' 36; color: var(--ink-900); margin-bottom: 6px; transition: color 160ms var(--ease-soft); }
+.post-row-desc { font-size: 14px; line-height: 1.6; color: var(--ink-500); margin: 0; }
+@media (max-width: 560px) {
+  .post-row { grid-template-columns: 1fr; gap: 6px; }
+  .post-row-date { padding-top: 0; }
+}
 .line--highlighted { background: rgba(176,168,196,.1); border-radius: 2px; display: block; }

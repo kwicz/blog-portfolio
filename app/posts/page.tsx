@@ -17,27 +17,42 @@ export default async function PostsPage() {
     {} as Record<string, number>
   );
 
+  const published = allPosts
+    .filter(p => p.published)
+    .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+
   return (
-    <div style={{ paddingTop: 48, paddingBottom: 80 }}>
-      <div className="container">
-        <div className="crumbs" style={{ marginBottom: 28 }}>
-          <Link href="/">Home</Link>
-          <span className="sep">/</span>
-          <span className="current">Journal</span>
-        </div>
+    <>
+      {/* ── Tinted header zone ─────────────────────────────── */}
+      <div style={{ background: 'var(--surface-2)', borderBottom: '1px solid var(--surface-line)' }}>
+        <div className="container" style={{ paddingTop: 48, paddingBottom: 40 }}>
+          <div className="crumbs" style={{ marginBottom: 24 }}>
+            <Link href="/">Home</Link>
+            <span className="sep">/</span>
+            <span className="current">Journal</span>
+          </div>
 
-        <div style={{ maxWidth: 560, marginBottom: 48 }}>
-          <p className="hero-eyebrow" style={{ marginBottom: 8 }}>Writing</p>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 5vw, 52px)', lineHeight: 1.1, marginBottom: 16 }}>
-            Journal
-          </h1>
-          <p style={{ color: 'var(--ink-500)', fontSize: 16 }}>
-            A record of what I've been thinking, building, and learning.
-          </p>
+          <div className="coll-hero">
+            <div>
+              <p className="pdp-eyebrow">Writing</p>
+              <h1>Journal.</h1>
+              <p className="coll-intro">
+                Notes on ecommerce, CRO, development, and whatever else I'm working through.
+              </p>
+            </div>
+            <div className="coll-stats">
+              <div><strong>{published.length}</strong>entries</div>
+            </div>
+          </div>
         </div>
-
-        <PostList posts={allPosts} views={views} />
       </div>
-    </div>
+
+      {/* ── Post list ──────────────────────────────────────── */}
+      <div style={{ paddingBottom: 80 }}>
+        <div className="container" style={{ paddingTop: 40 }}>
+          <PostList posts={published} views={views} />
+        </div>
+      </div>
+    </>
   );
 }
