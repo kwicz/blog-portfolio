@@ -5,8 +5,9 @@ import { Header } from './header';
 import './mdx.css';
 import { ReportView } from './view';
 import { Redis } from '@upstash/redis';
-import Link from 'next/link';
 import { ProductCard } from '@/app/components/product-card';
+import { EditorialHeader } from '@/app/components/editorial-header';
+import { PdpSticky } from '@/app/components/pdp-sticky';
 
 export const revalidate = 60;
 
@@ -29,12 +30,13 @@ export default async function PostPage({ params }: Props) {
   const views =
     (await redis.get<number>(['pageviews', 'projects', slug].join(':'))) ?? 0;
 
-  const related = allProjects
-    .filter(p => p.slug !== slug && p.published !== false && p.category === project.category)
-    .slice(0, 3);
+  const sameCat = allProjects.filter(p => p.slug !== slug && p.published !== false && p.category === project.category);
+  const related = sameCat.length >= 4
+    ? sameCat.slice(0, 4)
+    : [...sameCat, ...allProjects.filter(p => p.slug !== slug && p.published !== false && p.category !== project.category)].slice(0, 4);
 
   return (
-    <div style={{ paddingBottom: 80 }}>
+    <div style={{ paddingBottom: 120 }}>
       <Header project={project} views={views} />
       <ReportView slug={project.slug} />
 
@@ -47,14 +49,12 @@ export default async function PostPage({ params }: Props) {
 
         {related.length > 0 && (
           <section style={{ marginTop: 80 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 26, margin: 0 }}>
-                More work
-              </h2>
-              <Link href="/projects" className="btn btn-ghost" style={{ fontSize: 13 }}>
-                All projects →
-              </Link>
-            </div>
+            <EditorialHeader
+              eyebrow="Goes well with"
+              title="More work."
+              seeMoreHref="/projects"
+              seeMoreLabel="All projects"
+            />
             <div className="prod-grid">
               {related.map(p => (
                 <ProductCard
@@ -71,6 +71,13 @@ export default async function PostPage({ params }: Props) {
           </section>
         )}
       </div>
+
+      <PdpSticky
+        title={project.title}
+        category={project.category}
+        image={project.image}
+        url={project.url}
+      />
     </div>
   );
 }

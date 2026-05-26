@@ -308,6 +308,15 @@ a:hover { text-decoration-color: var(--ink-900); }
 .ftr-bottom a { color: var(--ink-300); text-decoration: none; }
 .ftr-bottom a:hover { color: var(--color-cream); }
 
+/* ─── Sort select ─────────────────────────────────────────── */
+.sort-select { position: relative; }
+.sort-select select { appearance: none; -webkit-appearance: none; background: transparent; border: 1px solid var(--ink-300); border-radius: 999px; padding: 8px 36px 8px 14px; font-size: 13px; font-weight: 500; color: var(--ink-700); cursor: pointer; font-family: inherit; outline: none; }
+.sort-select select:focus { border-color: var(--color-lavender); box-shadow: var(--shadow-glow); }
+.sort-select::after { content: ''; position: absolute; right: 14px; top: 50%; width: 8px; height: 8px; border-right: 1.5px solid var(--ink-500); border-bottom: 1.5px solid var(--ink-500); transform: translateY(-65%) rotate(45deg); pointer-events: none; }
+
+/* ─── PDP sticky info ──────────────────────────────────────── */
+.pdp-sticky-info { display: flex; align-items: center; gap: 14px; min-width: 0; }
+
 /* ─── MDX code highlight ───────────────────────────────────── */
 .word--highlighted { background: rgba(176,168,196,.25); border-radius: 4px; padding: 2px 4px; }
 .line--highlighted { background: rgba(176,168,196,.1); border-radius: 2px; display: block; }
