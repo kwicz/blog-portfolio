@@ -67,7 +67,7 @@ export default function Home() {
           <div className="trust-strip">
             {[
               { icon: 'truck' as const, title: 'Available for freelance', sub: 'Usually replies in 1–2 days.' },
-              { icon: 'pin' as const,   title: 'Based in NYC',            sub: 'Open to remote and on-site.' },
+              { icon: 'pin' as const,   title: 'Based in Portland, OR',   sub: 'Open to remote and on-site.' },
               { icon: 'check' as const, title: 'Full-stack capable',      sub: 'Design through deployment.' },
             ].map((item) => (
               <div key={item.title} className="trust-item">

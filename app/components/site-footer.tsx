@@ -7,9 +7,9 @@ export function SiteFooter() {
       <div className="container">
         <div className="ftr-grid">
           <div>
-            <div className="ftr-tag">Designer & developer<br />based in New York.</div>
+            <div className="ftr-tag">Designer & developer<br />based in Portland, OR.</div>
             <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', gap: 8, color: 'var(--lavender-200)', fontSize: 13 }}>
-              <Icon name="pin" size={16} /> New York, NY
+              <Icon name="pin" size={16} /> Portland, OR
             </div>
           </div>
           <div>

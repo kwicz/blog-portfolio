@@ -125,7 +125,7 @@ export default async function ProjectsPage({
                     <div className="coll-feature">
                       <div>
                         <div className="ed-eyebrow">About me</div>
-                        <h3>Frontend engineer & designer, based in NYC.</h3>
+                        <h3>Frontend engineer & designer, based in Portland, OR.</h3>
                         <p>I build thoughtful digital experiences from the ground up — from concept through launch. Open to freelance and full-time roles.</p>
                         <a href="/contact" className="btn btn-outline-caps">Get in touch</a>
                       </div>
@@ -143,7 +143,7 @@ export default async function ProjectsPage({
             {[
               { icon: 'check' as const, title: 'Frontend engineering', sub: 'React, Next.js, TypeScript.' },
               { icon: 'pin'   as const, title: 'UX + visual design',   sub: 'Figma to production.' },
-              { icon: 'truck' as const, title: 'Based in NYC',         sub: 'Remote-friendly.' },
+              { icon: 'truck' as const, title: 'Based in Portland, OR', sub: 'Remote-friendly.' },
             ].map(item => (
               <div key={item.title} className="trust-item">
                 <div className="trust-icon"><Icon name={item.icon} size={20} strokeWidth={1.75} /></div>

@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     default: 'Katy Solovewicz',
     template: '%s | k.solovewi.cz',
   },
-  description: 'Frontend engineer & designer based in New York.',
+  description: 'Frontend engineer & designer based in Portland, OR.',
   openGraph: {
     title: 'Katy Solovewicz',
-    description: 'Frontend engineer & designer based in New York.',
+    description: 'Frontend engineer & designer based in Portland, OR.',
     url: 'https://k.solovewi.cz',
     siteName: 'k.solovewi.cz',
     images: [{ url: '/favicon.png', width: 1920, height: 1080 }],
