@@ -40,7 +40,22 @@
       "Bash(mkdir -p /Users/katylee/Documents/Projects/blog-portfolio/.claude/design-system)",
       "Bash(unzip -o \"/Users/katylee/Downloads/Katy Lee's Ecommerce Design System.zip\" -d /Users/katylee/Documents/Projects/blog-portfolio/.claude/design-system)",
       "Bash(mkdir -p \"/Users/katylee/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/9e5fadac-a680-48e7-9efe-f83171042a84/75e859a7-275e-4ab1-b0eb-0555d11befd9/skills/add-to-portfolio\")",
-      "Bash(unzip -o \"/Users/katylee/Downloads/grayscale_brand_logos.zip\" -d brand_logos)"
+      "Bash(unzip -o \"/Users/katylee/Downloads/grayscale_brand_logos.zip\" -d brand_logos)",
+      "Bash(identify /Users/katylee/Documents/Projects/blog-portfolio/public/logos/svs_sound.png)",
+      "Bash(magick /Users/katylee/Documents/Projects/blog-portfolio/public/logos/svs_sound.png -level 0%,70% /Users/katylee/Documents/Projects/blog-portfolio/public/logos/svs_sound.png)",
+      "Bash(magick /Users/katylee/Documents/Projects/blog-portfolio/public/logos/svs_sound.png -format \"%c\" histogram:info:)",
+      "Bash(magick /tmp/brand_logos/svs_sound.png -crop 240x240+0+0 +repage -format \"%[fx:p{120,120}.r*255],%[fx:p{120,120}.g*255],%[fx:p{120,120}.b*255]\" info:)",
+      "Bash(magick /tmp/brand_logos/svs_sound.png -crop 420x240+240+0 +repage -format \"%[fx:p{100,120}.r*255],%[fx:p{100,120}.g*255],%[fx:p{100,120}.b*255]\" info:)",
+      "Bash(pnpm remove *)",
+      "Bash(mkdir -p /tmp/portfolio-imports)",
+      "Bash(unzip -o \"/Users/katylee/Downloads/dealer-orbit.zip\" -d /tmp/portfolio-imports/dealer-orbit)",
+      "Bash(unzip -o \"/Users/katylee/Downloads/market-motors.zip\" -d /tmp/portfolio-imports/market-motors)",
+      "Bash(unzip -o \"/Users/katylee/Downloads/fox-and-quill.zip\" -d /tmp/portfolio-imports/fox-and-quill)",
+      "Bash(cp /tmp/portfolio-imports/dealer-orbit/dealer-orbit/dealer-orbit.mdx /Users/katylee/Documents/Projects/blog-portfolio/content/projects/)",
+      "Bash(cp /tmp/portfolio-imports/market-motors/market-motors/market-motors.mdx /Users/katylee/Documents/Projects/blog-portfolio/content/projects/)",
+      "Bash(cp /tmp/portfolio-imports/fox-and-quill/fox-and-quill/fox-and-quill.mdx /Users/katylee/Documents/Projects/blog-portfolio/content/projects/)",
+      "Bash(cp /tmp/portfolio-imports/dealer-orbit/dealer-orbit/images/* /Users/katylee/Documents/Projects/blog-portfolio/public/projects/)",
+      "Bash(cp /tmp/portfolio-imports/market-motors/market-motors/images/* /Users/katylee/Documents/Projects/blog-portfolio/public/projects/)"
     ]
   }
 }
