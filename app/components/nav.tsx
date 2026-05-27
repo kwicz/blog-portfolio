@@ -8,7 +8,6 @@ import { useStore } from './store-context';
 const NAV_LINKS = [
   { href: '/projects', label: 'Work' },
   { href: '/posts', label: 'Journal' },
-  { href: '/contact', label: 'Contact' },
 ];
 
 export function Navigation() {
@@ -40,10 +39,10 @@ export function Navigation() {
         <div className="hdr-tools">
           <button
             className="icon-btn"
-            aria-label="Get in touch"
+            aria-label="Social links"
             onClick={openDrawer}
           >
-            <Icon name="cart" size={20} />
+            <Icon name="at-sign" size={20} />
           </button>
         </div>
       </div>

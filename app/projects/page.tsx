@@ -82,21 +82,25 @@ export default async function ProjectsPage({
 
         {/* Filter bar — full-width sticky, inherits tinted bg */}
         <div className="coll-filterbar">
-          <div className="container" style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-            <Link href="/projects" className={`filter-pill${!selectedCategory ? ' active' : ''}`}>All</Link>
-            {categories.map(cat => (
-              <Link
-                key={cat}
-                href={`/projects?category=${encodeURIComponent(cat)}`}
-                className={`filter-pill${selectedCategory === cat ? ' active' : ''}`}
-              >
-                {cat}
-              </Link>
-            ))}
-            <span className="count">{filtered.length} {filtered.length === 1 ? 'item' : 'items'}</span>
-            <Suspense>
-              <SortSelect category={selectedCategory} />
-            </Suspense>
+          <div className="container">
+            <div className="filterbar-pills">
+              <Link href="/projects" className={`filter-pill${!selectedCategory ? ' active' : ''}`}>All</Link>
+              {categories.map(cat => (
+                <Link
+                  key={cat}
+                  href={`/projects?category=${encodeURIComponent(cat)}`}
+                  className={`filter-pill${selectedCategory === cat ? ' active' : ''}`}
+                >
+                  {cat}
+                </Link>
+              ))}
+            </div>
+            <div className="filterbar-meta">
+              <span className="count">{filtered.length} {filtered.length === 1 ? 'item' : 'items'}</span>
+              <Suspense>
+                <SortSelect category={selectedCategory} />
+              </Suspense>
+            </div>
           </div>
         </div>
       </div>

@@ -65,6 +65,10 @@ const ICONS: Record<string, IconDef> = {
     { type: 'path', d: 'm16 18 6-6-6-6' },
     { type: 'path', d: 'M8 6 2 12l6 6' },
   ],
+  'at-sign': [
+    { type: 'circle', cx: 12, cy: 12, r: 4 },
+    { type: 'path', d: 'M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94' },
+  ],
 };
 
 interface IconProps extends SVGAttributes<SVGElement> {

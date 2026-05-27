@@ -25,27 +25,13 @@ export function SiteFooter() {
             <h4>Explore</h4>
             <ul>
               <li><Link href="/posts">Journal</Link></li>
-              <li><a href="https://github.com/katysolovewicz" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://github.com/kwicz" target="_blank" rel="noopener noreferrer">GitHub</a></li>
               <li><a href="https://linkedin.com/in/katysolovewicz" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><Link href="/contact">Contact</Link></li>
             </ul>
-          </div>
-          <div>
-            <h4>Get in touch</h4>
-            <p style={{ fontSize: 14, color: 'var(--lavender-200)', margin: '0 0 14px', lineHeight: 1.5 }}>
-              Open to freelance projects and creative partnerships.
-            </p>
-            <Link href="/contact" className="btn" style={{ background: 'var(--color-lavender)', color: 'var(--ink-900)', display: 'inline-flex' }}>
-              Say hello
-            </Link>
           </div>
         </div>
         <div className="ftr-bottom">
           <div>© {new Date().getFullYear()} K. Solovewicz</div>
-          <div style={{ display: 'flex', gap: 24 }}>
-            <Link href="/contact">Contact</Link>
-            <a href="https://github.com/katysolovewicz" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
         </div>
       </div>
     </footer>
