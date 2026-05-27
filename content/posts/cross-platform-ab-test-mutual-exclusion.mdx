@@ -1,0 +1,75 @@
+---
+title: 'How I Think About Cross-Platform A/B Test Exclusion (And Where It Goes Wrong)'
+description: "Running tests on multiple platforms simultaneously sounds fine until you realize they're contaminating each other's data."
+date: '2024-08-19'
+published: true
+---
+If you're running A/B tests on more than one platform at the same time — say, Convert Experiences for UX tests and Intelligems for pricing tests — you have a mutual exclusion problem whether you know it or not.
+
+Most teams don't know it. The tests run, both platforms report results, and nobody questions why the numbers look a little weird.
+
+Here's the thing: if a user is simultaneously in a pricing variant and a UX variant, their behavior is being attributed to both tests. Neither test is seeing a clean signal. You can get a false positive in one, a false negative in the other, or just noise across both. This is called interaction effects, and it's one of the more common silent killers of A/B test validity.
+
+## What mutual exclusion actually means
+
+Mutual exclusion means that a user in Test A is not in Test B. Full stop. The populations are separated before the test starts, not after. Post-hoc filtering ("we'll just exclude users who were in both") doesn't really work — by the time you're doing that, you've already contaminated your sample and your experiment has been running on bad data.
+
+The goal is to split traffic upstream, before either platform gets to assign a user to anything.
+
+## How to do it cleanly
+
+The most robust approach I've used is a traffic-splitting layer that runs before your testing platforms make any decisions. The pattern:
+
+1. On a user's first visit, assign them a random number between 0 and 100 and store it in a first-party cookie
+2. Use that number to decide which testing "bucket" they're in: 0–49 goes to Convert, 50–99 goes to Intelligems (or whatever your split needs to be)
+3. Each platform only activates for users in its assigned bucket
+
+You can implement this in GTM with a Custom HTML tag that fires before any other tags on the page. Something like:
+
+```javascript
+(function() {
+  var COOKIE_NAME = '_test_bucket';
+  
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? parseInt(match[2]) : null;
+  }
+  
+  function setCookie(name, value, days) {
+    var expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + value + '; expires=' + expires + '; path=/';
+  }
+  
+  var bucket = getCookie(COOKIE_NAME);
+  if (bucket === null) {
+    bucket = Math.floor(Math.random() * 100);
+    setCookie(COOKIE_NAME, bucket, 90);
+  }
+  
+  window._testBucket = bucket;
+})();
+```
+
+Then in Convert, your audience condition is `window._testBucket < 50`. In Intelligems, you use their built-in traffic controls to only activate for the other half.
+
+The cookie ensures the bucket assignment is sticky — a user stays in the same bucket on return visits, which is what you want for consistent experiment assignment.
+
+## Where platforms get it wrong
+
+Some testing platforms advertise mutual exclusion as a built-in feature. Read the fine print on how they implement it. A few things to watch for:
+
+**Platform-local exclusion vs. cross-platform exclusion.** A platform can guarantee that two tests *within itself* don't overlap users. That doesn't help you if the conflict is between Convert and Intelligems, which have no shared state.
+
+**Traffic splitting that only applies at the experiment level, not the user level.** If a platform is splitting traffic by session rather than by a persistent user identifier, the same user can end up in different buckets on different visits. That's worse than no exclusion at all.
+
+**"Mutual exclusivity" applied to variants within a test, not between tests.** Some documentation uses this term to mean that a user only sees one variant of a given test. That's not the same thing.
+
+## The tradeoff
+
+The obvious cost of mutual exclusion is that you're splitting your traffic. If you're sending half your users to Convert and half to Intelligems, each platform is working with a smaller pool. Tests take longer to reach significance.
+
+Whether that's acceptable depends on your traffic volume and how much you care about test validity. For high-traffic sites it's usually fine — you're still getting plenty of users per test. For lower-traffic sites you have to make a harder call: accept slower tests, or accept some risk of interaction effects.
+
+My general position is that contaminated data that reaches significance faster isn't actually better data. A false positive that leads you to ship the wrong thing costs more than a test that ran for an extra two weeks.
+
+Slow and clean beats fast and wrong.

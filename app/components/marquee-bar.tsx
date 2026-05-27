@@ -1,10 +1,10 @@
 'use client';
 
 const MESSAGES = [
-  'Full-stack ecommerce developer, Portland OR',
-  'Specializing in CRO, A/B testing & automations',
-  'Open to freelance & creative partnerships',
-  'Turning ecommerce sites into revenue machines',
+  'CRO engineer & full-stack developer, Portland OR',
+  '100+ A/B tests shipped across real ecommerce brands',
+  'Shopify, BigCommerce & headless',
+  'Convert, Intelligems, GTM & GA4',
 ];
 
 export function MarqueeBar() {

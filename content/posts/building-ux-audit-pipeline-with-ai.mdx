@@ -1,0 +1,71 @@
+---
+title: 'Building a UX Audit Pipeline with AI'
+description: "Screenshots, AI analysis, and cropped recommendation pairs — automatically. Here's how I built the report generator and what broke along the way."
+date: '2024-10-07'
+published: true
+---
+Part of onboarding a new ecommerce client involves a UX audit — reviewing their site, identifying friction points, and producing a report with annotated recommendations. It's valuable work that used to take a lot of manual time: screenshot the page, crop the relevant section, write the finding, repeat across 20+ pages.
+
+I automated most of it.
+
+## What the pipeline does
+
+The basic flow:
+
+1. Take a list of URLs
+2. Screenshot each page using a headless browser
+3. Run the screenshots through an AI vision model with a CRO-focused prompt
+4. Get back a list of findings with bounding box coordinates for each one
+5. Crop the relevant section of the screenshot for each finding
+6. Output a structured report: cropped image + recommendation, paired
+
+The result is a directory of findings you can drop into a report template. What used to take a day per client now takes about ten minutes of compute time and a review pass.
+
+## The stack
+
+- **SnapRender** for screenshots — consistent rendering, good handling of dynamic content
+- **Sharp** for image processing — cropping, resizing, format conversion
+- **OpenRouter** as the AI layer — routes to the appropriate vision model without locking you to one provider
+- **Redis** for job queuing — screenshot requests get queued and processed async rather than timing out on large site lists
+
+One thing that bit me early: Sharp's API has some methods that return Buffers and some that return the Sharp instance itself for chaining. If you try to use a string getter where you need `getBuffer()`, you'll get confusing output that looks like it worked but produces a corrupt file. Use `getBuffer()` explicitly when you need the raw bytes.
+
+## The WAF problem
+
+The first version of this worked great on small, unprotected sites and failed immediately on anything real. Akamai, Cloudflare, and similar CDN/WAF setups detect and block headless browsers. Your screenshot comes back as a 403 page or a CAPTCHA challenge, which is not a useful input for a UX analysis.
+
+A few things that helped:
+
+**Residential proxy routing** for the screenshot requests. A request coming from a residential IP looks like a real user. This solved maybe 80% of the blocking cases.
+
+**Screenshot API fallback** for sites that still blocked even with residential IPs. Some WAF configurations are aggressive enough that you need a full browser fingerprint to get through. Screenshot APIs handle this at the service level so you don't have to maintain it yourself.
+
+**User-agent and header spoofing** as a baseline — not sufficient on its own for hardened WAFs, but it filters out the simpler blockers without adding latency.
+
+## Getting coordinates right
+
+The first version of my AI prompt asked the model to identify problem areas and describe them in text. That produced decent findings but made cropping manual — I'd still have to figure out what region of the image to cut.
+
+The second version asks the model to return bounding box coordinates alongside each finding. The prompt looks roughly like:
+
+```
+Analyze this ecommerce page screenshot for UX issues. For each issue found, return:
+- A brief description of the problem
+- A CRO recommendation
+- Bounding box coordinates as percentages of image dimensions: 
+  { "x": 0-100, "y": 0-100, "width": 0-100, "height": 0-100 }
+
+Return JSON only. No preamble.
+```
+
+Percentage-based coordinates are important — they're resolution-independent, so the same coordinates work whether the screenshot is 1200px wide or 2400px wide. Pixel-based coordinates break the moment your screenshot dimensions change.
+
+The model doesn't always nail the coordinates on the first pass. I use a two-pass approach for anything where precision matters: first pass gets the finding and a rough region, second pass crops to that region and asks for refined coordinates within the crop. More tokens, but meaningfully more accurate bounding boxes.
+
+## What the review pass catches
+
+The pipeline isn't a replacement for judgment. It catches the obvious stuff well: missing trust signals, unclear CTAs, product image issues, form friction, above-the-fold problems. It's less reliable on subtler issues that require understanding the client's specific conversion goals or customer base.
+
+The review pass is where those get added. But the mechanical work — the screenshotting, the cropping, the formatting — is gone, and that's where most of the time used to go.
+
+The repo isn't public (it's internal tooling), but if you're building something similar the main things I'd tell you are: handle the WAF problem first, use percentage-based coordinates, and parse the AI output as JSON rather than trying to regex it.

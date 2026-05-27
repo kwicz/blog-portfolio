@@ -28,8 +28,8 @@ export function Hero({
             {ctaLabel}
             <Icon name="arrow-up-right" size={16} strokeWidth={2} />
           </Link>
-          <Link href="/contact" className="btn btn-outline-caps btn-lg">
-            Get in touch
+          <Link href="/posts" className="btn btn-outline-caps btn-lg">
+            Read the journal
           </Link>
         </div>
       </div>

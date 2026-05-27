@@ -1,0 +1,91 @@
+---
+title: 'The Convert Experiences Timing Bug That Was Flashing Our Variant'
+description: "Convert was evaluating DOM conditions before the page was ready. Here's how a MutationObserver and one GTM variable fixed it."
+date: '2024-06-03'
+published: true
+---
+Here's a thing that happens with client-side A/B testing that nobody talks about enough: the test runs before the page is ready.
+
+The experience looks fine in QA. It looks fine on your laptop. Then a client emails you a screen recording from their phone showing a half-second flash of the variant text before it snaps back to the control. And you get to spend your afternoon figuring out why.
+
+This is that story.
+
+## What was happening
+
+We were running a test on a product page that changed some headline copy. The variant was injecting new text into a DOM element that gets populated dynamically — meaning the element existed in the HTML, but the content inside it was being written by JavaScript after page load.
+
+Convert was evaluating the targeting condition, seeing that the element existed, and immediately applying the variant. The problem: the element existed but was empty. The variant text would flash in, then the page's own JS would overwrite it with the control text a few milliseconds later. On a fast connection you'd never notice. On a slower mobile connection, it was very visible.
+
+The root cause is a timing gap. Convert checks DOM conditions early — by design, to minimize flicker from the testing tool itself. But "early" means before your page's own JavaScript has finished doing its thing.
+
+## What didn't fix it
+
+A few things I tried first:
+
+Setting a longer delay in Convert's activation settings: helped on some devices, not others. Delay-based solutions are always fragile because you're guessing at someone else's network speed.
+
+Checking for the element's existence in the targeting condition: the element always existed. That wasn't the signal I needed.
+
+Checking for a class that the page adds after render: closer, but the class was also added by JS that ran inconsistently depending on cache state.
+
+## What actually fixed it
+
+The fix was a GTM Custom HTML tag that writes a variable to `window` once the cart/page state is actually ready, combined with a Convert condition that checks for that variable.
+
+The tag looked like this:
+
+```javascript
+<script>
+(function() {
+  function checkReady() {
+    var targetEl = document.querySelector('.product-title');
+    if (targetEl && targetEl.textContent.trim().length > 0) {
+      window._pageContentReady = true;
+    } else {
+      setTimeout(checkReady, 50);
+    }
+  }
+  checkReady();
+})();
+</script>
+```
+
+This polls every 50ms until the target element has actual content, then sets a flag. Convert's activation condition then checks:
+
+```javascript
+window._pageContentReady === true
+```
+
+Now Convert waits until the page has finished writing its own content before applying the variant. No more flash.
+
+## The MutationObserver version
+
+For cases where polling felt heavy-handed, I also used a MutationObserver approach on a separate test:
+
+```javascript
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if (mutation.target.textContent.trim().length > 0) {
+      window._pageContentReady = true;
+      observer.disconnect();
+    }
+  });
+});
+
+var el = document.querySelector('.product-title');
+if (el) {
+  observer.observe(el, { childList: true, subtree: true, characterData: true });
+}
+```
+
+MutationObserver is more precise — it fires exactly when the content changes rather than checking on a timer. The tradeoff is slightly more complexity in the setup.
+
+## What I took away from this
+
+Client-side A/B testing is a race condition waiting to happen. Your testing tool, your page's JavaScript, and any third-party scripts are all running in roughly the same window, and the order isn't guaranteed.
+
+The right mental model is: don't tell Convert "is this element on the page?" Tell it "is this element ready to be modified?" Those are different questions, and the answer to the second one requires a flag you control.
+
+GTM is the right place to set that flag because GTM already has hooks into the page lifecycle and you can control exactly when a tag fires. Writing to `window` from GTM and reading from `window` in Convert is a clean, testable handshake.
+
+No more flashing.

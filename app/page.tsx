@@ -10,7 +10,7 @@ const CATEGORY_TILES = [
   { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/category-ecommerce.svg', surface: 'lilac' as const },
   { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/category-elearning.svg', surface: 'sage' as const },
   { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.svg', surface: 'honey' as const },
-  { href: '/projects', label: 'All Work', illustration: '/illustrations/category-allwork.svg', surface: 'lavender' as const },
+  { href: '/projects?category=Tools+%26+Automations', label: 'Tools & Automations', illustration: '/illustrations/category-tools.svg', surface: 'lavender' as const },
 ];
 
 export default function Home() {
@@ -25,9 +25,9 @@ export default function Home() {
       <section style={{ paddingBlock: '40px 64px' }}>
         <div className="container">
           <Hero
-            eyebrow="Full-stack ecommerce developer"
+            eyebrow="CRO engineer & full-stack developer"
             headline="Building stores that convert, retain, and scale."
-            subline="I specialize in CRO, A/B testing, and business automations — turning ecommerce sites into high-performing revenue machines."
+            subline="I've shipped 100+ A/B tests for real ecommerce brands. I also build the tools to run them."
             ctaHref="/projects"
             ctaLabel="See my work"
           />

@@ -1,0 +1,51 @@
+---
+title: 'What I Actually Do as a CRO Engineer'
+description: "What the CRO engineer title actually means — and what it looks like day to day when you're the technical half of the equation."
+date: '2025-01-08'
+published: true
+---
+"CRO" on a resume can mean a lot of things. It can mean someone who runs reports in Google Analytics and writes hypotheses in a spreadsheet. It can mean a strategist who presents findings to clients and hands implementation to a developer. It can mean someone who logs into Optimizely and drags text around in a visual editor.
+
+I'm the technical half of a two-sided discipline — the part that sits between strategy and production. I figured it was worth writing down what that actually looks like.
+
+## The split
+
+At a DXO consultancy, the work roughly divides into: figuring out what to test, and building the test. Strategy feeds development. I'm primarily on the development side, though in practice the line is blurry — when you're building the test you see things the strategy pass missed, and when you're debugging a test you understand the user behavior in ways that inform the next hypothesis.
+
+On any given week I'm probably running 8–12 concurrent tests across 6 active clients. Those tests live on different platforms (primarily Convert Experiences, sometimes Intelligems), on different stacks (Shopify, BigCommerce, WordPress/WooCommerce), with different analytics setups (GA4, GTM, Segment). The job is to keep all of that running cleanly and producing valid data.
+
+## What "building a test" actually means
+
+A test isn't just a CSS change or a text swap. A real test has several layers:
+
+**The variant itself** — the visible change. This could be a copy change, a layout restructure, a new UI component, a different checkout flow. Depending on complexity, this is anywhere from 20 lines of JavaScript to a full component build.
+
+**Targeting** — who sees the test and when. This involves audience segmentation (new vs. returning, device type, geography, referral source), activation conditions (is the page in the right state?), and traffic allocation. Getting targeting wrong means your results aren't measuring what you think they're measuring.
+
+**Analytics instrumentation** — what you're measuring. Most tests need custom events beyond whatever the platform tracks by default. That means GTM tags, GA4 event configurations, and sometimes custom dimensions or metrics. The test is useless without clean data coming out of it.
+
+**QA** — does it actually work. Not just "does the variant appear" but: does it appear correctly on all targeted device types, does it break anything else on the page, is the analytics firing correctly, is the targeting excluding the right users, does it handle edge cases like out-of-stock products or empty carts.
+
+All four of those layers are my job.
+
+## The problems I'm actually solving
+
+The strategic problems are things like: what's the right hypothesis given this client's data, which pages have the highest impact potential, what does statistical significance actually mean for a client with 50k monthly visitors.
+
+The technical problems are things like: Convert is evaluating DOM conditions before the page is ready and our variant is flashing, a cross-origin iframe means our click events aren't propagating to the parent document, a pricing test and a UX test are running simultaneously and contaminating each other's data, Cookiebot is blocking our analytics from firing in EU markets.
+
+These aren't bugs in the traditional sense — they're the expected friction of running client-side experiments on live production sites that you don't control. The job is to have solved enough of these that you can recognize the pattern quickly and know the fix.
+
+## What I build on top of the test work
+
+Because I'm running tests across multiple clients on the same platforms, I build tooling to manage that at scale. The A/B Test Dashboard is the main one — it's how I track test status, document results, and keep GTM/GA4 in sync without doing it manually for every test. I also maintain internal scripts for things like Sentry alert configuration, client audit tooling, and screenshot-based UX analysis.
+
+That's the part of the job that doesn't show up in most CRO job descriptions: the systems thinking. Running one test on one platform is a tactical task. Running concurrent programs across multiple clients on multiple platforms while keeping data clean is a systems problem. The tooling is how I make that tractable.
+
+## Why I like it
+
+Honestly, because it's never the same problem twice. A new client means a new stack, new edge cases, new quirks in how their platform handles JavaScript execution. A new test idea means a new implementation challenge. The job combines enough strategy, enough development, and enough debugging that it stays interesting.
+
+Also, the feedback loop is tighter than most development work. You ship a test, you wait for significance, you find out if you were right. That's a genuinely useful forcing function for getting better at both reading user behavior and building things that work reliably under real-world conditions.
+
+If any of this sounds familiar — or if you're looking for someone to run the technical side of a CRO program — my contact info is at the bottom of the page.

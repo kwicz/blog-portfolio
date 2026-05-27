@@ -1,0 +1,47 @@
+---
+title: 'Why I Stopped Managing A/B Tests in Spreadsheets'
+description: "At some point a spreadsheet stops being a system and starts being a liability. Here's what I built instead."
+date: '2024-03-14'
+published: true
+---
+For a while I was managing A/B tests in Google Sheets. Multiple clients, multiple concurrent tests, multiple platforms — all of it tracked in a spreadsheet that had grown so many columns it required horizontal scrolling to find anything.
+
+It worked, technically. Until it didn't.
+
+## The problem with spreadsheets for A/B testing
+
+The obvious issue is that a spreadsheet is just a list. It can't inject a test variant. It can't fire a GA4 event when a test status changes. It can't tell you at a glance which tests are live right now across all your clients without you reading every single row.
+
+The less obvious issue is that a spreadsheet is a document, not a system. There's no validation. Someone (me) can type "statisically significant" and the spreadsheet will just quietly accept that. There's no structure forcing you to record the right information in the right place. Over time, old tests get stale, notes get vague, and you end up with rows like "PDP test - variant won? check with Sarah" from eight months ago.
+
+I was running concurrent tests across six-plus ecommerce clients at any given time. At that scale, a spreadsheet isn't a source of truth. It's a liability.
+
+## What I actually needed
+
+When I sat down to think about what I wanted, the list was pretty specific:
+
+- One place to see every active test across every client, at a glance
+- Status tracking that meant something (not just "running" / "done")
+- GTM and GA4 integration so every test creation and update logs as an event automatically — no manual tracking
+- A way to document hypothesis, methodology, and results in a consistent format
+- The ability to toggle between control and variant experiences for QA
+
+That last one matters more than people realize. If you can't force yourself into a variant easily, QA becomes a guessing game.
+
+## What I built
+
+The A/B Test Dashboard is a Next.js app with TypeScript and Tailwind that does all of the above. The architecture is intentionally simple: test data lives in a single config object, so adding a new test is just adding a new entry to a file — not creating a new page, not touching a database, not updating a separate tracker somewhere.
+
+Each test entry has fields for: client, platform (Convert, Intelligems, etc.), hypothesis, variant description, target URL, status, start/end dates, results, and learnings. The dashboard surfaces all of that in a filterable UI.
+
+The GTM integration means that when a test status changes — goes live, gets paused, reaches significance — that fires as an event automatically. Your GA4 audiences update. Nothing falls through the cracks because someone forgot to update the spreadsheet.
+
+## What changed
+
+Mostly: less time on test administration, more time on test strategy. When your tracking system requires manual upkeep, you tend to let it slip. When it's automated, you trust it, and trusting it means you actually use it.
+
+The other thing that changed is that the learnings actually get recorded now. When a test is done, there's a field for it. The format is consistent. Six months later when someone asks "didn't we test something like this before?" — yes, actually, here it is.
+
+A spreadsheet can't do that. Not reliably. Not at scale.
+
+The repo is on [GitHub](https://github.com/kwicz/ab_test_dashboard) if you want to dig in.
