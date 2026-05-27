@@ -23,17 +23,19 @@ export function BrandBanner() {
         <h2 className="brand-banner-headline">Brands I loved working with.</h2>
       </div>
 
-      <div className="brand-track-wrap">
-        <div className="brand-track">
-          {[...BRANDS, ...BRANDS].map((brand, i) => (
-            <div key={i} className={`brand-logo${brand.precolored ? ' brand-logo--precolored' : ''}`} aria-hidden={i >= BRANDS.length}>
-              <img
-                src={`/logos/${brand.file}`}
-                alt={brand.name}
-                height={44}
-              />
-            </div>
-          ))}
+      <div className="container">
+        <div className="brand-track-wrap">
+          <div className="brand-track">
+            {[...BRANDS, ...BRANDS, ...BRANDS].map((brand, i) => (
+              <div key={i} className={`brand-logo${brand.precolored ? ' brand-logo--precolored' : ''}`} aria-hidden={i >= BRANDS.length}>
+                <img
+                  src={`/logos/${brand.file}`}
+                  alt={brand.name}
+                  height={44}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

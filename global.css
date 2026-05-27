@@ -322,7 +322,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 
 /* ─── Trust strip ──────────────────────────────────────────── */
 /* ── Brand banner ──────────────────────────────────────────── */
-@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-33.333%) } }
 .brand-banner { background: var(--surface-0); padding: 64px 0 56px; border-top: 1px solid var(--surface-line); border-bottom: 1px solid var(--surface-line); }
 .brand-banner-header { margin-bottom: 40px; }
 .brand-banner-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-400); margin: 0 0 16px; }
@@ -331,7 +331,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .brand-track-wrap::before, .brand-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none; }
 .brand-track-wrap::before { left: 0; background: linear-gradient(to right, var(--surface-0), transparent); }
 .brand-track-wrap::after  { right: 0; background: linear-gradient(to left,  var(--surface-0), transparent); }
-.brand-track { display: flex; align-items: center; gap: 72px; width: max-content; animation: marquee 28s linear infinite; }
+.brand-track { display: flex; align-items: center; gap: 72px; width: max-content; animation: marquee 24s linear infinite; will-change: transform; backface-visibility: hidden; }
 .brand-track:hover { animation-play-state: paused; }
 .brand-logo { flex-shrink: 0; display: flex; align-items: center; }
 .brand-logo img { height: 44px; width: auto; max-width: 160px; object-fit: contain; filter: sepia(1) hue-rotate(260deg) saturate(0.6) brightness(2); opacity: 0.8; transition: opacity 200ms; display: block; }

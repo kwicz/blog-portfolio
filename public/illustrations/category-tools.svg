@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Small gear (6 teeth, upper-left) -->
+  <path d="M 26.0,18.0 L 27.9,15.2 L 34.4,18.9 L 32.9,22.0 L 36.3,22.2 L 36.3,29.8 L 32.9,30.0 L 34.4,33.1 L 27.9,36.8 L 26.0,34.0 L 24.1,36.8 L 17.6,33.1 L 19.1,30.0 L 15.7,29.8 L 15.7,22.2 L 19.1,22.0 L 17.6,18.9 L 24.1,15.2 Z" fill="white" stroke="#2A262F" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Small gear hub -->
+  <circle cx="26" cy="26" r="4.5" fill="white" stroke="#2A262F" stroke-width="1.75"/>
+
+  <!-- Large gear (8 teeth, main) -->
+  <path d="M 52.0,33.0 L 56.5,26.4 L 66.9,30.7 L 65.4,38.6 L 73.3,37.1 L 77.6,47.5 L 71.0,52.0 L 77.6,56.5 L 73.3,66.9 L 65.4,65.4 L 66.9,73.3 L 56.5,77.6 L 52.0,71.0 L 47.5,77.6 L 37.1,73.3 L 38.6,65.4 L 30.7,66.9 L 26.4,56.5 L 33.0,52.0 L 26.4,47.5 L 30.7,37.1 L 38.6,38.6 L 37.1,30.7 L 47.5,26.4 Z" fill="#E8D9F0" stroke="#2A262F" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Large gear hub -->
+  <circle cx="52" cy="52" r="11" fill="white" stroke="#2A262F" stroke-width="2"/>
+  <!-- Code brackets < > in hub -->
+  <path d="M47 48.5 L43.5 52 L47 55.5" stroke="#2A262F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M57 48.5 L60.5 52 L57 55.5" stroke="#2A262F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
