@@ -195,7 +195,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 
 /* ─── Product grid ─────────────────────────────────────────── */
 .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.pcard { display: flex; flex-direction: column; height: 100%; cursor: pointer; position: relative; text-decoration: none; border: 1px solid var(--surface-line); border-radius: var(--radius-xl); background: var(--surface-0); transition: transform 220ms var(--ease-bounce), box-shadow 220ms var(--ease-soft); }
+.pcard { display: flex; flex-direction: column; height: 100%; cursor: pointer; position: relative; text-decoration: none; border: 1px solid var(--surface-line); border-radius: var(--radius-xl); background: var(--surface-0); transition: transform 220ms var(--ease-bounce), box-shadow 220ms var(--ease-soft); min-width: 0; }
 .pcard:hover { text-decoration: none; transform: translateY(-4px); box-shadow: var(--shadow-2); }
 .pcard-img { position: relative; aspect-ratio: 8/5; overflow: hidden; background: var(--surface-2); border-radius: var(--radius-lg); margin: 10px 10px 0; }
 .pcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
