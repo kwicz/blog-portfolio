@@ -193,6 +193,13 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .tile-square img { width: 62%; height: 62%; }
 .tile-label { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-900); }
 
+/* ─── Tool grid (Favorites page) ──────────────────────────── */
+.tool-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.tool-tile { display: flex; flex-direction: column; gap: 12px; }
+.tool-tile-square { aspect-ratio: 1/1; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; }
+.tool-tile-logo { width: 52%; height: 52%; object-fit: contain; filter: brightness(0) opacity(0.75); }
+.tool-tile-label { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: var(--ink-700); }
+
 /* ─── Product grid ─────────────────────────────────────────── */
 .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .pcard { display: flex; flex-direction: column; height: 100%; cursor: pointer; position: relative; text-decoration: none; border: 1px solid var(--surface-line); border-radius: var(--radius-xl); background: var(--surface-0); transition: transform 220ms var(--ease-bounce), box-shadow 220ms var(--ease-soft); min-width: 0; }
@@ -417,6 +424,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 
   /* Tile grid */
   .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .tool-grid { grid-template-columns: repeat(3, 1fr); }
 
   /* Product grid */
   .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -463,6 +471,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 
   /* Tiles */
   .tile-grid { gap: 10px; }
+  .tool-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
   /* Product grid — 1 column on small phones */
   .prod-grid { grid-template-columns: 1fr; }

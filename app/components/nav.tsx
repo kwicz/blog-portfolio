@@ -37,6 +37,9 @@ export function Navigation() {
         </nav>
 
         <div className="hdr-tools">
+          <Link href="/favorites" className="icon-btn" aria-label="Favorites">
+            <Icon name="heart" size={20} />
+          </Link>
           <button
             className="icon-btn"
             aria-label="Social links"
