@@ -1,0 +1,34 @@
+---
+title: 'I Redesigned My Portfolio with Claude and Now I Have a Problem'
+description: 'How an AI-assisted design sprint turned into a full design system, a soft summer aesthetic, and a growing list of old projects I now need to fix.'
+date: '2026-05-26'
+published: true
+---
+
+Okay so here's what happened. I'd been meaning to redesign this site for a while. The old version had this dark autumn portfolio thing going on that I thought was cool for about two weeks and then quietly started dreading every time I opened it. The bones were fine. The vibes were not.
+
+So I decided to try something I hadn't done before: use Claude as an actual design collaborator, not just a coding assistant. I wasn't totally sure what that would look like, but I figured worst case I'd end up with some interesting CSS.
+
+## We made a real design system
+
+This is the part that surprised me most. Instead of just picking some colors and calling it a day, we built out an actual design system first. Named token scales, typography rules, spacing grids, component specs, the whole thing. It lives in `.claude/design-system/` and has a spec doc, a full token sheet, HTML component previews, and a reference UI kit.
+
+I called the theme `soft-summer-ecommerce`, which is maybe the most me thing I've ever named anything.
+
+The palette landed on creams, lavenders, and sages. Warm, a little editorial, kind of like a nice DTC brand rather than a developer portfolio. That was intentional. Most of my actual work is ecom, so it felt right to make the site feel like that world.
+
+Having the design file first made the build go really fast. Every color in the CSS traces back to a named token. I never had to make a decision twice. Honestly it's the most organized I've ever been about design, which is not a high bar, but I'll take it.
+
+## I stole from sites I love
+
+Before we built anything I spent some time collecting screenshots from ecom sites I actually like. Stores with good instincts: thoughtful layouts, nice type, components that feel intentional. I've spent a lot of time running A/B tests on ecom sites and I have opinions about what works and what doesn't, so I tried to pull some of those patterns in.
+
+The marquee bar, the brand banner, the trust strip, the "just shipped" carousel, the sticky PDP CTA. These are components I've seen win in testing. They work because they build confidence and reduce friction. It felt a little silly not to use them on my own site when I spend my days telling clients to use them on theirs.
+
+## The unexpected side effect
+
+Here's the thing I didn't anticipate. Now I can't look at my old project screenshots without wincing a little. Not because they're bad, just because the site they're living on is so much nicer than the screenshots I took of them a year ago.
+
+I've already gone back and cleaned up a few projects just so they look better in the gallery. Which was not the plan. The plan was to redesign the portfolio and move on with my life. Instead I have a growing list of things to beautify.
+
+I think that's probably fine. Or at least it's a better problem than the one I started with.
