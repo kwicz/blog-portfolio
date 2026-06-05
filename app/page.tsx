@@ -25,7 +25,10 @@ export default function Home() {
       <section style={{ paddingBlock: '40px 64px' }}>
         <div className="container">
           <Hero
-            eyebrow="CRO engineer & full-stack developer"
+            roles={[
+              { label: 'Technical Lead of A/B Testing', company: 'The Good' },
+              { label: 'Lead Developer / Designer',     company: 'Clipses.ai' },
+            ]}
             headline="Building stores that convert, retain, and scale."
             subline="I've shipped 100+ A/B tests for real ecommerce brands. I also build the tools to run them."
             ctaHref="/projects"
@@ -85,7 +88,7 @@ export default function Home() {
                 From conversion rate optimization to automated workflows, I help ecommerce brands do more with what they already have — smarter funnels, sharper experiments, less manual overhead.
               </p>
               <a href="/contact" className="btn btn-primary">
-                Work with me
+                Get in touch
               </a>
             </div>
             <div style={{ position: 'relative', aspectRatio: '1/1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

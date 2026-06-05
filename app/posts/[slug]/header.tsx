@@ -23,7 +23,7 @@ export function Header({ post, views }: Props) {
           <span className="current">{post.title}</span>
         </div>
 
-        <div style={{ maxWidth: 720 }}>
+        <div style={{ maxWidth: 860 }}>
           {post.date && (
             <p
               className="pdp-eyebrow"

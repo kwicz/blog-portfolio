@@ -113,6 +113,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 /* ─── Layout ────────────────────────────────────────────────── */
 .shell { min-height: 100vh; display: flex; flex-direction: column; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; width: 100%; }
+.prose { max-width: none; }
 .page-section { padding-block: 80px; }
 .page-section + .page-section { padding-top: 0; }
 
@@ -172,6 +173,9 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .hero h1 { font-size: 72px; line-height: 76px; font-variation-settings: 'opsz' 144, 'SOFT' 50; letter-spacing: -0.02em; margin: 0 0 24px; text-wrap: balance; }
 .hero p:not(.hero-eyebrow) { font-size: 18px; line-height: 28px; max-width: 460px; color: var(--ink-700); margin: 0 0 32px; }
 .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-lavender); margin-bottom: 16px; }
+.hero-roles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.hero-role-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: var(--radius-pill); background: rgba(255,255,255,0.6); border: 1px solid rgba(42,38,47,0.1); font-size: 12px; font-weight: 500; color: var(--ink-700); backdrop-filter: blur(4px); white-space: nowrap; }
+.hero-role-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-art { position: relative; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
 .hero-art img { width: 80%; height: 80%; object-fit: contain; }

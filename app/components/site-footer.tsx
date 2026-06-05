@@ -16,6 +16,7 @@ export function SiteFooter() {
             <h4>Work</h4>
             <ul>
               <li><Link href="/projects">All projects</Link></li>
+              <li><Link href="/projects?category=Tools+%26+Automations">Tools &amp; Automations</Link></li>
               <li><Link href="/projects?category=E-Commerce">E-Commerce</Link></li>
               <li><Link href="/projects?category=E-Learning">E-Learning</Link></li>
               <li><Link href="/projects?category=Just+For+Fun">Just For Fun</Link></li>

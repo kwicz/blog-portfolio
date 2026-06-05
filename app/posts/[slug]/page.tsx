@@ -41,7 +41,7 @@ export default async function PostPage({ params }: Props) {
       <ReportView slug={post.slug} />
 
       <div className="container" style={{ paddingTop: 8 }}>
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
+        <div style={{ maxWidth: 860 }}>
           <article className="prose prose-quoteless">
             <Mdx code={post.body.code} />
           </article>
