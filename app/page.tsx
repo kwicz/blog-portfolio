@@ -13,7 +13,7 @@ const CATEGORY_TILES = [
   { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.svg', surface: 'lavender' as const },
 ];
 
-const FEATURED_SLUGS = ['clipses', 'market-motors', 'fox-and-quill', 'snapinsights'];
+const FEATURED_SLUGS = ['clipses', 'market-motors', 'fox-and-quill', 'facebookactivityscrubber'];
 
 export default function Home() {
   const published = allProjects.filter(p => p.published !== false);
