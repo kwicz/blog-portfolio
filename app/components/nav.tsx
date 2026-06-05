@@ -7,7 +7,6 @@ import { useStore } from './store-context';
 
 const NAV_LINKS = [
   { href: '/projects', label: 'Work' },
-  { href: '/posts', label: 'Journal' },
 ];
 
 export function Navigation() {

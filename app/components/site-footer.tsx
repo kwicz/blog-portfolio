@@ -25,7 +25,6 @@ export function SiteFooter() {
           <div>
             <h4>Explore</h4>
             <ul>
-              <li><Link href="/posts">Journal</Link></li>
               <li><a href="https://github.com/kwicz" target="_blank" rel="noopener noreferrer">GitHub</a></li>
               <li><a href="https://linkedin.com/in/katysolovewicz" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
             </ul>
