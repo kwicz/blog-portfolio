@@ -136,8 +136,8 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .hdr-nav a { color: var(--ink-900); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 6px; font-size: 14px; font-weight: 500; padding: 8px 0; }
 .hdr-nav a:hover { text-decoration-color: var(--color-lavender); }
 .hdr-tools { display: flex; align-items: center; gap: 8px; }
-.icon-btn { background: transparent; border: 0; padding: 10px 12px; border-radius: 999px; color: var(--ink-900); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px; font-weight: 500; transition: background 160ms var(--ease-soft); position: relative; }
-.icon-btn:hover { background: var(--lilac-50); }
+.icon-btn { background: transparent; border: 0; padding: 10px 12px; border-radius: 999px; color: var(--ink-900); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px; font-weight: 500; transition: color 160ms var(--ease-soft); position: relative; }
+.icon-btn:hover { background: transparent; color: var(--color-lavender); }
 
 /* ─── Buttons ──────────────────────────────────────────────── */
 .btn { font-weight: 600; font-size: 15px; border: 0; cursor: pointer; padding: 13px 24px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; transition: background 200ms var(--ease-soft), transform 80ms var(--ease-bounce), box-shadow 200ms var(--ease-soft), border-color 200ms var(--ease-soft), color 200ms var(--ease-soft); text-decoration: none; line-height: 1; white-space: nowrap; }
@@ -173,8 +173,14 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .hero h1 { font-size: 72px; line-height: 76px; font-variation-settings: 'opsz' 144, 'SOFT' 50; letter-spacing: -0.02em; margin: 0 0 24px; text-wrap: balance; }
 .hero p:not(.hero-eyebrow) { font-size: 18px; line-height: 28px; max-width: 460px; color: var(--ink-700); margin: 0 0 32px; }
 .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-lavender); margin-bottom: 16px; }
-.hero-roles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-.hero-role-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: var(--radius-pill); background: rgba(255,255,255,0.6); border: 1px solid rgba(42,38,47,0.1); font-size: 12px; font-weight: 500; color: var(--ink-700); backdrop-filter: blur(4px); white-space: nowrap; }
+.hero-roles-headline { display: flex; flex-direction: column; gap: 4px; margin: 0 0 24px; }
+.hero-role-line { display: block; font-size: clamp(28px, 3.5vw, 48px); line-height: 1.15; font-family: var(--font-display); font-variation-settings: 'opsz' 144, 'SOFT' 50; letter-spacing: -0.02em; }
+.hero-role-at { color: var(--color-lavender); font-style: normal; }
+.hero-role-company { color: var(--ink-700); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color 160ms; }
+.hero-role-company:hover { text-decoration-color: var(--color-lavender); color: var(--ink-700); }
+.hero-role-divider { display: block; height: 1px; background: var(--surface-line); margin: 8px 0; width: 48px; }
+/* legacy pill classes kept for potential reuse */
+.hero-role-pill { display: inline-flex; align-items: center; padding: 6px 16px; border-radius: var(--radius-pill); background: rgba(42,38,47,0.08); border: none; font-size: 12px; font-weight: 500; color: var(--ink-700); white-space: nowrap; }
 .hero-role-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-art { position: relative; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
@@ -411,10 +417,12 @@ a:hover { text-decoration-color: var(--color-lavender); }
   .container { padding: 0 20px; }
 
   /* Header */
-  .hdr-inner { height: 64px; gap: 16px; }
-  .hdr-logo-text { display: none; }
-  .hdr-nav { gap: 20px; }
+  .hdr-inner { height: 64px; gap: 12px; }
+  .hdr-logo { font-size: 16px; gap: 8px; }
+  .hdr-nav { gap: 16px; }
   .hdr-nav a { font-size: 13px; }
+  .hdr-tools { gap: 0; }
+  .hdr-tools .icon-btn { padding: 8px; }
   .coll-filterbar { top: 64px; padding: 0; }
   .coll-filterbar .container { flex-direction: column; align-items: stretch; gap: 0; }
   .filterbar-pills { overflow-x: auto; scrollbar-width: none; padding: 12px 0; gap: 8px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }

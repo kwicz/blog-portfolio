@@ -9,27 +9,32 @@ import { BrandBanner } from './components/brand-banner';
 const CATEGORY_TILES = [
   { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/category-ecommerce.svg', surface: 'lilac' as const },
   { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/category-elearning.svg', surface: 'sage' as const },
-  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.svg', surface: 'honey' as const },
-  { href: '/projects?category=Tools+%26+Automations', label: 'Tools & Automations', illustration: '/illustrations/category-tools.svg', surface: 'lavender' as const },
+  { href: '/projects?category=Tools+%26+Automations', label: 'Tools & Automations', illustration: '/illustrations/category-tools.svg', surface: 'honey' as const },
+  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.svg', surface: 'lavender' as const },
 ];
 
-export default function Home() {
-  const published = allProjects
-    .filter(p => p.published !== false)
-    .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+const FEATURED_SLUGS = ['clipses', 'market-motors', 'fox-and-quill', 'snapinsights'];
 
-  const featured = published.slice(0, 8);
+export default function Home() {
+  const published = allProjects.filter(p => p.published !== false);
+
+  const featured = [
+    ...FEATURED_SLUGS.map(slug => published.find(p => p.slug === slug)).filter(Boolean),
+    ...published
+      .filter(p => !FEATURED_SLUGS.includes(p.slug))
+      .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')),
+  ].slice(0, 8) as typeof published;
 
   return (
     <>
       <section style={{ paddingBlock: '40px 64px' }}>
         <div className="container">
           <Hero
+            eyebrow="CRO engineer & full-stack developer"
             roles={[
-              { label: 'Technical Lead of A/B Testing', company: 'The Good' },
-              { label: 'Lead Developer / Designer',     company: 'Clipses.ai' },
+              { label: 'Technical Lead of A/B Testing', company: 'The Good',   href: 'https://thegood.com' },
+              { label: 'Lead Developer / Designer',     company: 'Clipses.ai', href: 'https://clipses.ai' },
             ]}
-            headline="Building stores that convert, retain, and scale."
             subline="I've shipped 100+ A/B tests for real ecommerce brands. I also build the tools to run them."
             ctaHref="/projects"
             ctaLabel="See my work"
