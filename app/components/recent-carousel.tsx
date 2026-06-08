@@ -11,8 +11,7 @@ interface CarouselProject {
   category?: string;
   image?: string;
   date?: string;
-  rating?: number;
-  reviewCount?: number;
+  tags?: string[];
   ribbon?: string;
 }
 
@@ -96,7 +95,7 @@ export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
                 category={p.category}
                 image={p.image}
                 date={p.date}
-                rating={p.rating}
+                tags={p.tags}
                 ribbon={p.ribbon}
               />
             ))}

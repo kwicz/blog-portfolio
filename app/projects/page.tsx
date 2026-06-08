@@ -124,7 +124,7 @@ export default async function ProjectsPage({
                     category={project.category}
                     image={project.image}
                     date={project.date}
-                    rating={project.rating}
+                    tags={project.tags}
                     ribbon={project.ribbon}
                   />
                   {idx === 3 && (

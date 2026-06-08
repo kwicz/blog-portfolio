@@ -104,8 +104,7 @@ export default async function PostPage({ params }: Props) {
                   slug={p.slug}
                   title={p.title}
                   image={p.image}
-                  rating={p.rating}
-                  reviewCount={p.reviewCount}
+                  tags={p.tags}
                   ribbon={p.ribbon}
                 />
               ))}
