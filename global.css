@@ -302,14 +302,21 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .pdp-sticky-cta { margin-left: auto; display: flex; gap: 10px; align-items: center; }
 
 /* ─── Reviews ───────────────────────────────────────────────── */
-.testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
-.testimonial-card { background: var(--surface-2); border-radius: var(--radius-lg); padding: 28px 24px; }
-.testimonial-body { font-size: 15px; line-height: 26px; color: var(--ink-700); margin: 0; font-style: italic; }
-@media (max-width: 768px) {
-  .testimonial-grid { grid-template-columns: 1fr; }
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+.reviews-summary { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--surface-line); }
+.reviews-avg { font-family: var(--font-display); font-size: 64px; line-height: 1; font-variation-settings: 'opsz' 144, 'SOFT' 50; color: var(--ink-900); margin-bottom: 8px; }
+.reviews-bars { display: flex; flex-direction: column; gap: 6px; }
+.reviews-bar { display: grid; grid-template-columns: 20px 1fr 28px; gap: 12px; align-items: center; font-size: 12px; color: var(--ink-500); }
+.reviews-bar-track { height: 5px; background: var(--surface-3); border-radius: 999px; overflow: hidden; }
+.reviews-bar-fill { height: 100%; background: var(--accent-honey); border-radius: 999px; }
+.review-card { padding: 20px 0; border-bottom: 1px solid var(--surface-line); display: grid; grid-template-columns: 160px 1fr; gap: 32px; }
+.review-card:last-child { border-bottom: 0; }
+.review-author { font-weight: 600; font-size: 14px; }
+.review-loc { font-size: 12px; color: var(--ink-500); }
+.review-title { font-family: var(--font-display); font-size: 19px; font-variation-settings: 'opsz' 36; margin-bottom: 6px; }
+.review-body { font-size: 14px; line-height: 22px; color: var(--ink-700); margin: 0; }
+@media (max-width: 600px) {
+  .reviews-summary { grid-template-columns: 1fr; gap: 24px; }
+  .review-card { grid-template-columns: 1fr; gap: 8px; }
 }
 
 /* ─── Cart / Contact Drawer ────────────────────────────────── */

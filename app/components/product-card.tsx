@@ -39,11 +39,10 @@ const TAG_ICON_MAP: Record<string, string> = {
   'Jekyll':             icon('jekyll'),
   'jQuery':             icon('jquery'),
   'TensorFlow.js':      icon('tensorflow'),
-  'C#':                 icon('csharp'),
+  'C#':                 icon('dotnet'),
   '.NET':               icon('dotnet'),
   'ASP.NET MVC':        icon('dotnet'),
-  'OpenAI API':         icon('openai'),
-  'CSS3':               icon('css3'),
+  'CSS3':               icon('css'),
   'HTML/CSS':           icon('html5'),
 };
 
@@ -66,8 +65,14 @@ function formatCardDate(date: string): string {
 }
 
 export function ProductCard({ slug, title, tagline, category, image, ribbon, date, tags }: ProductCardProps) {
+  const seenUrls = new Set<string>();
   const stackIcons = (tags ?? [])
-    .filter(t => TAG_ICON_MAP[t])
+    .filter(t => {
+      const url = TAG_ICON_MAP[t];
+      if (!url || seenUrls.has(url)) return false;
+      seenUrls.add(url);
+      return true;
+    })
     .slice(0, 4);
 
   return (
