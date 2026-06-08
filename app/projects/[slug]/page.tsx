@@ -38,54 +38,26 @@ export default async function PostPage({ params }: Props) {
       <Header project={project} />
       <ReportView slug={project.slug} />
 
-      {/* ── Reviews ────────────────────────────────────────── */}
-      {(project.rating !== undefined && project.reviewCount !== undefined) && (
-        <section id="reviews" style={{ borderTop: '1px solid var(--surface-line)', padding: '72px 0' }}>
-          <div className="container">
-            <EditorialHeader eyebrow={`${project.reviewCount} reviews`} title="What people say." />
-            <div className="reviews-summary">
-              <div>
-                <div className="reviews-avg">{project.rating.toFixed(1)}</div>
-                <div className="pdp-stars">
-                  {'★★★★★'.slice(0, Math.round(project.rating)).split('').map((s, i) => (
-                    <span key={i} style={{ color: 'var(--accent-honey)', fontSize: 18 }}>{s}</span>
-                  ))}
-                </div>
-                <div style={{ fontSize: 13, color: 'var(--ink-500)', marginTop: 6 }}>{project.reviewCount} written reviews</div>
+      {/* ── Testimonials ───────────────────────────────────── */}
+      <section style={{ borderTop: '1px solid var(--surface-line)', padding: '72px 0' }}>
+        <div className="container">
+          <EditorialHeader eyebrow="Kind words" title="What people say." />
+          <div className="testimonial-grid">
+            {[
+              { body: "Intuitive, collaborative, and helpful — Katy knows how to solve your problem and has consistently provided numerous sources of knowledge and personal growth. Katy wants everyone around her to excel and goes out of her way to help people find their strengths. I would jump at the opportunity to work with her again." },
+              { body: "Few people I've worked with in my professional career have brought as much positivity, wit, and creativity to the job. I've found her to be driven, adaptable, passionate, and able to focus on the details while not losing sight of the mission. Her professionalism and empathy make her a true joy to work with." },
+              { body: "...is playing so many roles right now and shaping new projects and creating efficiencies in everything." },
+              { body: "...is an incredible collaborator, always bringing curiosity, ambition, and a can-do attitude to every project." },
+              { body: "...is always sharing knowledge and skills to help the team and help others level up." },
+              { body: "...has been a pleasure to watch as they approach new projects with creative confidence." },
+            ].map((t, i) => (
+              <div key={i} className="testimonial-card">
+                <p className="testimonial-body">{t.body}</p>
               </div>
-              <div className="reviews-bars">
-                {[5, 4, 3, 2, 1].map(stars => {
-                  const total = project.reviewCount ?? 1;
-                  const weights: Record<number, number> = { 5: 0.78, 4: 0.16, 3: 0.04, 2: 0.01, 1: 0.01 };
-                  const count = Math.round(total * weights[stars]);
-                  return (
-                    <div key={stars} className="reviews-bar">
-                      <span>{stars}★</span>
-                      <div className="reviews-bar-track"><div className="reviews-bar-fill" style={{ width: `${(count / total) * 100}%` }} /></div>
-                      <span>{count}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div>
-              {((project.sampleReviews ?? []) as Array<{ rating: number; name: string; loc: string; title: string; body: string }>).map((r, i) => (
-                <div key={i} className="review-card">
-                  <div className="review-meta">
-                    <div style={{ color: 'var(--accent-honey)', fontSize: 14, marginBottom: 8 }}>{'★'.repeat(r.rating)}</div>
-                    <div className="review-author">{r.name}</div>
-                    <div className="review-loc">{r.loc}</div>
-                  </div>
-                  <div>
-                    <div className="review-title">{r.title}</div>
-                    <p className="review-body">{r.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ── Related work ───────────────────────────────────── */}
       {related.length > 0 && (

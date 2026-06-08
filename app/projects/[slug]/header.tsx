@@ -112,23 +112,6 @@ export function Header({ project }: Props) {
             )}
             <h1>{project.title}</h1>
 
-            {(project.rating !== undefined && project.reviewCount !== undefined) && (
-              <div className="pdp-meta-row">
-                <span className="pdp-stars">
-                  <Stars value={project.rating} />
-                  {project.rating.toFixed(1)} ·{' '}
-                  <a href="#reviews" style={{
-                    textDecoration: 'underline',
-                    textDecorationColor: 'var(--color-lavender)',
-                    textDecorationThickness: 2,
-                    textUnderlineOffset: 3,
-                    color: 'inherit',
-                  }}>
-                    {project.reviewCount} reviews
-                  </a>
-                </span>
-              </div>
-            )}
 
             <p className="pdp-description">{project.description}</p>
 
