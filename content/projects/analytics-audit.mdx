@@ -1,9 +1,9 @@
 ---
 title: 'Analytics Audit'
-description: 'A self-hosted tool that reads your GTM container, GA4 property, and BigQuery export to surface the measurement problems GA4's UI quietly ignores.'
-date: '2026-05-28'
-category: Analytics
-tagline: 'GA4 · GTM · BigQuery · nothing hides'
+description: 'A measurement audit tool that surfaces broken tags, missing events, and data quality gaps across a client's full GA4/GTM/BigQuery stack — the kind of issues GA4's UI silently hides.'
+date: '2026-06-08'
+category: 'Analytics'
+tagline: 'Find what GA4 won't tell you'
 published: false
 image: '/projects/analytics-audit.png'
 images:
@@ -14,23 +14,23 @@ images:
   - '/projects/analytics-audit-5.png'
 tags:
   - 'Node.js'
-  - 'Express'
-  - 'Google Analytics 4'
-  - 'Google Tag Manager'
+  - 'React'
+  - 'Google Analytics'
   - 'BigQuery'
-  - 'Google OAuth'
+  - 'Google Tag Manager'
+  - 'Express'
 features:
-  - 'GTM container audit — flags broken triggers, dead tags, CSS selector mismatches, and Universal Analytics holdovers still active post-sunset'
-  - 'GA4 event health check with 15-day sparklines, volume baselines, and automatic OUTAGE detection'
-  - 'BigQuery deep audit running 7 SQL checks against your raw GA4 export — purchase funnel ratios, parameter completeness, duplicate schemas, attribution gaps'
-  - 'Unified severity report across all three data sources, exportable as Markdown or PDF'
-  - 'Full demo mode with realistic findings — no credentials needed to see exactly what the tool produces'
+  - 'Audits live GTM containers for broken tags, dead triggers, and lingering UA tags post-sunset'
+  - 'Queries the GA4 Data API to flag tracking outages, volume drops, and missing ecommerce events'
+  - 'Runs 7 SQL checks against the GA4 BigQuery export — funnel completeness, duplicate schemas, attribution gaps, and more'
+  - 'Combines all findings into a unified severity report exportable as Markdown or PDF'
+  - 'Ships with realistic demo data so you can walk a client through findings before running a live audit'
 ---
 
-Most analytics stacks look fine until you actually look at them. GA4 will show you events and conversions and pretty trend lines, but it won't tell you that `add_to_cart` has been firing zero times for four days because a CSS selector broke after a PDP redesign. It won't tell you that 47% of your purchase events are missing `transaction_id` because a dataLayer variable returns undefined on Recharge subscription orders. It just quietly reports whatever it has.
+Most analytics problems aren't dramatic. A PDP redesign renames a CSS class, the add_to_cart tag quietly stops firing, and three weeks later someone notices purchase revenue looks low. By then the data's already stale and the conversation is hard. This tool exists to catch that kind of thing early — ideally before the client notices it themselves.
 
-Analytics Audit was built to fill that gap. It connects to your GTM container, GA4 property, and BigQuery export — all read-only, through your own Google account — and runs a structured set of checks that produce actual findings: what's broken, how bad it is, and what to fix. Critical means it's blocking revenue measurement. Warning means data quality is at risk. It reads like a code review, not a dashboard.
+Analytics Audit connects to a client's GTM container, GA4 property, and (optionally) their BigQuery export and runs a structured set of checks across all three. On the GTM side it looks for tags without triggers, tags that haven't fired in days, duplicate GA4 Configuration tags inflating session counts, and Universal Analytics tags that survived the sunset. On the GA4 side it compares 7-day hit volume against 30-day baselines to surface outages and unexpected drops, checks for missing ecommerce events, and flags impossible funnel ratios like more purchases than begin_checkouts. The BigQuery module goes deeper — seven SQL queries that check parameter completeness, duplicate event schemas, NULL attribution, and item-level data quality on purchase events.
 
-The BigQuery module is where it gets interesting. Seven SQL checks run directly against your raw GA4 export — purchase funnel conversion rates, parameter completeness on transactions, duplicate event schemas, session attribution gaps, daily volume outages on critical events. These are things that are completely invisible from the GA4 UI, which works off processed data that's already had the interesting bits aggregated away. If 30% of your sessions have a null source/medium, GA4 will happily attribute that traffic to Direct and never mention it.
+Everything lands in a single findings report sorted by severity, with a recommended fix for each issue. The report exports as Markdown or PDF, which makes it easy to drop into a client deliverable without reformatting anything. The whole app runs locally with read-only OAuth scopes — no data leaves your machine, tokens live in memory and expire after an hour, and there's no database or logging anywhere in the stack.
 
-The whole thing is a single Express server with no build step, no database, and no stored data. OAuth tokens live in memory for one session and expire after an hour. Your clients' data never touches anything you don't own.
+It started as a way to systematize the manual audit work we were already doing on every new engagement. Running it before the first strategy call means we walk in knowing exactly what's broken and roughly how long it's been broken — which tends to make that conversation a lot more productive.
