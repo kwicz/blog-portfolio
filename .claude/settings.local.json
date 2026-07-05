@@ -117,7 +117,12 @@
       "Bash(curl -s \"https://cdn.simpleicons.org/csharp\" -I)",
       "Bash(curl -s \"https://cdn.simpleicons.org/openai\" -I)",
       "Bash(curl -s \"https://cdn.simpleicons.org/dotnet/D4B483\" -o /dev/null -w \"dotnet: %{http_code}\\\\n\")",
-      "Bash(curl -s https://k.solovewi.cz)"
+      "Bash(curl -s https://k.solovewi.cz)",
+      "Bash(npx vercel *)",
+      "Bash(python3 -c \"import sys; html=sys.stdin.read\\(\\); print\\('yes' if 'googletagmanager.com/gtag/js' in html[:html.find\\('</head>'\\)] and 'dataLayer' in html[:html.find\\('</head>'\\)] else 'no'\\)\")",
+      "Bash(curl -s -A 'Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36' 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1&display=swap' -o fraunces.css)",
+      "Bash(curl -s -A 'Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36' 'https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap' -o caveat.css)",
+      "Bash(curl -s \"https://k.solovewi.cz/projects?category=Just+For+Fun\")"
     ]
   }
 }
