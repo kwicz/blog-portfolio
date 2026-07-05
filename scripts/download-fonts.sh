@@ -27,6 +27,14 @@ curl -o "$FONTS_DIR/Raleway-Regular.woff2" "https://fonts.gstatic.com/s/raleway/
 curl -o "$FONTS_DIR/Raleway-SemiBold.woff2" "https://fonts.gstatic.com/s/raleway/v28/1Ptqg8zYS_SKggPNyC0ITwA.woff2"
 curl -o "$FONTS_DIR/Raleway-Bold.woff2" "https://fonts.gstatic.com/s/raleway/v28/1Ptqg8zYS_SKggPNyC0ITwA.woff2"
 
+# Fraunces variable font (headings/display) — latin subset with wght/opsz/SOFT/WONK axes
+echo "Downloading Fraunces variable font..."
+curl -o "$FONTS_DIR/Fraunces-Variable.woff2" "https://fonts.gstatic.com/s/fraunces/v38/6NUV8FyLNQOQZAnv9ZwIlOkuy91B.woff2"
+
+# Caveat variable font (handwritten accents) — latin subset, wght 400-700
+echo "Downloading Caveat variable font..."
+curl -o "$FONTS_DIR/Caveat-Variable.woff2" "https://fonts.gstatic.com/s/caveat/v23/Wnz6HAc5bAfYB2Q7ZjYYiAzcPA.woff2"
+
 # Open Sans font
 echo "Downloading Open Sans font..."
 curl -o "$FONTS_DIR/OpenSans-Regular.woff2" "https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2"

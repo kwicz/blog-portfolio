@@ -1,6 +1,5 @@
 import '../global.css';
 import localFont from 'next/font/local';
-import { Fraunces, Caveat } from 'next/font/google';
 import { Metadata } from 'next';
 import GoogleAnalytics from './components/analytics';
 import { StoreShell } from './components/store-shell';
@@ -47,15 +46,19 @@ const inter = localFont({
   display: 'swap',
 });
 
-const fraunces = Fraunces({
-  subsets: ['latin'],
+// Variable fonts self-hosted (latin subset, incl. SOFT/WONK/opsz axes for
+// Fraunces) — next/font/google fetches at build time and takes deploys down
+// with it when fonts.gstatic.com is unreachable.
+const fraunces = localFont({
+  src: '../public/fonts/Fraunces-Variable.woff2',
+  weight: '100 900',
   variable: '--font-display',
   display: 'swap',
-  axes: ['SOFT', 'WONK', 'opsz'],
 });
 
-const caveat = Caveat({
-  subsets: ['latin'],
+const caveat = localFont({
+  src: '../public/fonts/Caveat-Variable.woff2',
+  weight: '400 700',
   variable: '--font-script',
   display: 'swap',
 });

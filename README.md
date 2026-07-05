@@ -34,13 +34,13 @@ After adding a new `.mdx` file in `/blog` or `/project`, `pnpm dev` will auto-ge
 
 This project uses local fonts to avoid build-time network requests that can cause Vercel deployment failures. All fonts are stored in `public/fonts/` and loaded using Next.js `localFont`.
 
-### Available Fonts
+### Active Fonts
 
-- **Inter**: Regular (400), Bold (700)
-- **Poppins**: Regular (400), SemiBold (600), Bold (700)
-- **Raleway**: Regular (400), SemiBold (600), Bold (700)
-- **Open Sans**: Regular (400), SemiBold (600), Bold (700)
-- **Cal Sans**: SemiBold (600)
+- **Inter** (`--font-body`): Regular (400), Bold (700)
+- **Fraunces** (`--font-display`): variable font, weights 100–900, with `opsz`/`SOFT`/`WONK` axes
+- **Caveat** (`--font-script`): variable font, weights 400–700
+
+Also present in `public/fonts/` but unused by the current theme: Poppins, Raleway, Open Sans, Cal Sans.
 
 ### Updating Fonts
 
