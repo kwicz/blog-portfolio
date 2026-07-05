@@ -40,7 +40,6 @@ export function RecentCarousel({ projects }: { projects: CarouselProject[] }) {
       <div className="container">
         <div className="ed-head" style={{ marginBottom: 28 }}>
           <div>
-            <p className="ed-eyebrow">Recent</p>
             <h2>Just shipped.</h2>
           </div>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>

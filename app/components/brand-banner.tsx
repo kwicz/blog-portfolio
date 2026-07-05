@@ -19,7 +19,6 @@ export function BrandBanner() {
   return (
     <section className="brand-banner">
       <div className="container brand-banner-header">
-        <p className="brand-banner-eyebrow">In Good Company</p>
         <h2 className="brand-banner-headline">Brands I loved working with.</h2>
       </div>
 

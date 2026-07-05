@@ -65,7 +65,6 @@ export default function Home() {
       <section style={{ padding: '40px 0 0' }}>
         <div className="container">
           <EditorialHeader
-            eyebrow="Categories"
             title="Work, by type."
           />
           <div className="tile-grid" style={{ marginTop: 24 }}>
@@ -84,7 +83,6 @@ export default function Home() {
         <div className="container">
           <div className="ed-block">
             <div>
-              <p className="ed-eyebrow">A note</p>
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', lineHeight: 1.15, marginBottom: 16 }}>
                 I build ecommerce that{' '}
                 <span className="word--highlighted">actually performs.</span>
