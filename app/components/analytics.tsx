@@ -1,42 +1,27 @@
-'use client';
-
-import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import Script from 'next/script';
+import { PageviewTracker } from './pageview-tracker';
 
 const GA_MEASUREMENT_ID = 'G-K69MB7HMZ3';
 
+// Plain <script> tags (not next/script) so the snippet is present in the
+// server-rendered HTML — Search Console's verifier doesn't execute JS.
 export default function GoogleAnalytics() {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (window.gtag) {
-      window.gtag('config', GA_MEASUREMENT_ID, {
-        page_path: pathname,
-      });
-    }
-  }, [pathname]);
-
   return (
     <>
-      <Script
-        strategy='afterInteractive'
+      <script
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
-      <Script
-        id='google-analytics'
-        strategy='afterInteractive'
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-            });
+            gtag('config', '${GA_MEASUREMENT_ID}');
           `,
         }}
       />
+      <PageviewTracker gaId={GA_MEASUREMENT_ID} />
     </>
   );
 }
