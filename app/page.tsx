@@ -33,7 +33,7 @@ export default function Home() {
             eyebrow="CRO engineer & full-stack developer"
             roles={[
               { label: 'Technical Lead of A/B Testing', company: 'The Good',   href: 'https://thegood.com' },
-              { label: 'Lead Developer / Designer',     company: 'Clipses.ai', href: 'https://clipses.ai' },
+              { label: 'Lead Developer',                company: 'Clipses.ai', href: 'https://clipses.ai' },
             ]}
             subline="I've shipped 100+ A/B tests for real ecommerce brands. I also build the tools to run them."
             ctaHref="/projects"
