@@ -84,8 +84,8 @@ export default function Home() {
           <div className="ed-block">
             <div>
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', lineHeight: 1.15, marginBottom: 16 }}>
-                I build ecommerce that{' '}
-                <span className="word--highlighted">actually performs.</span>
+                I build data-informed{' '}
+                <span className="word--highlighted">user experiences.</span>
               </h2>
               <p style={{ fontSize: 17, lineHeight: '28px', color: 'var(--ink-700)', maxWidth: 520, margin: '0 0 24px' }}>
                 From conversion rate optimization to automated workflows, I help ecommerce brands do more with what they already have — smarter funnels, sharper experiments, less manual overhead.
