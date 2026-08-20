@@ -1,0 +1,56 @@
+---
+title: 'image-luminescence'
+description: 'A free browser tool that makes images glow on HDR displays without touching a single color.'
+date: '2026-08-20'
+category: 'Tools & Automations'
+tagline: 'Your images, glowing · colors untouched'
+published: true
+image: '/projects/image-luminescence.png'
+images:
+  - '/projects/image-luminescence.png'
+  - '/projects/image-luminescence-2.png'
+  - '/projects/image-luminescence-3.png'
+  - '/projects/image-luminescence-4.png'
+  - '/projects/image-luminescence-5.png'
+tags:
+  - 'JavaScript'
+  - 'Python'
+  - 'Ultra HDR'
+  - 'ISO 21496-1'
+  - 'ImageMagick'
+  - 'GitHub Pages'
+features:
+  - 'Converts any PNG or JPEG into a glowing Ultra HDR file, entirely in the browser, no uploads'
+  - 'Colors stay pixel-exact, and JPEG bases are kept byte-for-byte'
+  - 'image-reveal packs two pictures into one file: SDR screens see one, HDR screens see the other'
+  - 'PQ PNG mode for pipelines that strip gain maps (field-tested on LinkedIn)'
+  - 'Also ships as a CLI via pip and Homebrew, a Figma plugin, and a Finder quick action'
+---
+
+I saw a company logo on LinkedIn that glowed. Not sparkle-emoji glowed,
+actually glowed, like someone left a backlight on behind it while the rest
+of my screen minded its own business. I needed to know how, and then I
+needed my own images to do it without wrecking their colors, which is what
+every existing trick did.
+
+So this is a little converter that runs entirely in your browser. Drop in
+a PNG or JPEG and it comes back as an Ultra HDR file where the whites lift
+beyond your screen's normal white on HDR displays. Your pixels never get
+touched. The glow travels as a gain map, a hidden grayscale layer riding
+along in the file, so anywhere HDR isn't supported the image just looks
+normal. The site never uploads anything; the conversion math happens on
+your machine, in JavaScript that writes the ISO 21496-1 container byte by
+byte.
+
+The part I'm most fond of is image-reveal. It turns out nothing forces the
+gain map to describe the same picture, so you can pack two different images
+into one file. SDR screens see the first, HDR screens see the second, and
+thumbnails always show the first. As far as I can tell, nobody else has
+built a tool for this.
+
+Getting here involved a lot of empirical color science: reverse-engineering
+byte layouts from working files, discovering that macOS Preview and Chrome
+disagree about what a gain map means, and learning the hard way that
+LinkedIn strips one HDR format but passes another straight through. The
+docs now say exactly which format survives where, because I tested every
+one of them by posting increasingly weird disco balls.
