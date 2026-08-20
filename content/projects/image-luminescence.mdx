@@ -19,14 +19,15 @@ tags:
   - 'Python'
   - 'Ultra HDR'
   - 'ISO 21496-1'
-  - 'ImageMagick'
+  - 'Homebrew'
   - 'GitHub Pages'
 features:
   - 'Converts any PNG or JPEG into a glowing Ultra HDR file, entirely in the browser, no uploads'
+  - 'A real Homebrew package: brew tap kwicz/tap && brew install image-luminescence'
   - 'Colors stay pixel-exact, and JPEG bases are kept byte-for-byte'
   - 'image-reveal packs two pictures into one file: SDR screens see one, HDR screens see the other'
   - 'PQ PNG mode for pipelines that strip gain maps (field-tested on LinkedIn)'
-  - 'Also ships as a CLI via pip and Homebrew, a Figma plugin, and a Finder quick action'
+  - 'Plus pip install, a Figma plugin, and a Finder quick action'
 ---
 
 I saw a company logo on LinkedIn that glowed. Not sparkle-emoji glowed,
@@ -43,6 +44,10 @@ along in the file, so anywhere HDR isn't supported the image just looks
 normal. The site never uploads anything; the conversion math happens on
 your machine, in JavaScript that writes the ISO 21496-1 container byte by
 byte.
+
+It's also a proper Homebrew package, which I'm unreasonably pleased about.
+`brew tap kwicz/tap && brew install image-luminescence` puts three commands
+on your PATH with every dependency handled, the way real tools install.
 
 The part I'm most fond of is image-reveal. It turns out nothing forces the
 gain map to describe the same picture, so you can pack two different images

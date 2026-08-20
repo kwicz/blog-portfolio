@@ -44,6 +44,9 @@ const TAG_ICON_MAP: Record<string, string> = {
   'ASP.NET MVC':        icon('dotnet'),
   'CSS3':               icon('css'),
   'HTML/CSS':           icon('html5'),
+  'Python':             icon('python'),
+  'Homebrew':           icon('homebrew'),
+  'GitHub Pages':       icon('githubpages'),
 };
 
 interface ProductCardProps {
