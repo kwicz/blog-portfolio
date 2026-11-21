@@ -80,6 +80,9 @@ export const Project = defineDocumentType(() => ({
     tagline: {
       type: 'string',
     },
+    linksPrivate: {
+      type: 'boolean',
+    },
   },
   computedFields,
 }));

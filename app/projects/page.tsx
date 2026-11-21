@@ -12,7 +12,7 @@ const redis = Redis.fromEnv();
 export const revalidate = 60;
 
 const CATEGORY_COPY: Record<string, { eyebrow: string; intro: string }> = {
-  'E-Commerce': { eyebrow: 'E-Commerce', intro: 'Storefronts, checkout flows, and CRO-driven interfaces — built to convert, retain, and scale.' },
+  'E-Commerce': { eyebrow: 'E-Commerce', intro: 'Storefronts, checkout flows, and ecommerce builds — client work and side projects.' },
   'E-Learning': { eyebrow: 'E-Learning', intro: 'Learning platforms and educational tools designed to make complex topics click.' },
   'Just For Fun': { eyebrow: 'Just For Fun', intro: 'Side projects and passion work — built for community, curiosity, or the craft itself.' },
 };
@@ -70,7 +70,7 @@ export default async function ProjectsPage({
               <p className="pdp-eyebrow">{copy?.eyebrow ?? 'Portfolio'}</p>
               <h1>{selectedCategory ?? 'All work.'}</h1>
               <p className="coll-intro">
-                {copy?.intro ?? 'Full-stack ecommerce work — CRO, A/B testing, automations, and storefronts. Built for real businesses, measured by real results.'}
+                {copy?.intro ?? 'Things I\'m building — work projects, side projects, and experiments. Some shipped, some ongoing.'}
               </p>
             </div>
             <div className="coll-stats">
@@ -115,7 +115,7 @@ export default async function ProjectsPage({
             </div>
           ) : (
             <div className="prod-grid">
-              {filtered.map((project, idx) => (
+              {filtered.map((project) => (
                 <Fragment key={project.slug}>
                   <ProductCard
                     slug={project.slug}
@@ -127,19 +127,6 @@ export default async function ProjectsPage({
                     tags={project.tags}
                     ribbon={project.ribbon}
                   />
-                  {idx === 3 && (
-                    <div className="coll-feature">
-                      <div>
-                        <div className="ed-eyebrow">About me</div>
-                        <h3>Full-stack ecommerce developer, based in Portland, OR.</h3>
-                        <p>I specialize in CRO, A/B testing, and business automations — helping ecommerce brands convert more, automate more, and grow faster. Open to freelance projects and creative partnerships.</p>
-                        <a href="/contact" className="btn btn-outline-caps">Get in touch</a>
-                      </div>
-                      <div className="feature-art">
-                        <img src="/illustrations/code-laptop.svg" alt="" />
-                      </div>
-                    </div>
-                  )}
                 </Fragment>
               ))}
             </div>

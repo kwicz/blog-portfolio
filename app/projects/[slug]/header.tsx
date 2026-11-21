@@ -18,6 +18,7 @@ type Props = {
     notes?: string;
     features?: string[];
     body?: { raw: string };
+    linksPrivate?: boolean;
   };
 };
 
@@ -133,20 +134,33 @@ export function Header({ project }: Props) {
             <p className="pdp-description">{project.description}</p>
 
             <div id="pdp-cta-anchor" className="pdp-actions">
-              {project.url && (
-                <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  Visit live site
-                  <Icon name="arrow-up-right" size={16} strokeWidth={2} />
-                </a>
-              )}
-              {project.repository && (
-                <a
-                  href={project.repository.startsWith('http') ? project.repository : `https://github.com/${project.repository}`}
-                  target="_blank" rel="noopener noreferrer" className="btn btn-outline-caps"
-                >
-                  View on GitHub
-                  <Icon name="arrow-up-right" size={16} strokeWidth={2} />
-                </a>
+              {project.linksPrivate ? (
+                <>
+                  <span className="btn btn-primary" style={{ opacity: 0.45, cursor: 'not-allowed', pointerEvents: 'none' }}>
+                    Live site · Private
+                  </span>
+                  <span className="btn btn-outline-caps" style={{ opacity: 0.45, cursor: 'not-allowed', pointerEvents: 'none' }}>
+                    GitHub · Private
+                  </span>
+                </>
+              ) : (
+                <>
+                  {project.url && (
+                    <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                      Visit live site
+                      <Icon name="arrow-up-right" size={16} strokeWidth={2} />
+                    </a>
+                  )}
+                  {project.repository && (
+                    <a
+                      href={project.repository.startsWith('http') ? project.repository : `https://github.com/${project.repository}`}
+                      target="_blank" rel="noopener noreferrer" className="btn btn-outline-caps"
+                    >
+                      View on GitHub
+                      <Icon name="arrow-up-right" size={16} strokeWidth={2} />
+                    </a>
+                  )}
+                </>
               )}
             </div>
 
