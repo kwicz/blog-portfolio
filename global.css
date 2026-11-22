@@ -130,10 +130,8 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .hdr.scrolled { box-shadow: var(--shadow-1); }
 .hdr-inner { height: 80px; display: flex; align-items: center; gap: 32px; }
 .hdr-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 20px; font-weight: 500; text-decoration: none; color: var(--ink-900); letter-spacing: -0.01em; white-space: nowrap; }
-.hdr-logo img { display: block; }
+.hdr-logo img { border-radius: 6px; display: block; }
 .hdr-logo:hover { text-decoration: none; color: var(--ink-900); }
-.hdr-logo-mark { border-radius: 6px; display: none !important; }
-.hdr-logo-full { height: 56px; width: auto; }
 .hdr-nav { display: flex; gap: 28px; margin-left: auto; }
 .hdr-nav a { color: var(--ink-900); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 6px; font-size: 14px; font-weight: 500; padding: 8px 0; }
 .hdr-nav a:hover { text-decoration-color: var(--color-lavender); }
@@ -422,8 +420,6 @@ a:hover { text-decoration-color: var(--color-lavender); }
   /* Header */
   .hdr-inner { height: 64px; gap: 12px; }
   .hdr-logo { font-size: 16px; gap: 8px; }
-  .hdr-logo-mark { display: block !important; }
-  .hdr-logo-full { display: none !important; }
   .hdr-nav { gap: 16px; }
   .hdr-nav a { font-size: 13px; }
   .hdr-tools { gap: 0; }
