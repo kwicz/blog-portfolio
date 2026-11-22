@@ -19,7 +19,7 @@ export function Tile({ href, label, illustration, surface = 'lilac' }: TileProps
   return (
     <Link href={href} className="tile">
       <div className="tile-square" style={{ background: bg }}>
-        {illustration && <img src={illustration} alt="" />}
+        {illustration && <img src={illustration} alt="" aria-hidden="true" />}
       </div>
       <span className="tile-label">{label}</span>
     </Link>

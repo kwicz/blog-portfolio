@@ -26,7 +26,7 @@ export function SiteFooter() {
             <h4>Connect</h4>
             <ul>
               <li><a href="https://github.com/kwicz" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-              <li><a href="https://linkedin.com/in/katysolovewicz" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a href="https://linkedin.com/in/kwicz" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
             </ul>
           </div>
         </div>

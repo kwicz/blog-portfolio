@@ -26,7 +26,7 @@ export function Gallery({ title, images, notes }: GalleryProps) {
           />
         ) : (
           <div className="pdp-main-img-placeholder">
-            <img src="/illustrations/harp-line.svg" alt="" />
+            <img src="/illustrations/harp-line.svg" alt="" aria-hidden="true" />
           </div>
         )}
       </div>

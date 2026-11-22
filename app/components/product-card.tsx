@@ -93,7 +93,7 @@ export function ProductCard({ slug, title, tagline, category, image, ribbon, dat
             />
           ) : (
             <div className="pcard-img-bg">
-              <img src="/illustrations/harp-line.svg" alt="" />
+              <img src="/illustrations/harp-line.svg" alt="" aria-hidden="true" />
             </div>
           )}
         </Link>
