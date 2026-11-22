@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allProjects } from 'contentlayer/generated';
 import { Header } from './header';
@@ -18,6 +19,23 @@ export async function generateStaticParams(): Promise<Props['params'][]> {
   return allProjects
     .filter(p => p.published)
     .map(p => ({ slug: p.slug }));
+}
+
+export function generateMetadata({ params }: Props): Metadata {
+  const project = allProjects.find(p => p.slug === params?.slug);
+  if (!project) return {};
+  const images = project.image ? [{ url: project.image }] : undefined;
+  return {
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      url: `/projects/${project.slug}`,
+      type: 'article',
+      images,
+    },
+  };
 }
 
 export default async function PostPage({ params }: Props) {
