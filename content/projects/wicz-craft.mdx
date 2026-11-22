@@ -1,0 +1,40 @@
+---
+title: 'Wicz Craft'
+description: 'A Shopify storefront for a made-up cultured butter company, with a box builder backed by a Cart Transform function, product pages that theme themselves from metafields, and a design guide enforced by an audit script.'
+url: 'https://wicz-craft.myshopify.com'
+repository: 'kwicz/wicz-craft-shopify'
+date: '2026-11-21'
+category: 'Development'
+tagline: 'really good butter · built on Shopify'
+published: true
+ribbon: 'Featured'
+image: /projects/wicz-craft.png
+notes: 'A practice store to show real Shopify engineering. The interesting problem was pricing a box that can cost more than its parts.'
+tags:
+  - "Shopify Functions"
+  - "Liquid"
+  - "Admin GraphQL API"
+  - "Metafields"
+  - "JavaScript"
+  - "Online Store 2.0"
+features:
+  - "Box builder: pick a format, fill the slots, and the whole box goes in the cart as one line at a flat price"
+  - "A Cart Transform function expands each box into the butters inside, so every flavor's inventory is tracked"
+  - "Product pages re-theme themselves from color metafields, with contrast fallbacks worked out in Liquid"
+  - "Side drawer cart that lists what's inside each box, with an add-on upsell row"
+  - "One catalog file and two seed scripts load every product, metafield, collection and photo through the Admin API"
+images:
+  - /projects/wicz-craft.png
+  - /projects/wicz-craft-2.png
+  - /projects/wicz-craft-3.png
+  - /projects/wicz-craft-4.png
+  - /projects/wicz-craft-5.png
+---
+
+Wicz Craft is a butter company that doesn't exist. Twelve flavors of cultured butter, made in Portland, wrapped in foil, each with its own pair of colors. I made it up so I'd have a real-feeling store to build on Shopify, end to end, from a written design guide.
+
+The tricky part was the box builder. Shoppers pick a box (four, six, eight, or one 8 oz with a few 2 oz cubes) and fill it from the flavor grid. Every box has one flat price, whatever goes in. That sounds simple until you notice a box can cost more than the same butters bought one at a time, which rules out Shopify's usual bundle merge. So the box goes into the cart as a single line, and a Cart Transform function expands it into the butters inside. The price comes from the box you bought, never from the cart properties, and a box that doesn't follow the rules just stays a box.
+
+Each flavor carries its colors in metafields, so the product page re-themes itself: caesar is pistachio and tomato, chili crisp is oxblood and tangerine. Liquid checks the contrast and swaps colors when a pair fails. An audit script then walks each page checking the guide's rules: lowercase, two corner radii, one gradient, light inks only at display sizes.
+
+The whole catalog lives in one file. Two seed scripts load the products, metafields, collections and 100-odd photos through the Admin API, so a fresh store is one command away. The side drawer cart, the upsell rows and the photo strips came later, piled on the same way.
