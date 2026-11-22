@@ -1,0 +1,40 @@
+---
+title: 'A/B Test Kitchen'
+description: 'An agency dashboard that pulls A/B tests from Optimizely, Convert, VWO, Intelligems, Shoplift and Shopify Rollouts into one place, judges them all by the same rules, and shows which are ready to call.'
+url: 'https://ab-test-kitchen-production.up.railway.app'
+repository: 'kwicz/ab-test-kitchen'
+date: '2026-11-21'
+category: 'Tools & Automations'
+tagline: 'every A/B test · one kitchen'
+published: true
+ribbon: 'Featured'
+image: /projects/ab-test-kitchen.png
+notes: 'A ground-up rebuild of my old A/B dashboard. The interesting problem was getting six platforms to agree on what "significant" means.'
+tags:
+  - "React"
+  - "TypeScript"
+  - "Vite"
+  - "Hono"
+  - "PostgreSQL"
+  - "A/B Testing"
+features:
+  - "Pulls tests from six platforms into one sheet and one board"
+  - "Recomputes every result from raw visitors and conversions, so all tests are judged the same way"
+  - "Flags a test as Ready after 14 days and 90% confidence or its full planned sample"
+  - "Peeking switch blurs results until a test has earned it, with click-to-peek for a single test"
+  - "Call a test a winner, learner or inconclusive and keep notes on what you learned"
+images:
+  - /projects/ab-test-kitchen.png
+  - /projects/ab-test-kitchen-2.png
+  - /projects/ab-test-kitchen-3.png
+  - /projects/ab-test-kitchen-4.png
+  - /projects/ab-test-kitchen-5.png
+---
+
+I run A/B tests for clients across a pile of different platforms, and every one of them reports results its own way. Figuring out which tests were actually ready to call meant opening six tabs and doing a lot of squinting.
+
+So I built a kitchen. A/B Test Kitchen pulls every test from Optimizely, Convert, VWO, Intelligems, Shoplift and Shopify Rollouts into one place, recomputes the stats from the raw counts, and sorts each test into Draft, Running, Ready or Called. Same rules for every client and every platform: at least two weeks, plus 90% confidence or the full planned sample.
+
+My favorite part is the peeking switch. Checking results too early is how you end up calling a false winner, so with peeking off, the numbers stay blurred until the test has earned them. You can still click to peek at a single test. It's a speed bump, not a wall.
+
+Right now it runs on fictional clients and simulated traffic, but the connectors are built against each platform's real API, so plugging in keys is the next step, not a rewrite. Next up: an MCP server so Claude can answer "what's ready to call?" and, eventually, start and stop tests right from the dashboard.
