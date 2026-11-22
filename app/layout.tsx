@@ -5,6 +5,7 @@ import GoogleAnalytics from './components/analytics';
 import { StoreShell } from './components/store-shell';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://k.solovewi.cz'),
   title: {
     default: 'Katy Solovewicz',
     template: '%s | k.solovewi.cz',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     description: 'Full-stack ecommerce developer specializing in CRO, A/B testing, and business automations. Based in Portland, OR.',
     url: 'https://k.solovewi.cz',
     siteName: 'k.solovewi.cz',
-    images: [{ url: '/favicon.png', width: 1920, height: 1080 }],
+    images: [{ url: '/favicon.png', width: 500, height: 500 }],
     locale: 'en-US',
     type: 'website',
   },
