@@ -184,7 +184,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .hero-role-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-art { position: relative; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
-.hero-art img { width: 80%; height: 80%; object-fit: contain; }
+.hero-art img { width: 100%; height: 100%; object-fit: contain; }
 .hero-caveat { position: absolute; right: 0; top: 18px; font-family: var(--font-script); font-size: 28px; color: var(--color-lavender); transform: rotate(-4deg); }
 .hero-dot { position: absolute; left: -8px; bottom: 64px; width: 72px; height: 72px; border-radius: 50%; background: var(--accent-butter); }
 

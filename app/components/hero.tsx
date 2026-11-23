@@ -57,7 +57,7 @@ export function Hero({
         </div>
       </div>
       <div className="hero-art">
-        <img src="/illustrations/hero.png" alt="" aria-hidden="true" />
+        <img src="/illustrations/hero-ab-test.png" alt="" aria-hidden="true" />
       </div>
     </div>
   );

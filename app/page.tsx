@@ -95,7 +95,7 @@ export default function Home() {
               </a>
             </div>
             <div style={{ position: 'relative', aspectRatio: '1/1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src="/illustrations/target.svg" alt="" aria-hidden="true" style={{ width: '70%', height: '70%', objectFit: 'contain' }} />
+              <img src="/illustrations/illustration-bullseye-target.png" alt="" aria-hidden="true" style={{ width: '70%', height: '70%', objectFit: 'contain' }} />
             </div>
           </div>
         </div>
