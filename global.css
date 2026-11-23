@@ -200,7 +200,7 @@ a:hover { text-decoration-color: var(--color-lavender); }
 .tile:hover { text-decoration: none; }
 .tile-square { aspect-ratio: 1/1; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; transition: transform 220ms var(--ease-bounce), box-shadow 220ms var(--ease-soft); }
 .tile:hover .tile-square { transform: translateY(-4px); box-shadow: var(--shadow-2); }
-.tile-square img { width: 62%; height: 62%; }
+.tile-square img { width: 76%; height: 76%; object-fit: contain; }
 .tile-label { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-900); }
 
 /* ─── Tool grid (Favorites page) ──────────────────────────── */

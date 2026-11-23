@@ -7,10 +7,10 @@ import { RecentCarousel } from './components/recent-carousel';
 import { BrandBanner } from './components/brand-banner';
 
 const CATEGORY_TILES = [
-  { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/category-ecommerce.svg', surface: 'lilac' as const },
-  { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/category-elearning.svg', surface: 'sage' as const },
-  { href: '/projects?category=Tools+%26+Automations', label: 'Tools & Automations', illustration: '/illustrations/category-tools.svg', surface: 'honey' as const },
-  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.svg', surface: 'lavender' as const },
+  { href: '/projects?category=E-Commerce', label: 'E-Commerce', illustration: '/illustrations/category-ecommerce.png', surface: 'lilac' as const },
+  { href: '/projects?category=E-Learning', label: 'E-Learning', illustration: '/illustrations/category-elearning.png', surface: 'sage' as const },
+  { href: '/projects?category=Tools+%26+Automations', label: 'Tools & Automations', illustration: '/illustrations/category-tools.png', surface: 'honey' as const },
+  { href: '/projects?category=Just+For+Fun', label: 'Just For Fun', illustration: '/illustrations/category-fun.png', surface: 'lavender' as const },
 ];
 
 const FEATURED_SLUGS = ['wicz-craft', 'analytics-audit', 'market-motors'];
