@@ -19,10 +19,13 @@
         stroke="#2A262F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
   <!-- Center hole -->
   <circle cx="48" cy="48" r="10" stroke="#2A262F" stroke-width="2.6"/>
-  <!-- Wrench body (diagonal lower-left to upper-right) -->
-  <path d="M 16 76 Q 12 68 16 62 Q 20 56 26 58 L 28 62 Q 24 64 24 70 Q 24 76 28 76 L 72 28 Q 76 22 82 24 Q 88 28 86 34 Q 84 40 78 38 L 36 86 Q 30 90 24 88 Q 18 84 16 76 Z"
-        stroke="#2A262F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- Wrench jaw inner cutout -->
-  <path d="M 22 72 Q 18 68 20 64 Q 22 60 26 62 Q 28 66 26 70 Z"
-        stroke="#2A262F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Wrench (white-filled, rotated diagonal, appears in front of gear) -->
+  <g transform="rotate(-45, 48, 50)" stroke="#2A262F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Handle body -->
+    <rect x="28" y="43" width="52" height="14" rx="4" fill="white"/>
+    <!-- Upper jaw arm -->
+    <path d="M 28 43 L 20 30 L 14 36 L 14 43 Z" fill="white"/>
+    <!-- Lower jaw arm -->
+    <path d="M 28 57 L 14 57 L 14 64 L 20 70 Z" fill="white"/>
+  </g>
 </svg>
