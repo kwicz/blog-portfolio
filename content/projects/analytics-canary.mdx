@@ -1,6 +1,6 @@
 ---
 title: 'Analytics Canary'
-description: "A measurement audit tool that connects to a client's GTM container, GA4 property, and BigQuery export and surfaces broken tags, missing events, and data quality gaps — the kind of issues GA4's UI silently hides."
+description: "A measurement audit tool that connects to a client's GTM container, GA4 property, and BigQuery export and surfaces broken tags, missing events, and data quality gaps, the kind GA4's UI silently hides."
 date: '2026-11-21'
 category: 'Tools & Automations'
 tagline: 'GA4 event monitoring and anomaly detection'
@@ -25,15 +25,15 @@ tags:
 features:
   - 'Audits live GTM containers for broken tags, dead triggers, and lingering UA tags post-sunset'
   - 'Queries the GA4 Data API to flag tracking outages, volume drops, and missing ecommerce events'
-  - 'Runs 7 SQL checks against the GA4 BigQuery export — funnel completeness, duplicate schemas, attribution gaps, and more'
+  - 'Runs 7 SQL checks against the GA4 BigQuery export: funnel completeness, duplicate schemas, attribution gaps, and more'
   - 'Combines all findings into a unified severity report exportable as Markdown or PDF'
   - 'Ships with realistic demo data so you can walk a client through findings before connecting a live account'
 ---
 
-Most analytics problems aren't dramatic. A PDP redesign renames a CSS class, the add_to_cart tag quietly stops firing, and three weeks later someone notices purchase revenue looks low. By then the data's already stale and the conversation is hard. Analytics Canary exists to catch that kind of thing early — ideally before the client notices it themselves.
+Most analytics problems aren't dramatic. A PDP redesign renames a CSS class, the add_to_cart tag quietly stops firing, and three weeks later someone notices purchase revenue looks low. By then the data's already stale and the conversation is hard. Analytics Canary exists to catch that kind of thing early, ideally before the client notices it themselves.
 
-It connects to a client's GTM container, GA4 property, and (optionally) their BigQuery export and runs a structured set of checks across all three. On the GTM side it looks for tags without triggers, tags that haven't fired in days, duplicate GA4 Configuration tags inflating session counts, and Universal Analytics tags that survived the sunset. On the GA4 side it compares 7-day hit volume against 30-day baselines to surface outages and unexpected drops, checks for missing ecommerce events, and flags impossible funnel ratios like more purchases than begin_checkouts. The BigQuery module goes deeper — seven SQL queries that check parameter completeness, duplicate event schemas, NULL attribution, and item-level data quality on purchase events.
+It connects to a client's GTM container, GA4 property, and (optionally) their BigQuery export and runs a structured set of checks across all three. On the GTM side it looks for tags without triggers, tags that haven't fired in days, duplicate GA4 Configuration tags inflating session counts, and Universal Analytics tags that survived the sunset. On the GA4 side it compares 7-day hit volume against 30-day baselines to surface outages and unexpected drops, checks for missing ecommerce events, and flags impossible funnel ratios like more purchases than begin_checkouts. The BigQuery module goes deeper: seven SQL queries that check parameter completeness, duplicate event schemas, NULL attribution, and item-level data quality on purchase events.
 
-Everything lands in a single findings report sorted by severity, with a recommended fix for each issue. The report exports as Markdown or PDF, which makes it easy to drop into a client deliverable without reformatting anything. The whole app runs locally with read-only OAuth scopes — no data leaves your machine, tokens live in memory and expire with the session, and there's no database or logging anywhere in the stack.
+Everything lands in a single findings report sorted by severity, with a recommended fix for each issue. The report exports as Markdown or PDF, which makes it easy to drop into a client deliverable without reformatting anything. The whole app runs locally with read-only OAuth scopes: no data leaves your machine, tokens live in memory and expire with the session, and there's no database or logging anywhere in the stack.
 
-It started as a way to systematize the manual audit work we were already doing on every new engagement. Running it before the first strategy call means walking in knowing exactly what's broken and roughly how long it's been broken — which tends to make that conversation a lot more productive.
+It started as a way to systematize the manual audit work we were already doing on every new engagement. Running it before the first strategy call means walking in knowing exactly what's broken and roughly how long it's been broken, which tends to make that conversation a lot more productive.
